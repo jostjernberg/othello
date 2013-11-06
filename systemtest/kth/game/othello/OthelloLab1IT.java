@@ -24,6 +24,7 @@ public class OthelloLab1IT {
 	}
 
 	private void makeAHumanMove(Othello othello, Player human) {
+		System.err.println("Test");
 		for (Node node : othello.getBoard().getNodes()) {
 			if (othello.isMoveValid(human.getId(), node.getId())) {
 				othello.move(human.getId(), node.getId());
