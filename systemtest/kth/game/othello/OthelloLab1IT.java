@@ -1,10 +1,10 @@
 package kth.game.othello;
 
-import junit.framework.Assert;
 import kth.game.othello.board.Node;
 import kth.game.othello.player.Player;
 import kth.game.othello.player.Player.Type;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 public class OthelloLab1IT {
