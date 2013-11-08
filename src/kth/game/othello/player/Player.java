@@ -2,7 +2,7 @@ package kth.game.othello.player;
 
 /**
  * A representation of player.
- *
+ * 
  * @author Tomas Ekholm
  */
 public interface Player {
