@@ -3,7 +3,7 @@ package kth.game.othello.player;
 /**
  * An abstract representation of an actual player, holding a name, unique player ID as well as the type of the player.
  */
-abstract class PlayerInstance implements Player {
+public abstract class AbstractPlayer implements Player {
 	private static int nextUniqueId = 0;
 	private final String id;
 	private final String name;
@@ -17,7 +17,7 @@ abstract class PlayerInstance implements Player {
 	 * @param type
 	 *            Type of the player.
 	 */
-	public PlayerInstance(String name, Type type) {
+	public AbstractPlayer(String name, Type type) {
 		this.id = getUniquePlayerId();
 		this.name = name;
 		this.type = type;
@@ -50,7 +50,7 @@ abstract class PlayerInstance implements Player {
 	}
 
 	/**
-	 * Returns a String representation of this PlayerInstance.
+	 * Returns a String representation of this AbstractPlayer.
 	 */
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
