@@ -48,4 +48,17 @@ abstract class PlayerInstance implements Player {
 		nextUniqueId++;
 		return playerId;
 	}
+
+	/**
+	 * Returns a String representation of this PlayerInstance.
+	 */
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("{");
+		sb.append("name:").append(name).append(", ");
+		sb.append("id:").append(id).append(", ");
+		sb.append("type:").append(type);
+		sb.append("}");
+		return sb.toString();
+	}
 }
