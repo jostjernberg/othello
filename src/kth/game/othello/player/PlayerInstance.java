@@ -4,8 +4,8 @@ package kth.game.othello.player;
  * An abstract representation of an actual player, holding a name, unique player ID as well as the type of the player.
  */
 abstract class PlayerInstance implements Player {
-	private static int nextUniqueID = 0;
-	private final String ID;
+	private static int nextUniqueId = 0;
+	private final String id;
 	private final String name;
 	private final Type type;
 
@@ -18,14 +18,14 @@ abstract class PlayerInstance implements Player {
 	 *            Type of the player.
 	 */
 	public PlayerInstance(String name, Type type) {
-		this.ID = getUniquePlayerID();
+		this.id = getUniquePlayerId();
 		this.name = name;
 		this.type = type;
 	}
 
 	@Override
 	public String getId() {
-		return this.ID;
+		return this.id;
 	}
 
 	@Override
@@ -43,9 +43,9 @@ abstract class PlayerInstance implements Player {
 	 * 
 	 * @return A unique ID of the form "Player:[hex-value]" in the context of all players.
 	 */
-	private String getUniquePlayerID() {
-		String playerID = "Player:" + Integer.toHexString(nextUniqueID);
-		nextUniqueID++;
-		return playerID;
+	private String getUniquePlayerId() {
+		String playerId = "Player:" + Integer.toHexString(nextUniqueId);
+		nextUniqueId++;
+		return playerId;
 	}
 }
