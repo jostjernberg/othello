@@ -54,10 +54,12 @@ public class OthelloLab1IT {
 
 	@Test
 	public void twoComputerOnAClassicalBoardTest() {
-		Othello othello = getOthelloFactory().createComputerGameOnClassicalBoard();
+		Othello othello = getOthelloFactory()
+				.createComputerGameOnClassicalBoard();
 		othello.start(othello.getPlayers().get(0).getId());
 		while (othello.isActive()) {
-			Assert.assertEquals(Type.COMPUTER, othello.getPlayerInTurn().getType());
+			Assert.assertEquals(Type.COMPUTER, othello.getPlayerInTurn()
+					.getType());
 			othello.move();
 		}
 	}
