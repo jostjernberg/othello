@@ -1,7 +1,7 @@
 package kth.game.othello.player;
 
 /**
- * An abstract representation of an actual player.
+ * An abstract representation of an actual player, holding a name, unique player ID as well as the type of the player.
  */
 abstract class PlayerInstance implements Player {
 	private static int nextUniqueID = 0;
