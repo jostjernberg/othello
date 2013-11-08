@@ -1,39 +1,25 @@
 package kth.game.othello.board;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotEquals;
 
 import org.junit.Before;
 import org.junit.Test;
 
 public class ClassicNodeTest {
 
+	ClassicNode a, b, c;
+
 	@Before
 	public void setUp() throws Exception {
+		a = new ClassicNode(0, 0);
+		b = new ClassicNode(0, 1);
+		c = new ClassicNode(0, 2);
 	}
 
 	@Test
-	public void testClassicNode() {
-		fail("Not yet implemented");
+	public void testUniqueId() {
+		assertNotEquals(a.getId(), b.getId());
+		assertNotEquals(a.getId(), c.getId());
+		assertNotEquals(b.getId(), c.getId());
 	}
-
-	@Test
-	public void testGetOccupantPlayerId() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetXCoordinate() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetYCoordinate() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testIsMarked() {
-		fail("Not yet implemented");
-	}
-
 }
