@@ -30,7 +30,7 @@ public class BoardTest {
 			for (int c = 0; c < 8; c++) {
 				Node n = nodeIt.next();
 				Assert.assertEquals(c, n.getXCoordinate());
-				Assert.assertEquals(c, n.getXCoordinate());
+				Assert.assertEquals(r, n.getYCoordinate());
 			}
 		}
 	}
