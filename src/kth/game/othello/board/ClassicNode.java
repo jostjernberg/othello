@@ -3,27 +3,61 @@ package kth.game.othello.board;
 import kth.game.othello.player.Player;
 
 /**
- * Placeholder class for a classical node.
+ * An abstract node implementation which makes sure that all nodes have a unique id.
  */
-public class ClassicNode extends AbstractNode {
+public class ClassicNode implements Node {
 
+	private static int nextUniqueId = 0;
 	private final int y;
 	private final int x;
-	private Player occupant;
-	private boolean marked = false;
+	protected final Player occupant;
+	private final String id;
 
 	/**
-	 * Constructor for a classic node with ordinary coordinates.
+	 * Constructor which generates a unique id for the node without a occupant player.
 	 * 
-	 * @param y
-	 *            The y coordinate of the node.
 	 * @param x
 	 *            The x coordinate of the node.
+	 * @param y
+	 *            The y coordinate of the node.
 	 */
-	public ClassicNode(int y, int x) {
-		super();
-		this.y = y;
+	public ClassicNode(int x, int y) {
+		this(x, y, null);
+	}
+
+	/**
+	 * Constructor which generates a unique id for the node
+	 * 
+	 * @param x
+	 *            The x coordinate of the node.
+	 * @param y
+	 *            The y coordinate of the node.
+	 * @param player
+	 *            The occupant player.
+	 */
+	public ClassicNode(int x, int y, Player player) {
 		this.x = x;
+		this.y = y;
+		this.occupant = null;
+		this.id = getUniqueId();
+	}
+
+	/**
+	 * Get node id.
+	 * 
+	 * @return The id of this node.
+	 */
+	public String getId() {
+		return this.id;
+	}
+
+	/**
+	 * Generates a unique node id as a String representation of a hex value.
+	 * 
+	 * @return A unique id for each node.
+	 */
+	private static String getUniqueId() {
+		return Integer.toHexString(nextUniqueId++);
 	}
 
 	/**
@@ -63,6 +97,6 @@ public class ClassicNode extends AbstractNode {
 	 */
 	@Override
 	public boolean isMarked() {
-		return this.marked;
+		return occupant != null;
 	}
 }

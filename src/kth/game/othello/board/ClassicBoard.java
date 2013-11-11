@@ -1,6 +1,5 @@
 package kth.game.othello.board;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -34,38 +33,10 @@ public class ClassicBoard implements Board {
 
 	private List<Node> nodes;
 
-	/**
-	 * Constructor which creates a classical board of default size containing classical nodes.
-	 */
-	public ClassicBoard() {
-		this(DEFAULT_ROWS, DEFAULT_COLUMNS);
-	}
-
-	/**
-	 * Constructor which creates a classical board of specified size containing classical nodes.
-	 * 
-	 * @param rows
-	 *            Number of rows in the board.
-	 * @param columns
-	 *            Number of columns in the board.
-	 */
-	public ClassicBoard(int rows, int columns) {
-		this.rows = rows;
-		this.columns = columns;
-		createNodes();
-	}
-
-	private void createNodes() {
-		if (this.nodes != null) {
-			throw new RuntimeException("Nodes already created for current board.");
-		}
-		this.nodes = new ArrayList<Node>();
-		for (int y = 0; y < this.rows; y++) {
-			for (int x = 0; x < this.columns; x++) {
-				Node n = new ClassicNode(y, x);
-				this.nodes.add(n);
-			}
-		}
+	public ClassicBoard(List<Node> nodes) {
+		this.nodes = nodes;
+		this.rows = 0;
+		this.columns = 0;
 	}
 
 	/**
