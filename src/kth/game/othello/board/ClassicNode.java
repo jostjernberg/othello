@@ -38,7 +38,7 @@ public class ClassicNode implements Node {
 	public ClassicNode(int x, int y, Player player) {
 		this.x = x;
 		this.y = y;
-		this.occupant = null;
+		this.occupant = player;
 		this.id = getUniqueId();
 	}
 
@@ -67,6 +67,9 @@ public class ClassicNode implements Node {
 	 */
 	@Override
 	public String getOccupantPlayerId() {
+		if (this.occupant == null) {
+			return null;
+		}
 		return this.occupant.getId();
 	}
 
