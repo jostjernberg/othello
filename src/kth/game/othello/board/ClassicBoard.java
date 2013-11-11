@@ -8,24 +8,41 @@ import java.util.List;
  */
 public class ClassicBoard implements Board {
 
-	private static final int DEFAULT_ROWS = 8;
-	private static final int DEFAULT_COLUMNS = 8;
+	public static final int DEFAULT_ROWS = 8;
+	public static final int DEFAULT_COLUMNS = 8;
 
 	private final int rows;
 	private final int columns;
+
+	/**
+	 * Returns the number of rows in this Board.
+	 * 
+	 * @return Number of rows.
+	 */
+	public int numRows() {
+		return rows;
+	}
+
+	/**
+	 * Returns the number of columns in this Board.
+	 * 
+	 * @return Number of columns.
+	 */
+	public int numColumns() {
+		return columns;
+	}
+
 	private List<Node> nodes;
 
 	/**
-	 * Constructor which creates a classical board of default size containing
-	 * classical nodes.
+	 * Constructor which creates a classical board of default size containing classical nodes.
 	 */
 	public ClassicBoard() {
 		this(DEFAULT_ROWS, DEFAULT_COLUMNS);
 	}
 
 	/**
-	 * Constructor which creates a classical board of specified size containing
-	 * classical nodes.
+	 * Constructor which creates a classical board of specified size containing classical nodes.
 	 * 
 	 * @param rows
 	 *            Number of rows in the board.
