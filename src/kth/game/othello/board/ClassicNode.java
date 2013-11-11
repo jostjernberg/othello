@@ -67,10 +67,7 @@ public class ClassicNode implements Node {
 	 */
 	@Override
 	public String getOccupantPlayerId() {
-		if (this.occupant == null) {
-			return null;
-		}
-		return this.occupant.getId();
+		return this.occupant == null ? null : this.occupant.getId();
 	}
 
 	/**
