@@ -35,11 +35,6 @@ public class ClassicOthello implements Othello {
 
 	@Override
 	public List<Node> getNodesToSwap(String playerId, String nodeId) {
-		if (!getPlayerInTurn().getId().equals(playerId)) {
-			throw new IllegalArgumentException("This turn is player with id " + getPlayerInTurn().getId()
-					+ "'s turn, not player with id " + playerId + "'s turn.");
-		}
-
 		List<Node> nodesToSwap = new ArrayList<Node>();
 		Node placedNode = getNode(nodeId);
 		if (placedNode.isMarked()) {
@@ -152,7 +147,8 @@ public class ClassicOthello implements Othello {
 
 	@Override
 	public boolean isMoveValid(String playerId, String nodeId) {
-		return !getNodesToSwap(playerId, nodeId).isEmpty();
+		return players.get(nextPlayerInTurnIndex).getId().equals(playerId)
+				&& !getNodesToSwap(playerId, nodeId).isEmpty();
 	}
 
 	/**

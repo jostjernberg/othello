@@ -3,8 +3,12 @@ package kth.game.othello;
 import java.util.ArrayList;
 import java.util.List;
 
+import kth.game.othello.board.Board;
+import kth.game.othello.board.ClassicBoard;
 import kth.game.othello.board.ClassicNode;
 import kth.game.othello.board.Node;
+import kth.game.othello.player.HumanPlayer;
+import kth.game.othello.player.Player;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -13,41 +17,178 @@ import org.mockito.Mockito;
 public class OthelloTest {
 
 	@Test
-	public void replaceNodesTest() {
-		List<Node> originalNodes = new ArrayList<>();
+	public void getNodesToSwapTest() {
+		Othello othello = mockedDefaultClassicOthello();
 
-		Node originalNode1 = Mockito.mock(ClassicNode.class);
-		Node originalNode2 = Mockito.mock(ClassicNode.class);
-		Node originalNode3 = Mockito.mock(ClassicNode.class);
+		Node lowerLeftPiece = getNode(othello, 3, 3);
 
-		Mockito.when(originalNode1.getXCoordinate()).thenReturn(1);
-		Mockito.when(originalNode1.getYCoordinate()).thenReturn(2);
-		Mockito.when(originalNode2.getXCoordinate()).thenReturn(3);
-		Mockito.when(originalNode2.getYCoordinate()).thenReturn(4);
-		Mockito.when(originalNode3.getXCoordinate()).thenReturn(5);
-		Mockito.when(originalNode3.getYCoordinate()).thenReturn(6);
-		Mockito.when(originalNode1.getId()).thenReturn("a");
-		Mockito.when(originalNode2.getId()).thenReturn("b");
-		Mockito.when(originalNode3.getId()).thenReturn("c");
+		String playerId = lowerLeftPiece.getOccupantPlayerId();
+		Assert.assertTrue(playerId != null);
 
-		originalNodes.add(originalNode1);
-		originalNodes.add(originalNode2);
-		originalNodes.add(originalNode3);
+		othello.start(playerId);
 
-		List<Node> replacementNodes = new ArrayList<>();
+		Node nodeToPlace = getNode(othello, 5, 3);
 
-		Node replacementNode = Mockito.mock(ClassicNode.class);
+		List<Node> nodesToSwap = othello.getNodesToSwap(playerId, nodeToPlace.getId());
 
-		Mockito.when(replacementNode.getXCoordinate()).thenReturn(3);
-		Mockito.when(replacementNode.getYCoordinate()).thenReturn(4);
-		Mockito.when(replacementNode.getId()).thenReturn("d");
+		Assert.assertEquals(nodesToSwap.size(), 2);
+		Assert.assertEquals(nodesToSwap.get(0).getXCoordinate(), 4);
+		Assert.assertEquals(nodesToSwap.get(0).getYCoordinate(), 3);
 
-		replacementNodes.add(replacementNode);
+		Assert.assertEquals(nodesToSwap.get(1).getXCoordinate(), 5);
+		Assert.assertEquals(nodesToSwap.get(1).getYCoordinate(), 3);
+	}
 
-		List<Node> newNodes = ClassicOthello.replaceNodes(originalNodes, replacementNodes, "new playerId");
+	private Node getNode(Othello othello, int x, int y) {
+		return getNode(othello.getBoard(), x, y);
+	}
 
-		Assert.assertEquals(originalNodes.get(0).getId(), newNodes.get(0).getId());
-		Assert.assertNotEquals(originalNodes.get(1).getId(), newNodes.get(1).getId());
-		Assert.assertEquals(originalNodes.get(2).getId(), newNodes.get(2).getId());
+	private Node getNode(Board board, int x, int y) {
+		return getNode(board.getNodes(), x, y);
+	}
+
+	private Node getNode(List<Node> nodes, int x, int y) {
+		for (Node n : nodes) {
+			if (n.getXCoordinate() == x && n.getYCoordinate() == y) {
+				return n;
+			}
+		}
+		throw new IllegalArgumentException("Node not found.");
+	}
+
+	@Test
+	public void getBoardTest() {
+		Othello othello = mockedDefaultClassicOthello();
+		Board board = mockedDefaultBoard(othello.getPlayers());
+
+		for (int i = 0; i < board.getNodes().size(); i++) {
+			Node fromBoard = board.getNodes().get(i);
+			Node fromOthello = othello.getBoard().getNodes().get(i);
+			Assert.assertEquals(fromBoard.getId(), fromOthello.getId());
+			Assert.assertEquals(fromBoard.getXCoordinate(), fromOthello.getXCoordinate());
+			Assert.assertEquals(fromBoard.getYCoordinate(), fromOthello.getYCoordinate());
+			Assert.assertEquals(fromBoard.getOccupantPlayerId(), fromOthello.getOccupantPlayerId());
+		}
+	}
+
+	@Test
+	public void getPlayersTest() {
+		Othello othello = mockedDefaultClassicOthello();
+		Assert.assertEquals(othello.getPlayers().size(), 2);
+		Assert.assertEquals(othello.getPlayers().get(0).getId(), "id1");
+		Assert.assertEquals(othello.getPlayers().get(1).getId(), "id2");
+	}
+
+	private Board mockedDefaultBoard(List<Player> players) {
+		List<Node> nodes = new ArrayList<>();
+
+		for (int x = 0; x < 8; x++) {
+			for (int y = 0; y < 8; y++) {
+				Node n = Mockito.mock(ClassicNode.class);
+				Mockito.when(n.getXCoordinate()).thenReturn(x);
+				Mockito.when(n.getYCoordinate()).thenReturn(y);
+				Mockito.when(n.getId()).thenReturn(Integer.toHexString(200000 + y * 8 + x));
+				if (x == 3 && y == 4 || x == 4 && y == 3) {
+					String playerId = players.get(0).getId();
+					Mockito.when(n.getOccupantPlayerId()).thenReturn(playerId);
+					Mockito.when(n.isMarked()).thenReturn(true);
+				} else if (x == 3 && y == 3 || x == 4 && y == 4) {
+					String playerId = players.get(1).getId();
+					Mockito.when(n.getOccupantPlayerId()).thenReturn(playerId);
+					Mockito.when(n.isMarked()).thenReturn(true);
+				} else {
+					Mockito.when(n.getOccupantPlayerId()).thenReturn(null);
+					Mockito.when(n.isMarked()).thenReturn(false);
+				}
+
+				nodes.add(n);
+			}
+		}
+
+		Board board = Mockito.mock(ClassicBoard.class);
+		Mockito.when(board.getNodes()).thenReturn(nodes);
+
+		return board;
+	}
+
+	private Othello mockedDefaultClassicOthello() {
+		List<Player> players = new ArrayList<>();
+
+		Player p1 = Mockito.mock(HumanPlayer.class);
+		Player p2 = Mockito.mock(HumanPlayer.class);
+
+		Mockito.when(p1.getId()).thenReturn("id1");
+		Mockito.when(p2.getId()).thenReturn("id2");
+
+		players.add(p1);
+		players.add(p2);
+
+		Board board = mockedDefaultBoard(players);
+
+		return new ClassicOthello(board, players);
+	}
+
+	@Test
+	public void hasValidMoveTest() {
+		Othello othello = mockedDefaultClassicOthello();
+
+		Assert.assertTrue(othello.hasValidMove(othello.getPlayerInTurn().getId()));
+	}
+
+	@Test
+	public void isActiveTest() {
+		Othello othello = mockedDefaultClassicOthello();
+
+		Assert.assertTrue(othello.isActive());
+	}
+
+	@Test
+	public void isMoveValidTest() {
+		Othello othello = mockedDefaultClassicOthello();
+
+		String playerId = getNode(othello, 3, 3).getOccupantPlayerId();
+		othello.start(playerId);
+
+		Assert.assertFalse(othello.isMoveValid(playerId, getNode(othello, 3, 3).getId()));
+		Assert.assertFalse(othello.isMoveValid(playerId, getNode(othello, 1, 1).getId()));
+		Assert.assertFalse(othello.isMoveValid(playerId, getNode(othello, 3, 4).getId()));
+
+		Assert.assertTrue(othello.isMoveValid(playerId, getNode(othello, 5, 3).getId()));
+		Assert.assertTrue(othello.isMoveValid(playerId, getNode(othello, 3, 5).getId()));
+	}
+
+	@Test
+	public void moveTest() {
+		Othello othello = mockedDefaultClassicOthello();
+
+		String playerId = getNode(othello, 3, 3).getOccupantPlayerId();
+		othello.start(playerId);
+
+		othello.move(playerId, getNode(othello, 5, 3).getId());
+
+		Assert.assertNotEquals(playerId, othello.getPlayerInTurn().getId());
+		Assert.assertEquals(getNode(othello, 5, 3).getOccupantPlayerId(), playerId);
+		Assert.assertEquals(getNode(othello, 4, 3).getOccupantPlayerId(), playerId);
+		Assert.assertEquals(getNode(othello, 3, 3).getOccupantPlayerId(), playerId);
+		Assert.assertEquals(getNode(othello, 4, 4).getOccupantPlayerId(), playerId);
+		Assert.assertNotEquals(getNode(othello, 3, 4).getOccupantPlayerId(), playerId);
+	}
+
+	@Test
+	public void startTest() {
+		Othello othello = mockedDefaultClassicOthello();
+
+		String playerId = null;
+		if (othello.getPlayerInTurn().getId().equals(othello.getPlayers().get(0).getId())) {
+			playerId = othello.getPlayers().get(1).getId();
+		} else {
+			playerId = othello.getPlayers().get(0).getId();
+		}
+
+		Assert.assertNotEquals(playerId, othello.getPlayerInTurn().getId());
+
+		othello.start(playerId);
+
+		Assert.assertEquals(playerId, othello.getPlayerInTurn().getId());
 	}
 }

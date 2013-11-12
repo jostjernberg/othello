@@ -1,5 +1,6 @@
 package kth.game.othello;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -11,6 +12,6 @@ public class OthelloFactoryTest {
 
 	@Test
 	public void test() {
-		// fail("Not yet implemented");
+		Assert.fail("Not yet implemented");
 	}
 }

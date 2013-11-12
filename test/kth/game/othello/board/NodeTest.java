@@ -51,5 +51,7 @@ public class NodeTest {
 		assertTrue(null == n3.getOccupantPlayerId());
 
 		assertNotEquals(n1.getId(), n2.getId());
+		assertNotEquals(n1.getId(), n3.getId());
+		assertNotEquals(n2.getId(), n3.getId());
 	}
 }
