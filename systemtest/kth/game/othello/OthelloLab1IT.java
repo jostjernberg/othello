@@ -1,5 +1,8 @@
 package kth.game.othello;
 
+import java.util.List;
+
+import kth.game.othello.board.Board;
 import kth.game.othello.board.Node;
 import kth.game.othello.player.Player;
 import kth.game.othello.player.Player.Type;
@@ -33,7 +36,7 @@ public class OthelloLab1IT {
 		throw new IllegalStateException();
 	}
 
-	@Test
+	// @Test
 	public void someMovesBetweenAComputerAndHumanTest() {
 		Othello othello = getOthelloFactory().createHumanVersusComputerGameOnOriginalBoard();
 		Player human = null;
@@ -53,6 +56,60 @@ public class OthelloLab1IT {
 	}
 
 	@Test
+	public void getMovesToSwapTest() {
+		Othello othello = getOthelloFactory().createHumanGameOnOriginalBoard();
+		Node lowerLeftPlacedNode = getNode(othello, 3, 3);
+		String playerId = lowerLeftPlacedNode.getOccupantPlayerId();
+		othello.start(playerId);
+
+		Node nextPlacement = getNode(othello, 5, 3);
+
+		List<Node> nodesToSwap = othello.getNodesToSwap(playerId, nextPlacement.getId());
+		Assert.assertEquals(nodesToSwap.size(), 2);
+		Assert.assertEquals(nodesToSwap.get(0).getXCoordinate(), 4);
+		Assert.assertEquals(nodesToSwap.get(0).getYCoordinate(), 3);
+
+		Assert.assertEquals(nodesToSwap.get(1).getXCoordinate(), 5);
+		Assert.assertEquals(nodesToSwap.get(1).getYCoordinate(), 3);
+	}
+
+	@Test
+	public void makeOneMoveTest() {
+		Othello othello = getOthelloFactory().createHumanGameOnOriginalBoard();
+		Node lowerLeftPlacedNode = getNode(othello, 3, 3);
+		String playerId = lowerLeftPlacedNode.getOccupantPlayerId();
+		othello.start(playerId);
+
+		Node nextPlacement = getNode(othello, 5, 3);
+
+		List<Node> nodesToSwap = othello.move(playerId, nextPlacement.getId());
+		// printOthelloBoard(othello);
+
+		Assert.assertEquals(nodesToSwap.size(), 2);
+		Assert.assertEquals(nodesToSwap.get(0).getXCoordinate(), 4);
+		Assert.assertEquals(nodesToSwap.get(0).getYCoordinate(), 3);
+
+		Assert.assertEquals(nodesToSwap.get(1).getXCoordinate(), 5);
+		Assert.assertEquals(nodesToSwap.get(1).getYCoordinate(), 3);
+
+		Assert.assertEquals(getNode(othello, 5, 3).getOccupantPlayerId(), playerId);
+		Assert.assertEquals(getNode(othello, 4, 3).getOccupantPlayerId(), playerId);
+	}
+
+	private Node getNode(Board board, int x, int y) {
+		for (Node n : board.getNodes()) {
+			if (n.getXCoordinate() == x && n.getYCoordinate() == y) {
+				return n;
+			}
+		}
+		throw new IllegalArgumentException("Can't find node with coordinates (" + x + ", " + y + ").");
+	}
+
+	private Node getNode(Othello othello, int x, int y) {
+		return getNode(othello.getBoard(), x, y);
+	}
+
+	// @Test
 	public void twoComputerOnAClassicalBoardTest() {
 		Othello othello = getOthelloFactory().createComputerGameOnClassicalBoard();
 		othello.start(othello.getPlayers().get(0).getId());

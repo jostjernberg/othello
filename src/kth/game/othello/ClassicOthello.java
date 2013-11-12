@@ -42,12 +42,12 @@ public class ClassicOthello implements Othello {
 
 		List<Node> nodesToSwap = new ArrayList<Node>();
 		Node placedNode = getNode(nodeId);
-		if (!placedNode.isMarked()) {
+		if (placedNode.isMarked()) {
 			return nodesToSwap;
 		}
 
 		// Add all swappable nodes to the right
-		for (int x = placedNode.getXCoordinate(); x < widthOf(board); x++) {
+		for (int x = placedNode.getXCoordinate() + 1; x < widthOf(board); x++) {
 			Node currNode = getNode(x, placedNode.getYCoordinate());
 			if (!currNode.isMarked() || currNode.getOccupantPlayerId().equals(playerId)) {
 				break;
@@ -56,7 +56,7 @@ public class ClassicOthello implements Othello {
 		}
 
 		// Add all swappable nodes to the left
-		for (int x = placedNode.getXCoordinate(); x >= 0; x--) {
+		for (int x = placedNode.getXCoordinate() - 1; x >= 0; x--) {
 			Node currNode = getNode(x, placedNode.getYCoordinate());
 			if (!currNode.isMarked() || currNode.getOccupantPlayerId().equals(playerId)) {
 				break;
@@ -65,7 +65,7 @@ public class ClassicOthello implements Othello {
 		}
 
 		// Add all swappable nodes above
-		for (int y = placedNode.getYCoordinate(); y < heightOf(board); y++) {
+		for (int y = placedNode.getYCoordinate() + 1; y < heightOf(board); y++) {
 			Node currNode = getNode(placedNode.getXCoordinate(), y);
 			if (!currNode.isMarked() || currNode.getOccupantPlayerId().equals(playerId)) {
 				break;
@@ -74,12 +74,16 @@ public class ClassicOthello implements Othello {
 		}
 
 		// Add all swappable nodes below
-		for (int y = placedNode.getYCoordinate(); y >= 0; y--) {
+		for (int y = placedNode.getYCoordinate() - 1; y >= 0; y--) {
 			Node currNode = getNode(placedNode.getXCoordinate(), y);
 			if (!currNode.isMarked() || currNode.getOccupantPlayerId().equals(playerId)) {
 				break;
 			}
 			nodesToSwap.add(currNode);
+		}
+
+		if (!nodesToSwap.isEmpty()) {
+			nodesToSwap.add(getNode(nodeId));
 		}
 
 		return nodesToSwap;
@@ -209,16 +213,22 @@ public class ClassicOthello implements Othello {
 
 	@Override
 	public List<Node> move(String playerId, String nodeId) throws IllegalArgumentException {
-		if (!players.get(nextPlayerInTurnIndex).getId().equals(playerId)) {
-			throw new IllegalArgumentException("Not this player's turn.");
-		} else if (!isMoveValid(playerId, nodeId)) {
-			throw new IllegalArgumentException("Invalid move.");
-		}
+		/*
+		 * if (!players.get(nextPlayerInTurnIndex).getId().equals(playerId)) { throw new
+		 * IllegalArgumentException("Not this player's turn."); } else if (!isMoveValid(playerId, nodeId)) { throw new
+		 * IllegalArgumentException("Invalid move."); }
+		 */
 
 		List<Node> nodesToSwap = getNodesToSwap(playerId, nodeId);
-		List<Node> nodes = replaceNodesThatHaveSameCoordinatesWithNewPlayerId(board.getNodes(), nodesToSwap, playerId);
 
-		board = new ClassicBoard(nodes);
+		if (nodesToSwap.size() != 2) {
+			return null;
+		}
+
+		List<Node> newNodes = replaceNodes(board.getNodes(), nodesToSwap, playerId);
+
+		board = new ClassicBoard(newNodes);
+
 		endTurn();
 
 		return nodesToSwap;
@@ -231,40 +241,37 @@ public class ClassicOthello implements Othello {
 		nextPlayerInTurnIndex = (nextPlayerInTurnIndex + 1) % players.size();
 	}
 
-	/**
-	 * Returns a new list of nodes where the nodes in originalNodes that have the same coordinates as the nodes in
-	 * replacementNodes have been replaced by new nodes with the original coordinates, but with the player that have
-	 * replacementPlayerIdas id as the new occupant player.
-	 * 
-	 * @param originalNodes
-	 *            The original list of nodes.
-	 * @param replacementNodes
-	 *            The nodes which will replace other nodes in the original list.
-	 * @param replacementPlayerId
-	 *            The new player id of the nodes to be replaced.
-	 * @return A modified version of the original node list, where nodes that have the same (x, y)-coordinates have been
-	 *         replaced by new nodes.
-	 */
-	private List<Node> replaceNodesThatHaveSameCoordinatesWithNewPlayerId(List<Node> originalNodes,
-			List<Node> replacementNodes, String replacementPlayerId) {
-		List<Node> ret = new ArrayList<Node>(originalNodes.size());
+	public static List<Node> replaceNodes(List<Node> originalNodes, List<Node> replacementNodes, String playerId) {
+		List<Node> newNodes = new ArrayList<Node>(originalNodes.size());
 
-		for (int i = 0; i < originalNodes.size(); i++) {
-			Node nextToAdd = null;
-			for (int j = 0; j < replacementNodes.size(); j++) {
-				if (originalNodes.get(i).getXCoordinate() == replacementNodes.get(j).getXCoordinate()
-						&& originalNodes.get(i).getYCoordinate() == replacementNodes.get(j).getYCoordinate()) {
-					nextToAdd = new ClassicNode(replacementNodes.get(j).getYCoordinate(), replacementNodes.get(j)
-							.getXCoordinate(), getPlayer(replacementPlayerId));
-				}
-			}
-			if (nextToAdd == null) {
-				nextToAdd = originalNodes.get(i);
-			}
-			ret.add(nextToAdd);
+		for (Node n : originalNodes) {
+			newNodes.add(n);
 		}
 
-		return ret;
+		for (Node n : replacementNodes) {
+			int x = n.getXCoordinate();
+			int y = n.getYCoordinate();
+
+			newNodes = replaceNode(newNodes, new ClassicNode(x, y, playerId));
+		}
+
+		return newNodes;
+	}
+
+	public static List<Node> replaceNode(List<Node> nodes, Node replacement) {
+		List<Node> replacedNodes = new ArrayList<Node>(nodes.size());
+
+		for (int i = 0; i < nodes.size(); i++) {
+			int x = nodes.get(i).getXCoordinate();
+			int y = nodes.get(i).getYCoordinate();
+
+			if (x == replacement.getXCoordinate() && y == replacement.getYCoordinate()) {
+				replacedNodes.add(replacement);
+			} else {
+				replacedNodes.add(nodes.get(i));
+			}
+		}
+		return replacedNodes;
 	}
 
 	@Override

@@ -31,8 +31,8 @@ public class NodeTest {
 		Mockito.when(p1.getId()).thenReturn("player1 name");
 		Mockito.when(p2.getId()).thenReturn("player2 name");
 
-		Node n1 = new ClassicNode(2, 3, p1);
-		Node n2 = new ClassicNode(4, 4, p2);
+		Node n1 = new ClassicNode(2, 3, p1.getId());
+		Node n2 = new ClassicNode(4, 4, p2.getId());
 		Node n3 = new ClassicNode(5, 6);
 
 		assertEquals(2, n1.getXCoordinate());

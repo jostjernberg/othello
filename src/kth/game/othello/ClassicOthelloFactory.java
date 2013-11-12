@@ -31,9 +31,9 @@ public class ClassicOthelloFactory implements OthelloFactory {
 		for (int r = 0; r < 8; r++) {
 			for (int c = 0; c < 8; c++) {
 				if (c == 3 && r == 4 || c == 4 && r == 3) {
-					nodes.add(new ClassicNode(r, c, p1));
+					nodes.add(new ClassicNode(r, c, p1.getId()));
 				} else if (c == 3 && r == 3 || c == 4 && r == 4) {
-					nodes.add(new ClassicNode(c, r, p2));
+					nodes.add(new ClassicNode(c, r, p2.getId()));
 				} else {
 					nodes.add(new ClassicNode(c, r));
 				}
