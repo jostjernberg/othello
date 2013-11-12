@@ -8,23 +8,16 @@ import kth.game.othello.player.ComputerPlayer;
 import kth.game.othello.player.HumanPlayer;
 import kth.game.othello.player.Player;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
 public class NodeTest {
 
-	ClassicNode a, b, c;
-
-	@Before
-	public void setUp() throws Exception {
-		a = new ClassicNode(0, 0);
-		b = new ClassicNode(0, 1);
-		c = new ClassicNode(0, 2);
-	}
-
 	@Test
 	public void testUniqueId() {
+		Node a = new ClassicNode(0, 0);
+		Node b = new ClassicNode(0, 1);
+		Node c = new ClassicNode(0, 2);
 		assertNotEquals(a.getId(), b.getId());
 		assertNotEquals(a.getId(), c.getId());
 		assertNotEquals(b.getId(), c.getId());
