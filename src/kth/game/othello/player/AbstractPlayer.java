@@ -44,7 +44,7 @@ public abstract class AbstractPlayer implements Player {
 	 * @return A unique ID of the form "Player:[hex-value]" in the context of all players.
 	 */
 	private String getUniquePlayerId() {
-		String playerId = "Player:" + Integer.toHexString(nextUniqueId);
+		String playerId = Integer.toHexString(nextUniqueId);
 		nextUniqueId++;
 		return playerId;
 	}

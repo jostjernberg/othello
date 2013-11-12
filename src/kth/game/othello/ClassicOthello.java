@@ -35,8 +35,9 @@ public class ClassicOthello implements Othello {
 
 	@Override
 	public List<Node> getNodesToSwap(String playerId, String nodeId) {
-		if (getPlayerInTurn().getId().equals(playerId)) {
-			throw new IllegalArgumentException("Not player with id " + playerId + "'s turn.");
+		if (!getPlayerInTurn().getId().equals(playerId)) {
+			throw new IllegalArgumentException("This turn is player with id " + getPlayerInTurn().getId()
+					+ "'s turn, not player with id " + playerId + "'s turn.");
 		}
 
 		List<Node> nodesToSwap = new ArrayList<Node>();
