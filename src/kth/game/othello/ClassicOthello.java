@@ -1,7 +1,9 @@
 package kth.game.othello;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import kth.game.othello.board.Board;
 import kth.game.othello.board.ClassicBoard;
@@ -307,5 +309,41 @@ public class ClassicOthello implements Othello {
 		}
 
 		// use default value if there are no players with id = playerId.
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+
+		char[][] visualBoard = new char[8][8];
+
+		Map<String, Character> playerNumber = new HashMap<>();
+
+		for (int i = 0; i < players.size(); i++) {
+			playerNumber.put(players.get(i).getId(), (char) i);
+		}
+
+		for (Node n : board.getNodes()) {
+			char sign = '.';
+			if (n.isMarked()) {
+				sign = playerNumber.get(n.getOccupantPlayerId());
+			}
+			visualBoard[n.getXCoordinate()][n.getYCoordinate()] = sign;
+		}
+
+		for (int y = 0; y < 8; y++) {
+			sb.append(y).append(" ");
+			for (int x = 0; x < 8; x++) {
+				sb.append(visualBoard[y][x]).append(" ");
+			}
+			sb.append("\n");
+		}
+		sb.append("  ");
+		for (int i = 0; i < 8; i++) {
+			sb.append(i).append(" ");
+		}
+		sb.append("\n");
+
+		return sb.toString();
 	}
 }
