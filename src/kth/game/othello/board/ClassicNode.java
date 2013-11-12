@@ -8,7 +8,7 @@ public class ClassicNode implements Node {
 	private static int nextUniqueId = 0;
 	private final int y;
 	private final int x;
-	protected final String occupant;
+	protected final String occupantPlayerId;
 	private final String id;
 
 	/**
@@ -30,13 +30,13 @@ public class ClassicNode implements Node {
 	 *            The x coordinate of the node.
 	 * @param y
 	 *            The y coordinate of the node.
-	 * @param playerId
-	 *            The occupant player.
+	 * @param occupantPlayerId
+	 *            The occupant player's id.
 	 */
-	public ClassicNode(int x, int y, String playerId) {
+	public ClassicNode(int x, int y, String occupantPlayerId) {
 		this.x = x;
 		this.y = y;
-		this.occupant = playerId;
+		this.occupantPlayerId = occupantPlayerId;
 		this.id = getUniqueId();
 	}
 
@@ -65,7 +65,7 @@ public class ClassicNode implements Node {
 	 */
 	@Override
 	public String getOccupantPlayerId() {
-		return this.occupant;
+		return this.occupantPlayerId;
 	}
 
 	/**
@@ -95,6 +95,6 @@ public class ClassicNode implements Node {
 	 */
 	@Override
 	public boolean isMarked() {
-		return occupant != null;
+		return occupantPlayerId != null;
 	}
 }
