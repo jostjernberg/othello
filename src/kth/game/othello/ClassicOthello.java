@@ -127,6 +127,9 @@ public class ClassicOthello implements Othello {
 		return height + 1;
 	}
 
+	/*
+	 * Get node with coordinates (x, y).
+	 */
 	private Node getNode(int x, int y) {
 		for (Node n : board.getNodes()) {
 			if (n.getXCoordinate() == x && n.getYCoordinate() == y) {
@@ -149,8 +152,7 @@ public class ClassicOthello implements Othello {
 
 	@Override
 	public boolean isMoveValid(String playerId, String nodeId) {
-		return players.get(nextPlayerInTurnIndex).getId().equals(playerId)
-				&& !getNodesToSwap(playerId, nodeId).isEmpty();
+		return getPlayerInTurn().getId().equals(playerId) && !getNodesToSwap(playerId, nodeId).isEmpty();
 	}
 
 	/**
@@ -191,7 +193,7 @@ public class ClassicOthello implements Othello {
 
 	@Override
 	public List<Node> move() {
-		Player player = players.get(nextPlayerInTurnIndex);
+		Player player = getPlayerInTurn();
 		if (player.getType() != Type.COMPUTER) {
 			throw new IllegalStateException("Next player is not a computer.");
 		}
@@ -211,17 +213,7 @@ public class ClassicOthello implements Othello {
 
 	@Override
 	public List<Node> move(String playerId, String nodeId) throws IllegalArgumentException {
-		/*
-		 * if (!players.get(nextPlayerInTurnIndex).getId().equals(playerId)) { throw new
-		 * IllegalArgumentException("Not this player's turn."); } else if (!isMoveValid(playerId, nodeId)) { throw new
-		 * IllegalArgumentException("Invalid move."); }
-		 */
-
 		List<Node> nodesToSwap = getNodesToSwap(playerId, nodeId);
-
-		if (nodesToSwap.size() != 2) {
-			return null;
-		}
 
 		List<Node> newNodes = replaceNodes(board.getNodes(), nodesToSwap, playerId);
 
@@ -260,9 +252,7 @@ public class ClassicOthello implements Othello {
 		}
 
 		for (Node n : replacementNodes) {
-			int x = n.getXCoordinate();
-			int y = n.getYCoordinate();
-			newNodes = replaceNode(newNodes, new ClassicNode(x, y, playerId));
+			newNodes = replaceNode(newNodes, new ClassicNode(n.getXCoordinate(), n.getYCoordinate(), playerId));
 		}
 
 		return newNodes;
