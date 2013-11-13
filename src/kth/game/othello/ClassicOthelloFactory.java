@@ -12,6 +12,8 @@ import kth.game.othello.player.HumanPlayer;
 import kth.game.othello.player.Player;
 
 public class ClassicOthelloFactory implements OthelloFactory {
+	private static int CLASSIC_DIMENSION_HEIGHT = 8;
+	private static int CLASSIC_DIMENSION_WIDTH = 8;
 
 	public ClassicOthelloFactory() {
 
@@ -28,8 +30,8 @@ public class ClassicOthelloFactory implements OthelloFactory {
 	 */
 	private Board defaultOthelloBoard(Player p1, Player p2) {
 		List<Node> nodes = new ArrayList<Node>();
-		for (int r = 0; r < 8; r++) {
-			for (int c = 0; c < 8; c++) {
+		for (int r = 0; r < CLASSIC_DIMENSION_HEIGHT; r++) {
+			for (int c = 0; c < CLASSIC_DIMENSION_WIDTH; c++) {
 				if (c == 3 && r == 4 || c == 4 && r == 3) {
 					nodes.add(new ClassicNode(r, c, p1.getId()));
 				} else if (c == 3 && r == 3 || c == 4 && r == 4) {
@@ -49,7 +51,8 @@ public class ClassicOthelloFactory implements OthelloFactory {
 		players.add(new ComputerPlayer("CPU1"));
 		players.add(new ComputerPlayer("CPU2"));
 
-		return new ClassicOthello(defaultOthelloBoard(players.get(0), players.get(1)), players);
+		return new ClassicOthello(players, defaultOthelloBoard(players.get(0), players.get(1)),
+				CLASSIC_DIMENSION_HEIGHT, CLASSIC_DIMENSION_WIDTH);
 	}
 
 	@Override
@@ -58,7 +61,8 @@ public class ClassicOthelloFactory implements OthelloFactory {
 		players.add(new HumanPlayer("PLR1"));
 		players.add(new HumanPlayer("PLR2"));
 
-		return new ClassicOthello(defaultOthelloBoard(players.get(0), players.get(1)), players);
+		return new ClassicOthello(players, defaultOthelloBoard(players.get(0), players.get(1)),
+				CLASSIC_DIMENSION_HEIGHT, CLASSIC_DIMENSION_WIDTH);
 	}
 
 	@Override
@@ -67,6 +71,7 @@ public class ClassicOthelloFactory implements OthelloFactory {
 		players.add(new HumanPlayer("PLR1"));
 		players.add(new ComputerPlayer("CPU1"));
 
-		return new ClassicOthello(defaultOthelloBoard(players.get(0), players.get(1)), players);
+		return new ClassicOthello(players, defaultOthelloBoard(players.get(0), players.get(1)),
+				CLASSIC_DIMENSION_HEIGHT, CLASSIC_DIMENSION_WIDTH);
 	}
 }

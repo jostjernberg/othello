@@ -125,7 +125,7 @@ public class OthelloTest {
 
 		Board board = mockedDefaultBoard(players);
 
-		return new ClassicOthello(board, players);
+		return new ClassicOthello(players, board, 8, 8);
 	}
 
 	@Test

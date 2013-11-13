@@ -14,20 +14,29 @@ import kth.game.othello.player.Player.Type;
 
 public class ClassicOthello implements Othello {
 	private Board board;
+	private final int boardWidth;
+	private final int boardHeight;
+
 	private List<Player> players;
 	private int nextPlayerInTurnIndex;
 
 	/**
 	 * An othello game.
 	 * 
-	 * @param board
-	 *            The board used for the game.
 	 * @param players
 	 *            The players of the game.
+	 * @param board
+	 *            The board used for the game.
+	 * @param boardWidth
+	 *            Width of the board.
+	 * @param boardHeight
+	 *            Height of the board.
 	 */
-	public ClassicOthello(Board board, List<Player> players) {
+	public ClassicOthello(List<Player> players, Board board, int boardWidth, int boardHeight) {
 		this.board = board;
 		this.players = players;
+		this.boardWidth = boardWidth;
+		this.boardHeight = boardHeight;
 	}
 
 	@Override
@@ -44,7 +53,7 @@ public class ClassicOthello implements Othello {
 		}
 
 		// Add all swappable nodes to the right
-		for (int x = placedNode.getXCoordinate() + 1; x < widthOf(board); x++) {
+		for (int x = placedNode.getXCoordinate() + 1; x < boardWidth; x++) {
 			Node currNode = getNode(x, placedNode.getYCoordinate());
 			if (!currNode.isMarked() || currNode.getOccupantPlayerId().equals(playerId)) {
 				break;
@@ -62,7 +71,7 @@ public class ClassicOthello implements Othello {
 		}
 
 		// Add all swappable nodes above
-		for (int y = placedNode.getYCoordinate() + 1; y < heightOf(board); y++) {
+		for (int y = placedNode.getYCoordinate() + 1; y < boardHeight; y++) {
 			Node currNode = getNode(placedNode.getXCoordinate(), y);
 			if (!currNode.isMarked() || currNode.getOccupantPlayerId().equals(playerId)) {
 				break;
@@ -105,26 +114,6 @@ public class ClassicOthello implements Othello {
 		}
 
 		return false;
-	}
-
-	private int widthOf(Board board) {
-		int width = 0;
-		for (Node n : board.getNodes()) {
-			if (n.getXCoordinate() > width) {
-				width = n.getXCoordinate();
-			}
-		}
-		return width + 1;
-	}
-
-	private int heightOf(Board board) {
-		int height = 0;
-		for (Node n : board.getNodes()) {
-			if (n.getYCoordinate() > height) {
-				height = n.getYCoordinate();
-			}
-		}
-		return height + 1;
 	}
 
 	/*
@@ -321,15 +310,15 @@ public class ClassicOthello implements Othello {
 			visualBoard[n.getXCoordinate()][n.getYCoordinate()] = sign;
 		}
 
-		for (int y = 0; y < 8; y++) {
+		for (int y = 0; y < boardHeight; y++) {
 			sb.append(y).append(" ");
-			for (int x = 0; x < 8; x++) {
+			for (int x = 0; x < boardWidth; x++) {
 				sb.append(visualBoard[y][x]).append(" ");
 			}
 			sb.append("\n");
 		}
 		sb.append("  ");
-		for (int i = 0; i < 8; i++) {
+		for (int i = 0; i < boardWidth; i++) {
 			sb.append(i).append(" ");
 		}
 		sb.append("\n");
