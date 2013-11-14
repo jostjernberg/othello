@@ -131,12 +131,12 @@ public class ClassicOthello implements Othello {
 	@Override
 	public boolean isActive() {
 		for (Player p : players) {
-			if (!hasValidMove(p.getId())) {
-				return false;
+			if (hasValidMove(p.getId())) {
+				return true;
 			}
 		}
 
-		return true;
+		return false;
 	}
 
 	@Override
@@ -171,15 +171,11 @@ public class ClassicOthello implements Othello {
 
 		for (Node n : board.getNodes()) {
 			if (isMoveValid(player.getId(), n.getId())) {
-				List<Node> nodesToSwap = getNodesToSwap(player.getId(), n.getId());
-				if (nodesToSwap != null) {
-					return move(player.getId(), nodesToSwap.get(0).getId());
-				}
+				return move(player.getId(), n.getId());
 			}
 		}
 
-		// this should never happen
-		return null;
+		throw new IllegalStateException(getPlayerInTurn() + " cannot make a move.");
 	}
 
 	@Override
@@ -215,7 +211,7 @@ public class ClassicOthello implements Othello {
 	 *            The replacement occupantPlayerId of the nodes contained in replacementNodes.
 	 * @return A new list where some nodes from originalNodes have been replaced.
 	 */
-	private static List<Node> replaceNodes(List<Node> originalNodes, List<Node> replacementNodes, String playerId) {
+	private List<Node> replaceNodes(List<Node> originalNodes, List<Node> replacementNodes, String playerId) {
 		List<Node> newNodes = new ArrayList<Node>(originalNodes.size());
 
 		for (Node n : originalNodes) {
@@ -257,7 +253,7 @@ public class ClassicOthello implements Othello {
 
 	@Override
 	public void start() {
-		nextPlayerInTurnIndex = (int) (Math.random() * (players.size() + 1));
+		nextPlayerInTurnIndex = (int) (Math.random() * players.size());
 	}
 
 	@Override
@@ -281,8 +277,11 @@ public class ClassicOthello implements Othello {
 		Map<String, Character> playerNumber = new HashMap<>();
 
 		for (int i = 0; i < players.size(); i++) {
-			playerNumber.put(players.get(i).getId(), (char) i);
+			playerNumber.put(players.get(i).getId(), Integer.toString(i).charAt(0));
+			sb.append(i).append(": ").append(players.get(i).getName()).append("\n");
 		}
+
+		sb.append("Player ").append(getPlayerInTurn().getName()).append("'s turn.\n");
 
 		for (Node n : board.getNodes()) {
 			char sign = '.';
