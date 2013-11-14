@@ -311,7 +311,7 @@ public class ClassicOthello implements Othello {
 			sb.append("_");
 		}
 		sb.append("\n");
-		for (int y = 0; y < boardHeight; y++) {
+		for (int y = boardHeight - 1; y >= 0; y--) {
 			sb.append(y).append(" | ");
 			for (int x = 0; x < boardWidth; x++) {
 				sb.append(visualBoard[y][x]).append(" ");
