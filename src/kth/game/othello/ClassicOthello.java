@@ -44,48 +44,54 @@ public class ClassicOthello implements Othello {
 		return board;
 	}
 
+	/** Checks whether or not a node is swappable for the specified player */
+	private boolean isSwappable(Node n, String playerId) {
+		return (n.isMarked() && !n.getOccupantPlayerId().equals(playerId));
+	}
+
+	/**
+	 * Add all valid nodes in a single direction.
+	 * 
+	 * @param dx
+	 *            Difference in x-coordinate each iteration
+	 * @param dy
+	 *            Difference in y-coordinate each iteration
+	 */
+	private void swapDirection(int x, int y, int dx, int dy, String playerId, List<Node> nodesToSwap) {
+		x += dx;
+		y += dy;
+		while (x < boardWidth && x >= 0 && y < boardHeight && y >= 0) {
+			Node n = getNode(x, y);
+			if (isSwappable(n, playerId)) {
+				nodesToSwap.add(n);
+			} else {
+				break;
+			}
+			x += dx;
+			y += dy;
+		}
+	}
+
 	@Override
 	public List<Node> getNodesToSwap(String playerId, String nodeId) {
-		List<Node> nodesToSwap = new ArrayList<Node>();
+		List<Node> nodesToSwap = new ArrayList<>();
 		Node placedNode = getNode(nodeId);
+
 		if (placedNode.isMarked()) {
+			// Invalid move
 			return nodesToSwap;
 		}
 
-		// Add all swappable nodes to the right
-		for (int x = placedNode.getXCoordinate() + 1; x < boardWidth; x++) {
-			Node currNode = getNode(x, placedNode.getYCoordinate());
-			if (!currNode.isMarked() || currNode.getOccupantPlayerId().equals(playerId)) {
-				break;
-			}
-			nodesToSwap.add(currNode);
-		}
+		int x = placedNode.getXCoordinate();
+		int y = placedNode.getYCoordinate();
 
-		// Add all swappable nodes to the left
-		for (int x = placedNode.getXCoordinate() - 1; x >= 0; x--) {
-			Node currNode = getNode(x, placedNode.getYCoordinate());
-			if (!currNode.isMarked() || currNode.getOccupantPlayerId().equals(playerId)) {
-				break;
+		// Add all swappable nodes in all directions
+		for (int i = -1; i <= 1; i++) {
+			for (int j = -1; j <= 1; j++) {
+				if (i == 0 && j == 0) // not a direction
+					continue;
+				swapDirection(x, y, i, j, playerId, nodesToSwap);
 			}
-			nodesToSwap.add(currNode);
-		}
-
-		// Add all swappable nodes above
-		for (int y = placedNode.getYCoordinate() + 1; y < boardHeight; y++) {
-			Node currNode = getNode(placedNode.getXCoordinate(), y);
-			if (!currNode.isMarked() || currNode.getOccupantPlayerId().equals(playerId)) {
-				break;
-			}
-			nodesToSwap.add(currNode);
-		}
-
-		// Add all swappable nodes below
-		for (int y = placedNode.getYCoordinate() - 1; y >= 0; y--) {
-			Node currNode = getNode(placedNode.getXCoordinate(), y);
-			if (!currNode.isMarked() || currNode.getOccupantPlayerId().equals(playerId)) {
-				break;
-			}
-			nodesToSwap.add(currNode);
 		}
 
 		if (!nodesToSwap.isEmpty()) {
@@ -221,17 +227,21 @@ public class ClassicOthello implements Othello {
 	}
 
 	/**
-	 * Immutable. Creates a new list consisting of originalNodes, where the nodes that have the same coordinates as
-	 * nodes in replacementNodes have been replaced by new nodes with the same coordinates, but with playerId as
-	 * occupantPlayerId.
+	 * Immutable. Creates a new list consisting of originalNodes, where the
+	 * nodes that have the same coordinates as nodes in replacementNodes have
+	 * been replaced by new nodes with the same coordinates, but with playerId
+	 * as occupantPlayerId.
 	 * 
 	 * @param originalNodes
 	 *            The original list of nodes.
 	 * @param replacementNodes
-	 *            Nodes that will be replaced in originalNodes where the coordinates are equal.
+	 *            Nodes that will be replaced in originalNodes where the
+	 *            coordinates are equal.
 	 * @param playerId
-	 *            The replacement occupantPlayerId of the nodes contained in replacementNodes.
-	 * @return A new list where some nodes from originalNodes have been replaced.
+	 *            The replacement occupantPlayerId of the nodes contained in
+	 *            replacementNodes.
+	 * @return A new list where some nodes from originalNodes have been
+	 *         replaced.
 	 */
 	public static List<Node> replaceNodes(List<Node> originalNodes, List<Node> replacementNodes, String playerId) {
 		List<Node> newNodes = new ArrayList<Node>(originalNodes.size());
@@ -248,8 +258,9 @@ public class ClassicOthello implements Othello {
 	}
 
 	/**
-	 * Immutable. Returns a new list that is a copy of nodes, but where the node that have the same coordinates as
-	 * replacement has been replaced by replacement.
+	 * Immutable. Returns a new list that is a copy of nodes, but where the node
+	 * that have the same coordinates as replacement has been replaced by
+	 * replacement.
 	 * 
 	 * @param nodes
 	 *            The original list where one node will be replaced.
