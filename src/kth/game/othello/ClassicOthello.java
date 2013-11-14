@@ -209,7 +209,7 @@ public class ClassicOthello implements Othello {
 
 		if (!nodesToSwap.isEmpty()) {
 			for (Node n : nodesToSwap) {
-				board.changeOccupant(n.getYCoordinate(), n.getXCoordinate(), playerId);
+				board.changeOccupant(n.getXCoordinate(), n.getYCoordinate(), playerId);
 			}
 		}
 		endTurn();

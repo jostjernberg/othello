@@ -73,21 +73,21 @@ public class ClassicBoard implements InternalBoard {
 	 * Get the node located on the specified coordinates of the board.
 	 */
 	@Override
-	public Node getNode(int y, int x) {
-		return this.nodes.get(coordinateToPosition(y, x));
+	public Node getNode(int x, int y) {
+		return this.nodes.get(coordinateToPosition(x, y));
 	}
 
 	/**
 	 * Change the occupant on the specified board position.
 	 */
 	@Override
-	public void changeOccupant(int y, int x, String newPlayerId) {
-		int position = coordinateToPosition(y, x);
+	public void changeOccupant(int x, int y, String newPlayerId) {
+		int position = coordinateToPosition(x, y);
 		Node node = new ClassicNode(x, y, newPlayerId);
 		this.nodes.set(position, node);
 	}
 
-	private int coordinateToPosition(int y, int x) {
+	private int coordinateToPosition(int x, int y) {
 		if (y >= rows || x >= columns || y < 0 || x < 0) {
 			throw new IndexOutOfBoundsException("Invalid coordinate for this board.");
 		}

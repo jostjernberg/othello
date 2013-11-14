@@ -28,10 +28,10 @@ public class ClassicOthelloFactory implements OthelloFactory {
 	 */
 	private InternalBoard defaultOthelloBoard(Player p1, Player p2) {
 		InternalBoard board = new ClassicBoard();
-		board.changeOccupant(3, 3, p1.getId());
-		board.changeOccupant(4, 4, p1.getId());
-		board.changeOccupant(3, 4, p2.getId());
-		board.changeOccupant(4, 3, p2.getId());
+		board.changeOccupant(3, 4, p1.getId());
+		board.changeOccupant(4, 3, p1.getId());
+		board.changeOccupant(3, 3, p2.getId());
+		board.changeOccupant(4, 4, p2.getId());
 		return board;
 	}
 
