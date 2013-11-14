@@ -31,13 +31,13 @@ public class Demo {
 		othello.start();
 		System.out.println(othello);
 		while (othello.isActive()) {
-			System.out.println(othello);
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException ie) {
 
 			}
 			othello.move();
+			System.out.println(othello);
 		}
 		System.out.println(othello);
 		System.out.println("Game ended!");
@@ -47,8 +47,8 @@ public class Demo {
 		OthelloFactory othelloFactory = new ClassicOthelloFactory();
 		Othello othello = othelloFactory.createHumanVersusComputerGameOnOriginalBoard();
 		othello.start();
+		System.out.println(othello);
 		while (othello.isActive()) {
-			System.out.println(othello);
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException ie) {
@@ -64,6 +64,7 @@ public class Demo {
 			} else {
 				othello.move();
 			}
+			System.out.println(othello);
 		}
 		System.out.println(othello);
 		System.out.println("Game ended!");

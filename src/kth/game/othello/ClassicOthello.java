@@ -93,6 +93,10 @@ public class ClassicOthello implements Othello {
 
 		int x = placedNode.getXCoordinate();
 		int y = placedNode.getYCoordinate();
+		char sign = (playerId.equals("1") ? 'O' : 'X');
+
+		// System.out.println("Player " + sign + " is attempting to move to (" +
+		// x + ", " + y + ")");
 
 		// Add all swappable nodes in all directions
 		for (int i = -1; i <= 1; i++) {
@@ -105,6 +109,7 @@ public class ClassicOthello implements Othello {
 
 		if (!nodesToSwap.isEmpty()) {
 			nodesToSwap.add(getNode(nodeId));
+			System.out.println("Move by player " + sign + "  to (" + x + ", " + y + ") accepted.");
 		}
 
 		return nodesToSwap;
