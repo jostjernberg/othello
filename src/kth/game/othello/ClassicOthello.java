@@ -45,8 +45,13 @@ public class ClassicOthello implements Othello {
 	}
 
 	/** Checks whether or not a node is swappable for the specified player */
-	private boolean isSwappable(Node n, String playerId) {
+	private boolean isOpponent(Node n, String playerId) {
 		return (n.isMarked() && !n.getOccupantPlayerId().equals(playerId));
+	}
+
+	/** Checks whether or not a node is owned by the specified player */
+	private boolean isFriendly(Node n, String playerId) {
+		return (n.isMarked() && n.getOccupantPlayerId().equals(playerId));
 	}
 
 	/**
@@ -60,11 +65,15 @@ public class ClassicOthello implements Othello {
 	private void swapDirection(int x, int y, int dx, int dy, String playerId, List<Node> nodesToSwap) {
 		x += dx;
 		y += dy;
+		List<Node> potentialSwapNodes = new ArrayList<>();
 		while (x < boardWidth && x >= 0 && y < boardHeight && y >= 0) {
 			Node n = getNode(x, y);
-			if (isSwappable(n, playerId)) {
-				nodesToSwap.add(n);
+			if (isOpponent(n, playerId)) {
+				potentialSwapNodes.add(n);
 			} else {
+				if (isFriendly(n, playerId)) {
+					nodesToSwap.addAll(potentialSwapNodes);
+				}
 				break;
 			}
 			x += dx;
