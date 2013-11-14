@@ -137,35 +137,17 @@ public class ClassicOthello implements Othello {
 	@Override
 	public boolean isActive() {
 		for (Player p : players) {
-			if (!hasValidMove(p.getId())) {
-				return false;
+			if (hasValidMove(p.getId())) {
+				return true;
 			}
 		}
 
-		return true;
+		return false;
 	}
 
 	@Override
 	public boolean isMoveValid(String playerId, String nodeId) {
 		return getPlayerInTurn().getId().equals(playerId) && !getNodesToSwap(playerId, nodeId).isEmpty();
-	}
-
-	/**
-	 * Get the Player that has playerId as id.
-	 * 
-	 * @param playerId
-	 *            Id of the requested Player.
-	 * @return The player with the requested id.
-	 * @throws IllegalArgumentException
-	 *             If there is no player with the requested id.
-	 */
-	private Player getPlayer(String playerId) {
-		for (Player p : players) {
-			if (p.getId().equals(playerId)) {
-				return p;
-			}
-		}
-		throw new IllegalArgumentException("There is no player with id '" + playerId + "'.");
 	}
 
 	/**
@@ -195,15 +177,11 @@ public class ClassicOthello implements Othello {
 
 		for (Node n : board.getNodes()) {
 			if (isMoveValid(player.getId(), n.getId())) {
-				List<Node> nodesToSwap = getNodesToSwap(player.getId(), n.getId());
-				if (nodesToSwap != null) {
-					return move(player.getId(), nodesToSwap.get(0).getId());
-				}
+				return move(player.getId(), n.getId());
 			}
 		}
 
-		// this should never happen
-		return null;
+		throw new IllegalStateException(getPlayerInTurn() + " cannot make a move.");
 	}
 
 	@Override
@@ -243,7 +221,7 @@ public class ClassicOthello implements Othello {
 	 * @return A new list where some nodes from originalNodes have been
 	 *         replaced.
 	 */
-	public static List<Node> replaceNodes(List<Node> originalNodes, List<Node> replacementNodes, String playerId) {
+	private List<Node> replaceNodes(List<Node> originalNodes, List<Node> replacementNodes, String playerId) {
 		List<Node> newNodes = new ArrayList<Node>(originalNodes.size());
 
 		for (Node n : originalNodes) {
@@ -286,7 +264,7 @@ public class ClassicOthello implements Othello {
 
 	@Override
 	public void start() {
-		nextPlayerInTurnIndex = (int) (Math.random() * (players.size() + 1));
+		nextPlayerInTurnIndex = (int) (Math.random() * players.size());
 	}
 
 	@Override
@@ -310,8 +288,11 @@ public class ClassicOthello implements Othello {
 		Map<String, Character> playerNumber = new HashMap<>();
 
 		for (int i = 0; i < players.size(); i++) {
-			playerNumber.put(players.get(i).getId(), (char) i);
+			playerNumber.put(players.get(i).getId(), Integer.toString(i).charAt(0));
+			sb.append(i).append(": ").append(players.get(i).getName()).append("\n");
 		}
+
+		sb.append("Player ").append(getPlayerInTurn().getName()).append("'s turn.\n");
 
 		for (Node n : board.getNodes()) {
 			char sign = '.';

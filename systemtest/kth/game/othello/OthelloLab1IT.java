@@ -33,10 +33,10 @@ public class OthelloLab1IT {
 				return;
 			}
 		}
-		throw new IllegalStateException();
+		throw new IllegalStateException(othello.toString());
 	}
 
-	// @Test
+	@Test
 	public void someMovesBetweenAComputerAndHumanTest() {
 		Othello othello = getOthelloFactory().createHumanVersusComputerGameOnOriginalBoard();
 		Player human = null;
@@ -56,24 +56,6 @@ public class OthelloLab1IT {
 	}
 
 	@Test
-	public void getMovesToSwapTest() {
-		Othello othello = getOthelloFactory().createHumanGameOnOriginalBoard();
-		Node lowerLeftPlacedNode = getNode(othello, 3, 3);
-		String playerId = lowerLeftPlacedNode.getOccupantPlayerId();
-		othello.start(playerId);
-
-		Node nextPlacement = getNode(othello, 5, 3);
-
-		List<Node> nodesToSwap = othello.getNodesToSwap(playerId, nextPlacement.getId());
-		Assert.assertEquals(nodesToSwap.size(), 2);
-		Assert.assertEquals(nodesToSwap.get(0).getXCoordinate(), 4);
-		Assert.assertEquals(nodesToSwap.get(0).getYCoordinate(), 3);
-
-		Assert.assertEquals(nodesToSwap.get(1).getXCoordinate(), 5);
-		Assert.assertEquals(nodesToSwap.get(1).getYCoordinate(), 3);
-	}
-
-	@Test
 	public void makeOneMoveTest() {
 		Othello othello = getOthelloFactory().createHumanGameOnOriginalBoard();
 		Node lowerLeftPlacedNode = getNode(othello, 3, 3);
@@ -83,7 +65,6 @@ public class OthelloLab1IT {
 		Node nextPlacement = getNode(othello, 5, 3);
 
 		List<Node> nodesToSwap = othello.move(playerId, nextPlacement.getId());
-		// printOthelloBoard(othello);
 
 		Assert.assertEquals(nodesToSwap.size(), 2);
 		Assert.assertEquals(nodesToSwap.get(0).getXCoordinate(), 4);
@@ -109,7 +90,7 @@ public class OthelloLab1IT {
 		return getNode(othello.getBoard(), x, y);
 	}
 
-	// @Test
+	@Test
 	public void twoComputerOnAClassicalBoardTest() {
 		Othello othello = getOthelloFactory().createComputerGameOnClassicalBoard();
 		othello.start(othello.getPlayers().get(0).getId());
