@@ -9,19 +9,8 @@ import java.util.List;
 public class ClassicBoard implements InternalBoard {
 	private List<Node> nodes;
 
-	public static final int DEFAULT_ROWS = 8;
-	public static final int DEFAULT_COLUMNS = 8;
-
 	private final int rows;
 	private final int columns;
-
-	/**
-	 * Constructor which creates a classical board of default size containing
-	 * classical nodes.
-	 */
-	public ClassicBoard() {
-		this(DEFAULT_ROWS, DEFAULT_COLUMNS);
-	}
 
 	/**
 	 * Constructor which creates a classical board of specified size containing

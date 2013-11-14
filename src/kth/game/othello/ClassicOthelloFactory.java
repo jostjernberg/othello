@@ -27,7 +27,7 @@ public class ClassicOthelloFactory implements OthelloFactory {
 	 * @return A standard 8x8 othello board with initial player placements.
 	 */
 	private InternalBoard defaultOthelloBoard(Player p1, Player p2) {
-		InternalBoard board = new ClassicBoard();
+		InternalBoard board = new ClassicBoard(CLASSIC_DIMENSION_HEIGHT, CLASSIC_DIMENSION_WIDTH);
 		board.changeOccupant(3, 4, p1.getId());
 		board.changeOccupant(4, 3, p1.getId());
 		board.changeOccupant(3, 3, p2.getId());
