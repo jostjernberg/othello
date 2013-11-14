@@ -145,24 +145,6 @@ public class ClassicOthello implements Othello {
 	}
 
 	/**
-	 * Get the Player that has playerId as id.
-	 * 
-	 * @param playerId
-	 *            Id of the requested Player.
-	 * @return The player with the requested id.
-	 * @throws IllegalArgumentException
-	 *             If there is no player with the requested id.
-	 */
-	private Player getPlayer(String playerId) {
-		for (Player p : players) {
-			if (p.getId().equals(playerId)) {
-				return p;
-			}
-		}
-		throw new IllegalArgumentException("There is no player with id '" + playerId + "'.");
-	}
-
-	/**
 	 * Get the Node if this game's board that has nodeId as id.
 	 * 
 	 * @param nodeId
@@ -233,7 +215,7 @@ public class ClassicOthello implements Othello {
 	 *            The replacement occupantPlayerId of the nodes contained in replacementNodes.
 	 * @return A new list where some nodes from originalNodes have been replaced.
 	 */
-	public static List<Node> replaceNodes(List<Node> originalNodes, List<Node> replacementNodes, String playerId) {
+	private static List<Node> replaceNodes(List<Node> originalNodes, List<Node> replacementNodes, String playerId) {
 		List<Node> newNodes = new ArrayList<Node>(originalNodes.size());
 
 		for (Node n : originalNodes) {
