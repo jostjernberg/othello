@@ -320,7 +320,7 @@ public class ClassicOthello implements Othello {
 				sign = playerNumber.get(n.getOccupantPlayerId());
 				sign = (sign == '1' ? 'O' : 'X');
 			}
-			visualBoard[n.getXCoordinate()][n.getYCoordinate()] = sign;
+			visualBoard[n.getYCoordinate()][n.getXCoordinate()] = sign;
 		}
 
 		sb.append("   ");
