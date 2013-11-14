@@ -1,7 +1,8 @@
 package kth.game.othello.board;
 
 /**
- * An abstract node implementation which makes sure that all nodes have a unique id.
+ * An abstract node implementation which makes sure that all nodes have a unique
+ * id.
  */
 public class ClassicNode implements Node {
 
@@ -12,7 +13,8 @@ public class ClassicNode implements Node {
 	private final String id;
 
 	/**
-	 * Constructor which generates a unique id for the node without a occupant player.
+	 * Constructor which generates a unique id for the node without a occupant
+	 * player.
 	 * 
 	 * @param x
 	 *            The x coordinate of the node.
@@ -96,5 +98,16 @@ public class ClassicNode implements Node {
 	@Override
 	public boolean isMarked() {
 		return occupantPlayerId != null;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("{");
+		sb.append("x:").append(x).append(", ");
+		sb.append("y:").append(y).append(", ");
+		sb.append("occupant:").append(occupantPlayerId);
+		sb.append("}");
+		return sb.toString();
 	}
 }
