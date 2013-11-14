@@ -1,8 +1,5 @@
 package kth.game.othello;
 
-import java.util.List;
-
-import kth.game.othello.board.Node;
 import kth.game.othello.player.Player;
 
 public class Demo {
@@ -32,18 +29,18 @@ public class Demo {
 		OthelloFactory othelloFactory = new ClassicOthelloFactory();
 		Othello othello = othelloFactory.createComputerGameOnClassicalBoard();
 		othello.start();
+		System.out.println(othello);
 		while (othello.isActive()) {
-			List<Node> nodesToSwap = othello.move();
-			if (nodesToSwap.size() == 0) {
-				throw new IllegalStateException("Can't make a move.");
-			}
 			System.out.println(othello);
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException ie) {
 
 			}
+			othello.move();
 		}
+		System.out.println(othello);
+		System.out.println("Game ended!");
 	}
 
 	private void demo2() {
@@ -51,6 +48,12 @@ public class Demo {
 		Othello othello = othelloFactory.createHumanVersusComputerGameOnOriginalBoard();
 		othello.start();
 		while (othello.isActive()) {
+			System.out.println(othello);
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException ie) {
+
+			}
 			if (othello.getPlayerInTurn().getType() == Player.Type.HUMAN) {
 				for (int i = othello.getBoard().getNodes().size() - 1; i >= 0; i--) {
 					if (othello.isMoveValid(othello.getPlayerInTurn().getId(), othello.getBoard().getNodes().get(i)
@@ -61,13 +64,8 @@ public class Demo {
 			} else {
 				othello.move();
 			}
-
-			System.out.println(othello);
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException ie) {
-
-			}
 		}
+		System.out.println(othello);
+		System.out.println("Game ended!");
 	}
 }

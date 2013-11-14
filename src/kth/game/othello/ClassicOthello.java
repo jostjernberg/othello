@@ -205,21 +205,17 @@ public class ClassicOthello implements Othello {
 	}
 
 	/**
-	 * Immutable. Creates a new list consisting of originalNodes, where the
-	 * nodes that have the same coordinates as nodes in replacementNodes have
-	 * been replaced by new nodes with the same coordinates, but with playerId
-	 * as occupantPlayerId.
+	 * Immutable. Creates a new list consisting of originalNodes, where the nodes that have the same coordinates as
+	 * nodes in replacementNodes have been replaced by new nodes with the same coordinates, but with playerId as
+	 * occupantPlayerId.
 	 * 
 	 * @param originalNodes
 	 *            The original list of nodes.
 	 * @param replacementNodes
-	 *            Nodes that will be replaced in originalNodes where the
-	 *            coordinates are equal.
+	 *            Nodes that will be replaced in originalNodes where the coordinates are equal.
 	 * @param playerId
-	 *            The replacement occupantPlayerId of the nodes contained in
-	 *            replacementNodes.
-	 * @return A new list where some nodes from originalNodes have been
-	 *         replaced.
+	 *            The replacement occupantPlayerId of the nodes contained in replacementNodes.
+	 * @return A new list where some nodes from originalNodes have been replaced.
 	 */
 	private List<Node> replaceNodes(List<Node> originalNodes, List<Node> replacementNodes, String playerId) {
 		List<Node> newNodes = new ArrayList<Node>(originalNodes.size());
@@ -236,9 +232,8 @@ public class ClassicOthello implements Othello {
 	}
 
 	/**
-	 * Immutable. Returns a new list that is a copy of nodes, but where the node
-	 * that have the same coordinates as replacement has been replaced by
-	 * replacement.
+	 * Immutable. Returns a new list that is a copy of nodes, but where the node that have the same coordinates as
+	 * replacement has been replaced by replacement.
 	 * 
 	 * @param nodes
 	 *            The original list where one node will be replaced.
@@ -302,14 +297,24 @@ public class ClassicOthello implements Othello {
 			visualBoard[n.getXCoordinate()][n.getYCoordinate()] = sign;
 		}
 
+		sb.append("   ");
+		for (int i = 0; i < boardWidth * 2 + 1; i++) {
+			sb.append("_");
+		}
+		sb.append("\n");
 		for (int y = 0; y < boardHeight; y++) {
-			sb.append(y).append(" ");
+			sb.append(y).append(" | ");
 			for (int x = 0; x < boardWidth; x++) {
 				sb.append(visualBoard[y][x]).append(" ");
 			}
-			sb.append("\n");
+			sb.append("|\n");
 		}
-		sb.append("  ");
+		sb.append("  |");
+		for (int i = 0; i < boardWidth; i++) {
+			sb.append("__");
+		}
+		sb.append("_|\n");
+		sb.append("    ");
 		for (int i = 0; i < boardWidth; i++) {
 			sb.append(i).append(" ");
 		}
