@@ -171,6 +171,15 @@ public class ClassicOthello implements Othello {
 	}
 
 	/**
+	 * Updates which player's turn it is.
+	 */
+	private void endTurn() {
+		do {
+			nextPlayerInTurnIndex = (nextPlayerInTurnIndex + 1) % players.size();
+		} while (isActive() && !hasValidMove(getPlayerInTurn().getId()));
+	}
+
+	/**
 	 * Get the Node if this game's board that has nodeId as id.
 	 * 
 	 * @param nodeId
@@ -201,45 +210,36 @@ public class ClassicOthello implements Othello {
 			}
 		}
 
-		throw new IllegalStateException(getPlayerInTurn() + " cannot make a move.");
+		// pass turn if cannot make any moves
+		endTurn();
+		return new ArrayList<Node>();
 	}
 
 	@Override
 	public List<Node> move(String playerId, String nodeId) throws IllegalArgumentException {
 		List<Node> nodesToSwap = getNodesToSwap(playerId, nodeId);
 
-		List<Node> newNodes = replaceNodes(board.getNodes(), nodesToSwap, playerId);
-
-		board = new ClassicBoard(newNodes);
-
+		if (!nodesToSwap.isEmpty()) {
+			List<Node> newNodes = replaceNodes(board.getNodes(), nodesToSwap, playerId);
+			board = new ClassicBoard(newNodes);
+		}
 		endTurn();
 
 		return nodesToSwap;
 	}
 
 	/**
-	 * Updates which player's turn it is.
-	 */
-	private void endTurn() {
-		nextPlayerInTurnIndex = (nextPlayerInTurnIndex + 1) % players.size();
-	}
-
-	/**
-	 * Immutable. Creates a new list consisting of originalNodes, where the
-	 * nodes that have the same coordinates as nodes in replacementNodes have
-	 * been replaced by new nodes with the same coordinates, but with playerId
-	 * as occupantPlayerId.
+	 * Immutable. Creates a new list consisting of originalNodes, where the nodes that have the same coordinates as
+	 * nodes in replacementNodes have been replaced by new nodes with the same coordinates, but with playerId as
+	 * occupantPlayerId.
 	 * 
 	 * @param originalNodes
 	 *            The original list of nodes.
 	 * @param replacementNodes
-	 *            Nodes that will be replaced in originalNodes where the
-	 *            coordinates are equal.
+	 *            Nodes that will be replaced in originalNodes where the coordinates are equal.
 	 * @param playerId
-	 *            The replacement occupantPlayerId of the nodes contained in
-	 *            replacementNodes.
-	 * @return A new list where some nodes from originalNodes have been
-	 *         replaced.
+	 *            The replacement occupantPlayerId of the nodes contained in replacementNodes.
+	 * @return A new list where some nodes from originalNodes have been replaced.
 	 */
 	private List<Node> replaceNodes(List<Node> originalNodes, List<Node> replacementNodes, String playerId) {
 		List<Node> newNodes = new ArrayList<Node>(originalNodes.size());
@@ -256,9 +256,8 @@ public class ClassicOthello implements Othello {
 	}
 
 	/**
-	 * Immutable. Returns a new list that is a copy of nodes, but where the node
-	 * that have the same coordinates as replacement has been replaced by
-	 * replacement.
+	 * Immutable. Returns a new list that is a copy of nodes, but where the node that have the same coordinates as
+	 * replacement has been replaced by replacement.
 	 * 
 	 * @param nodes
 	 *            The original list where one node will be replaced.

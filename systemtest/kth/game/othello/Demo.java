@@ -7,7 +7,7 @@ public class Demo {
 		DEMO_1, DEMO_2
 	};
 
-	private DemoNumber demo = DemoNumber.DEMO_2;
+	private DemoNumber demo = DemoNumber.DEMO_1;
 
 	public static void main(String args[]) {
 		new Demo();
@@ -32,7 +32,7 @@ public class Demo {
 		System.out.println(othello);
 		while (othello.isActive()) {
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(500);
 			} catch (InterruptedException ie) {
 
 			}
@@ -50,7 +50,7 @@ public class Demo {
 		System.out.println(othello);
 		while (othello.isActive()) {
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(500);
 			} catch (InterruptedException ie) {
 
 			}
