@@ -6,14 +6,13 @@ import java.util.List;
 import java.util.Map;
 
 import kth.game.othello.board.Board;
-import kth.game.othello.board.ClassicBoard;
-import kth.game.othello.board.ClassicNode;
+import kth.game.othello.board.InternalBoard;
 import kth.game.othello.board.Node;
 import kth.game.othello.player.Player;
 import kth.game.othello.player.Player.Type;
 
 public class ClassicOthello implements Othello {
-	private Board board;
+	private InternalBoard board;
 	private final int boardWidth;
 	private final int boardHeight;
 
@@ -32,7 +31,7 @@ public class ClassicOthello implements Othello {
 	 * @param boardHeight
 	 *            Height of the board.
 	 */
-	public ClassicOthello(List<Player> players, Board board, int boardWidth, int boardHeight) {
+	public ClassicOthello(List<Player> players, InternalBoard board, int boardWidth, int boardHeight) {
 		this.board = board;
 		this.players = players;
 		this.boardWidth = boardWidth;
@@ -93,10 +92,6 @@ public class ClassicOthello implements Othello {
 
 		int x = placedNode.getXCoordinate();
 		int y = placedNode.getYCoordinate();
-		char sign = (playerId.equals("1") ? 'O' : 'X');
-
-		// System.out.println("Player " + sign + " is attempting to move to (" +
-		// x + ", " + y + ")");
 
 		// Add all swappable nodes in all directions
 		for (int i = -1; i <= 1; i++) {
@@ -109,7 +104,6 @@ public class ClassicOthello implements Othello {
 
 		if (!nodesToSwap.isEmpty()) {
 			nodesToSwap.add(getNode(nodeId));
-			System.out.println("Move by player " + sign + "  to (" + x + ", " + y + ") accepted.");
 		}
 
 		return nodesToSwap;
@@ -206,7 +200,7 @@ public class ClassicOthello implements Othello {
 
 		// pass turn if cannot make any moves
 		endTurn();
-		return new ArrayList<Node>();
+		return new ArrayList<>();
 	}
 
 	@Override
@@ -214,65 +208,13 @@ public class ClassicOthello implements Othello {
 		List<Node> nodesToSwap = getNodesToSwap(playerId, nodeId);
 
 		if (!nodesToSwap.isEmpty()) {
-			List<Node> newNodes = replaceNodes(board.getNodes(), nodesToSwap, playerId);
-			board = new ClassicBoard(newNodes);
+			for (Node n : nodesToSwap) {
+				board.changeOccupant(n.getYCoordinate(), n.getXCoordinate(), playerId);
+			}
 		}
 		endTurn();
 
 		return nodesToSwap;
-	}
-
-	/**
-	 * Immutable. Creates a new list consisting of originalNodes, where the nodes that have the same coordinates as
-	 * nodes in replacementNodes have been replaced by new nodes with the same coordinates, but with playerId as
-	 * occupantPlayerId.
-	 * 
-	 * @param originalNodes
-	 *            The original list of nodes.
-	 * @param replacementNodes
-	 *            Nodes that will be replaced in originalNodes where the coordinates are equal.
-	 * @param playerId
-	 *            The replacement occupantPlayerId of the nodes contained in replacementNodes.
-	 * @return A new list where some nodes from originalNodes have been replaced.
-	 */
-	private List<Node> replaceNodes(List<Node> originalNodes, List<Node> replacementNodes, String playerId) {
-		List<Node> newNodes = new ArrayList<Node>(originalNodes.size());
-
-		for (Node n : originalNodes) {
-			newNodes.add(n);
-		}
-
-		for (Node n : replacementNodes) {
-			newNodes = replaceNode(newNodes, new ClassicNode(n.getXCoordinate(), n.getYCoordinate(), playerId));
-		}
-
-		return newNodes;
-	}
-
-	/**
-	 * Immutable. Returns a new list that is a copy of nodes, but where the node that have the same coordinates as
-	 * replacement has been replaced by replacement.
-	 * 
-	 * @param nodes
-	 *            The original list where one node will be replaced.
-	 * @param replacement
-	 *            The node which will be replaced in the original list.
-	 * @return A new list where replacement has been inserted.
-	 */
-	private static List<Node> replaceNode(List<Node> nodes, Node replacement) {
-		List<Node> replacedNodes = new ArrayList<Node>(nodes.size());
-
-		for (int i = 0; i < nodes.size(); i++) {
-			int x = nodes.get(i).getXCoordinate();
-			int y = nodes.get(i).getYCoordinate();
-
-			if (x == replacement.getXCoordinate() && y == replacement.getYCoordinate()) {
-				replacedNodes.add(replacement);
-			} else {
-				replacedNodes.add(nodes.get(i));
-			}
-		}
-		return replacedNodes;
 	}
 
 	@Override
