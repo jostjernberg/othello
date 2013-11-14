@@ -8,6 +8,13 @@ import org.junit.Test;
 
 public class OthelloFactoryTest {
 
+	/**
+	 * Check if all pieces are places on the board as expected. Assumes the board is of size 8x8.
+	 * 
+	 * @param board
+	 *            The board.
+	 * @return True if all pieces are placed correctly, false otherwise.
+	 */
 	private boolean isConsistentClassicalBoard(Board board) {
 		if (board.getNodes().get(3 * 8 + 4).getOccupantPlayerId() == null) {
 			return false;
