@@ -214,17 +214,21 @@ public class ClassicOthello implements Othello {
 	}
 
 	/**
-	 * Immutable. Creates a new list consisting of originalNodes, where the nodes that have the same coordinates as
-	 * nodes in replacementNodes have been replaced by new nodes with the same coordinates, but with playerId as
-	 * occupantPlayerId.
+	 * Immutable. Creates a new list consisting of originalNodes, where the
+	 * nodes that have the same coordinates as nodes in replacementNodes have
+	 * been replaced by new nodes with the same coordinates, but with playerId
+	 * as occupantPlayerId.
 	 * 
 	 * @param originalNodes
 	 *            The original list of nodes.
 	 * @param replacementNodes
-	 *            Nodes that will be replaced in originalNodes where the coordinates are equal.
+	 *            Nodes that will be replaced in originalNodes where the
+	 *            coordinates are equal.
 	 * @param playerId
-	 *            The replacement occupantPlayerId of the nodes contained in replacementNodes.
-	 * @return A new list where some nodes from originalNodes have been replaced.
+	 *            The replacement occupantPlayerId of the nodes contained in
+	 *            replacementNodes.
+	 * @return A new list where some nodes from originalNodes have been
+	 *         replaced.
 	 */
 	private List<Node> replaceNodes(List<Node> originalNodes, List<Node> replacementNodes, String playerId) {
 		List<Node> newNodes = new ArrayList<Node>(originalNodes.size());
@@ -241,8 +245,9 @@ public class ClassicOthello implements Othello {
 	}
 
 	/**
-	 * Immutable. Returns a new list that is a copy of nodes, but where the node that have the same coordinates as
-	 * replacement has been replaced by replacement.
+	 * Immutable. Returns a new list that is a copy of nodes, but where the node
+	 * that have the same coordinates as replacement has been replaced by
+	 * replacement.
 	 * 
 	 * @param nodes
 	 *            The original list where one node will be replaced.
@@ -293,7 +298,7 @@ public class ClassicOthello implements Othello {
 
 		for (int i = 0; i < players.size(); i++) {
 			playerNumber.put(players.get(i).getId(), Integer.toString(i).charAt(0));
-			sb.append(i).append(": ").append(players.get(i).getName()).append("\n");
+			sb.append((i == 1 ? 'O' : 'X')).append(": ").append(players.get(i).getName()).append("\n");
 		}
 
 		sb.append("Player ").append(getPlayerInTurn().getName()).append("'s turn.\n");
@@ -302,6 +307,7 @@ public class ClassicOthello implements Othello {
 			char sign = '.';
 			if (n.isMarked()) {
 				sign = playerNumber.get(n.getOccupantPlayerId());
+				sign = (sign == '1' ? 'O' : 'X');
 			}
 			visualBoard[n.getXCoordinate()][n.getYCoordinate()] = sign;
 		}
