@@ -59,7 +59,6 @@ public class Demo {
 					if (othello.isMoveValid(othello.getPlayerInTurn().getId(), othello.getBoard().getNodes().get(i)
 							.getId())) {
 						othello.move(othello.getPlayerInTurn().getId(), othello.getBoard().getNodes().get(i).getId());
-						break;
 					}
 				}
 			} else {

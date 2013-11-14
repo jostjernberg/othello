@@ -62,7 +62,7 @@ public class ClassicOthello implements Othello {
 	 * @param dy
 	 *            Difference in y-coordinate each iteration
 	 */
-	private List<Node> swapDirection(int x, int y, int dx, int dy, String playerId, List<Node> nodesToSwap) {
+	private void swapDirection(int x, int y, int dx, int dy, String playerId, List<Node> nodesToSwap) {
 		x += dx;
 		y += dy;
 		List<Node> potentialSwapNodes = new ArrayList<>();
@@ -72,14 +72,13 @@ public class ClassicOthello implements Othello {
 				potentialSwapNodes.add(n);
 			} else {
 				if (isFriendly(n, playerId)) {
-					return potentialSwapNodes;
+					nodesToSwap.addAll(potentialSwapNodes);
 				}
 				break;
 			}
 			x += dx;
 			y += dy;
 		}
-		return null;
 	}
 
 	@Override
@@ -104,12 +103,7 @@ public class ClassicOthello implements Othello {
 			for (int j = -1; j <= 1; j++) {
 				if (i == 0 && j == 0) // not a direction
 					continue;
-				List<Node> swapNodes = swapDirection(x, y, i, j, playerId, nodesToSwap);
-				if (swapNodes != null) {
-					for (Node n : swapNodes) {
-						nodesToSwap.add(n);
-					}
-				}
+				swapDirection(x, y, i, j, playerId, nodesToSwap);
 			}
 		}
 
