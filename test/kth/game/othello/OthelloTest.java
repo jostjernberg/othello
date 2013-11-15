@@ -107,6 +107,8 @@ public class OthelloTest {
 
 		InternalBoard board = Mockito.mock(ClassicBoard.class);
 		Mockito.when(board.getNodes()).thenReturn(nodes);
+		Mockito.when(board.getColumns()).thenReturn(8);
+		Mockito.when(board.getRows()).thenReturn(8);
 
 		return board;
 	}
@@ -125,7 +127,7 @@ public class OthelloTest {
 
 		InternalBoard board = mockedDefaultBoard(players);
 
-		return new ClassicOthello(players, board, 8, 8);
+		return new ClassicOthello(players, board);
 	}
 
 	@Test

@@ -41,8 +41,7 @@ public class ClassicOthelloFactory implements OthelloFactory {
 		players.add(new ComputerPlayer("CPU1"));
 		players.add(new ComputerPlayer("CPU2"));
 
-		return new ClassicOthello(players, defaultOthelloBoard(players.get(0), players.get(1)),
-				CLASSIC_DIMENSION_HEIGHT, CLASSIC_DIMENSION_WIDTH);
+		return new ClassicOthello(players, defaultOthelloBoard(players.get(0), players.get(1)));
 	}
 
 	@Override
@@ -51,8 +50,7 @@ public class ClassicOthelloFactory implements OthelloFactory {
 		players.add(new HumanPlayer("PLR1"));
 		players.add(new HumanPlayer("PLR2"));
 
-		return new ClassicOthello(players, defaultOthelloBoard(players.get(0), players.get(1)),
-				CLASSIC_DIMENSION_HEIGHT, CLASSIC_DIMENSION_WIDTH);
+		return new ClassicOthello(players, defaultOthelloBoard(players.get(0), players.get(1)));
 	}
 
 	@Override
@@ -61,7 +59,6 @@ public class ClassicOthelloFactory implements OthelloFactory {
 		players.add(new HumanPlayer("PLR1"));
 		players.add(new ComputerPlayer("CPU1"));
 
-		return new ClassicOthello(players, defaultOthelloBoard(players.get(0), players.get(1)),
-				CLASSIC_DIMENSION_HEIGHT, CLASSIC_DIMENSION_WIDTH);
+		return new ClassicOthello(players, defaultOthelloBoard(players.get(0), players.get(1)));
 	}
 }

@@ -1,9 +1,7 @@
 package kth.game.othello;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import kth.game.othello.board.Board;
 import kth.game.othello.board.InternalBoard;
@@ -13,9 +11,6 @@ import kth.game.othello.player.Player.Type;
 
 public class ClassicOthello implements Othello {
 	private InternalBoard board;
-	private final int boardWidth;
-	private final int boardHeight;
-
 	private List<Player> players;
 	private int nextPlayerInTurnIndex;
 
@@ -31,11 +26,9 @@ public class ClassicOthello implements Othello {
 	 * @param boardHeight
 	 *            Height of the board.
 	 */
-	public ClassicOthello(List<Player> players, InternalBoard board, int boardWidth, int boardHeight) {
+	public ClassicOthello(List<Player> players, InternalBoard board) {
 		this.board = board;
 		this.players = players;
-		this.boardWidth = boardWidth;
-		this.boardHeight = boardHeight;
 	}
 
 	@Override
@@ -65,14 +58,14 @@ public class ClassicOthello implements Othello {
 		x += dx;
 		y += dy;
 		List<Node> potentialSwapNodes = new ArrayList<>();
-		while (x < boardWidth && x >= 0 && y < boardHeight && y >= 0) {
+		while (x < board.getColumns() && x >= 0 && y < board.getRows() && y >= 0) {
 			Node n = getNode(x, y);
 			if (isOpponent(n, playerId)) {
 				potentialSwapNodes.add(n);
 			} else {
 				if (isFriendly(n, playerId)) {
 					nodesToSwap.addAll(potentialSwapNodes);
-				}
+				} // else no swaps in this direction
 				break;
 			}
 			x += dx;
@@ -126,7 +119,6 @@ public class ClassicOthello implements Othello {
 				return true;
 			}
 		}
-
 		return false;
 	}
 
@@ -234,53 +226,15 @@ public class ClassicOthello implements Othello {
 		// use default value if there are no players with id = playerId.
 	}
 
+	/**
+	 * Print player list and current board status.
+	 */
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-
-		char[][] visualBoard = new char[8][8];
-
-		Map<String, Character> playerNumber = new HashMap<>();
-
-		for (int i = 0; i < players.size(); i++) {
-			playerNumber.put(players.get(i).getId(), Integer.toString(i).charAt(0));
-			sb.append((i == 1 ? 'O' : 'X')).append(": ").append(players.get(i).getName()).append("\n");
+		for (Player p : players) {
+			sb.append(p.getId()).append(": ").append(p.getName()).append("\n");
 		}
-
-		sb.append("Player ").append(getPlayerInTurn().getName()).append("'s turn.\n");
-
-		for (Node n : board.getNodes()) {
-			char sign = '.';
-			if (n.isMarked()) {
-				sign = playerNumber.get(n.getOccupantPlayerId());
-				sign = (sign == '1' ? 'O' : 'X');
-			}
-			visualBoard[n.getYCoordinate()][n.getXCoordinate()] = sign;
-		}
-
-		sb.append("   ");
-		for (int i = 0; i < boardWidth * 2 + 1; i++) {
-			sb.append("_");
-		}
-		sb.append("\n");
-		for (int y = boardHeight - 1; y >= 0; y--) {
-			sb.append(y).append(" | ");
-			for (int x = 0; x < boardWidth; x++) {
-				sb.append(visualBoard[y][x]).append(" ");
-			}
-			sb.append("|\n");
-		}
-		sb.append("  |");
-		for (int i = 0; i < boardWidth; i++) {
-			sb.append("__");
-		}
-		sb.append("_|\n");
-		sb.append("    ");
-		for (int i = 0; i < boardWidth; i++) {
-			sb.append(i).append(" ");
-		}
-		sb.append("\n");
-
-		return sb.toString();
+		return sb.toString() + board;
 	}
 }

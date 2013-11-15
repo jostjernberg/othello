@@ -82,4 +82,28 @@ public class ClassicBoard implements InternalBoard {
 		}
 		return columns * y + x;
 	}
+
+	/**
+	 * 
+	 */
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		int i = 0;
+		for (Node n : getNodes()) {
+			sb.append(" ");
+			if (n.isMarked()) {
+				sb.append(n.getOccupantPlayerId());
+			} else {
+				sb.append(".");
+			}
+			i++;
+			if (i >= getColumns()) {
+				sb.append("\n");
+				i = 0;
+			}
+		}
+		sb.append("\n");
+		return sb.toString();
+	}
 }
