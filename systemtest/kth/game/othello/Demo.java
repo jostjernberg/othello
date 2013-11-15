@@ -1,11 +1,14 @@
 package kth.game.othello;
 
+import kth.game.othello.board.InternalBoard;
 import kth.game.othello.player.Player;
 
 public class Demo {
 	private enum DemoNumber {
 		DEMO_1, DEMO_2
 	};
+
+	private static final int MOVE_PAUSE = 100; // ms between each move
 
 	private DemoNumber demo = DemoNumber.DEMO_1;
 
@@ -25,6 +28,18 @@ public class Demo {
 		}
 	}
 
+	// TODO: move this to actual game
+	private void printWinner(Othello othello) {
+		InternalBoard board = (InternalBoard) othello.getBoard();
+		String winner = board.getLeadingPlayerId();
+		if (winner == InternalBoard.RESULT_TIE) {
+			System.out.println("The game is tied!");
+		} else {
+			System.out.println("The winner is player " + winner);
+		}
+		System.out.println("Please come again.");
+	}
+
 	private void demo1() {
 		OthelloFactory othelloFactory = new ClassicOthelloFactory();
 		Othello othello = othelloFactory.createComputerGameOnClassicalBoard();
@@ -32,7 +47,7 @@ public class Demo {
 		System.out.println(othello);
 		while (othello.isActive()) {
 			try {
-				Thread.sleep(500);
+				Thread.sleep(MOVE_PAUSE);
 			} catch (InterruptedException ie) {
 
 			}
@@ -41,6 +56,7 @@ public class Demo {
 		}
 		System.out.println(othello);
 		System.out.println("Game ended!");
+		printWinner(othello);
 	}
 
 	private void demo2() {
@@ -50,7 +66,7 @@ public class Demo {
 		System.out.println(othello);
 		while (othello.isActive()) {
 			try {
-				Thread.sleep(500);
+				Thread.sleep(MOVE_PAUSE);
 			} catch (InterruptedException ie) {
 
 			}
@@ -67,6 +83,7 @@ public class Demo {
 			System.out.println(othello);
 		}
 		System.out.println(othello);
-		System.out.println("Game ended!");
+		System.out.println("Game ended.");
+		printWinner(othello);
 	}
 }

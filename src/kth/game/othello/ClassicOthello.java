@@ -65,7 +65,7 @@ public class ClassicOthello implements Othello {
 			} else {
 				if (isFriendly(n, playerId)) {
 					nodesToSwap.addAll(potentialSwapNodes);
-				} // else no swaps in this direction
+				} // else: no swaps allowed in this direction
 				break;
 			}
 			x += dx;
@@ -222,7 +222,6 @@ public class ClassicOthello implements Othello {
 				return;
 			}
 		}
-
 		// use default value if there are no players with id = playerId.
 	}
 

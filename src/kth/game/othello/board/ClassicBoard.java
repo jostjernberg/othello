@@ -1,6 +1,7 @@
 package kth.game.othello.board;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -84,7 +85,7 @@ public class ClassicBoard implements InternalBoard {
 	}
 
 	/**
-	 * 
+	 * User friendly board print.
 	 */
 	@Override
 	public String toString() {
@@ -105,5 +106,35 @@ public class ClassicBoard implements InternalBoard {
 		}
 		sb.append("\n");
 		return sb.toString();
+	}
+
+	/**
+	 * Get the playerId of the leading player (or winner if game is over).
+	 * 
+	 * @return playerId of leading player or RESULT_TIE if game is a tie.
+	 */
+	@Override
+	public String getLeadingPlayerId() {
+		HashMap<String, Integer> players = new HashMap<>();
+		for (Node n : getNodes()) {
+			if (n.isMarked()) {
+				String pId = n.getOccupantPlayerId();
+				int current = (players.containsKey(pId) ? players.get(pId) + 1 : 1);
+				players.put(pId, current);
+			}
+		}
+		int maxNum = -1;
+		String maxId = "";
+		for (String pId : players.keySet()) {
+			int current = players.get(pId);
+			if (current > maxNum) {
+				maxNum = current;
+				maxId = pId;
+			} else if (current == maxNum) {
+				maxId = InternalBoard.RESULT_TIE;
+			}
+			System.out.println(pId + ": " + current);
+		}
+		return maxId;
 	}
 }
