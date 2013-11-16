@@ -10,7 +10,7 @@ public class Demo {
 
 	private static final int MOVE_PAUSE = 100; // ms between each move
 
-	private DemoNumber demo = DemoNumber.DEMO_1;
+	private DemoNumber demo = DemoNumber.DEMO_2;
 
 	public static void main(String args[]) {
 		new Demo();
@@ -75,6 +75,7 @@ public class Demo {
 					if (othello.isMoveValid(othello.getPlayerInTurn().getId(), othello.getBoard().getNodes().get(i)
 							.getId())) {
 						othello.move(othello.getPlayerInTurn().getId(), othello.getBoard().getNodes().get(i).getId());
+						break;
 					}
 				}
 			} else {
