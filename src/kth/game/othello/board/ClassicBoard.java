@@ -14,8 +14,8 @@ public class ClassicBoard implements InternalBoard {
 	private final int columns;
 
 	/**
-	 * Constructor which creates a classical board of specified size containing
-	 * classical nodes.
+	 * Constructor which creates a classical board of specified size containing classical nodes without any occupant
+	 * players.
 	 * 
 	 * @param rows
 	 *            Number of rows in the board.
@@ -30,7 +30,7 @@ public class ClassicBoard implements InternalBoard {
 
 	private void createNodes() {
 		if (this.nodes != null) {
-			throw new RuntimeException("Nodes already created for current board.");
+			throw new IllegalStateException("Nodes already created for current board.");
 		}
 		this.nodes = new ArrayList<Node>();
 		for (int y = 0; y < this.rows; y++) {
