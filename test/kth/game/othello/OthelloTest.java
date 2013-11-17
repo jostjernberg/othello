@@ -84,6 +84,7 @@ public class OthelloTest {
 
 	private InternalBoard mockedDefaultBoard(List<Player> players) {
 		List<Node> nodes = new ArrayList<>();
+		InternalBoard board = Mockito.mock(ClassicBoard.class);
 
 		for (int x = 0; x < 8; x++) {
 			for (int y = 0; y < 8; y++) {
@@ -104,10 +105,10 @@ public class OthelloTest {
 					Mockito.when(n.isMarked()).thenReturn(false);
 				}
 				nodes.add(n);
+				Mockito.when(board.getNode(x, y)).thenReturn(n);
 			}
 		}
 
-		InternalBoard board = Mockito.mock(ClassicBoard.class);
 		Mockito.when(board.getNodes()).thenReturn(nodes);
 		Mockito.when(board.getColumns()).thenReturn(8);
 		Mockito.when(board.getRows()).thenReturn(8);
