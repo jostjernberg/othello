@@ -10,7 +10,7 @@ public class Demo {
 
 	private static final int MOVE_PAUSE = 100; // ms between each move
 
-	private DemoNumber demo = DemoNumber.DEMO_2;
+	private DemoNumber demo = DemoNumber.DEMO_1;
 
 	public static void main(String args[]) {
 		new Demo();

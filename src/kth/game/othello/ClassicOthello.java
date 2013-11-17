@@ -22,10 +22,6 @@ public class ClassicOthello implements Othello {
 	 *            The players of the game.
 	 * @param board
 	 *            The board used for the game.
-	 * @param boardWidth
-	 *            Width of the board.
-	 * @param boardHeight
-	 *            Height of the board.
 	 */
 	public ClassicOthello(List<Player> players, InternalBoard board) {
 		this.board = board;
@@ -156,6 +152,11 @@ public class ClassicOthello implements Othello {
 		return getPlayerInTurn().getId().equals(playerId) && !getNodesToSwap(playerId, nodeId).isEmpty();
 	}
 
+	/** AI method to see how many swaps a move will cause. */
+	private int swapsOnMove(String playerId, String nodeId) {
+		return getNodesToSwap(playerId, nodeId).size();
+	}
+
 	/**
 	 * Updates which player's turn it is.
 	 */
@@ -165,6 +166,7 @@ public class ClassicOthello implements Othello {
 		}
 		if (!anyValidMoves()) {
 			gameState = OthelloState.FINISHED;
+			return;
 		}
 		do {
 			nextPlayerInTurnIndex = (nextPlayerInTurnIndex + 1) % players.size();
@@ -189,6 +191,12 @@ public class ClassicOthello implements Othello {
 		throw new IllegalArgumentException("There is no node with id '" + nodeId + "'.");
 	}
 
+	/**
+	 * CPU AI logic, currently using a greedy algorithm which chooses one of the
+	 * moves with the maximum amount of swaps right now.
+	 * 
+	 * TODO: move AI logic to ComputerPlayer?
+	 */
 	@Override
 	public List<Node> move() {
 		if (gameState != OthelloState.ACTIVE) {
@@ -199,10 +207,17 @@ public class ClassicOthello implements Othello {
 			throw new IllegalStateException("Next player is not a computer.");
 		}
 
+		Node bestNode = null;
+		int maxSwaps = 0;
 		for (Node n : board.getNodes()) {
-			if (isMoveValid(player.getId(), n.getId())) {
-				return move(player.getId(), n.getId());
+			int swaps = swapsOnMove(player.getId(), n.getId());
+			if (swaps > maxSwaps) {
+				bestNode = n;
+				maxSwaps = swaps;
 			}
+		}
+		if (bestNode != null) {
+			return move(player.getId(), bestNode.getId());
 		}
 
 		// pass turn if cannot make any moves
