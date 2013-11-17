@@ -60,7 +60,7 @@ public class ClassicOthello implements Othello {
 		y += dy;
 		List<Node> potentialSwapNodes = new ArrayList<>();
 		while (x < board.getColumns() && x >= 0 && y < board.getRows() && y >= 0) {
-			Node n = getNode(x, y);
+			Node n = board.getNode(x, y);
 			if (isOpponent(n, playerId)) {
 				potentialSwapNodes.add(n);
 			} else {
@@ -121,18 +121,6 @@ public class ClassicOthello implements Othello {
 			}
 		}
 		return false;
-	}
-
-	/*
-	 * Get node with coordinates (x, y).
-	 */
-	private Node getNode(int x, int y) {
-		for (Node n : board.getNodes()) {
-			if (n.getXCoordinate() == x && n.getYCoordinate() == y) {
-				return n;
-			}
-		}
-		throw new IllegalArgumentException("No node with coordinate (" + x + ", " + y + ").");
 	}
 
 	@Override
