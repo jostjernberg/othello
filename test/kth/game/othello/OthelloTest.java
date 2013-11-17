@@ -1,5 +1,7 @@
 package kth.game.othello;
 
+import static org.junit.Assert.fail;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -126,21 +128,21 @@ public class OthelloTest {
 		players.add(p2);
 
 		InternalBoard board = mockedDefaultBoard(players);
-
-		return new ClassicOthello(players, board);
+		ClassicOthello othello = new ClassicOthello(players, board);
+		return othello;
 	}
 
 	@Test
 	public void hasValidMoveTest() {
 		Othello othello = mockedDefaultClassicOthello();
-
+		othello.start();
 		Assert.assertTrue(othello.hasValidMove(othello.getPlayerInTurn().getId()));
 	}
 
 	@Test
 	public void isActiveTest() {
 		Othello othello = mockedDefaultClassicOthello();
-
+		othello.start();
 		Assert.assertTrue(othello.isActive());
 	}
 
@@ -187,18 +189,15 @@ public class OthelloTest {
 	@Test
 	public void startTest() {
 		Othello othello = mockedDefaultClassicOthello();
+		try {
+			othello.move();
+			fail("Move was possible without starting the game.");
+		} catch (IllegalStateException e) {
 
-		String playerId = null;
-		if (othello.getPlayerInTurn().getId().equals(othello.getPlayers().get(0).getId())) {
-			playerId = othello.getPlayers().get(1).getId();
-		} else {
-			playerId = othello.getPlayers().get(0).getId();
 		}
-
-		Assert.assertNotEquals(playerId, othello.getPlayerInTurn().getId());
-
-		othello.start(playerId);
-
-		Assert.assertEquals(playerId, othello.getPlayerInTurn().getId());
+		String starter = othello.getPlayers().get(1).getId();
+		othello.start(starter);
+		Assert.assertEquals(starter, othello.getPlayerInTurn().getId());
+		othello.move(starter, othello.getBoard().getNodes().get(0).getId());
 	}
 }

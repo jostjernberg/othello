@@ -39,11 +39,19 @@ public class ClassicOthello implements Othello {
 
 	/** Checks whether or not a node is swappable for the specified player */
 	private boolean isOpponent(Node n, String playerId) {
+		if (n == null)
+			throw new IllegalArgumentException("Node must not be null.");
+		if (playerId == null)
+			throw new IllegalArgumentException("PlayerId must not be null.");
 		return (n.isMarked() && !n.getOccupantPlayerId().equals(playerId));
 	}
 
 	/** Checks whether or not a node is owned by the specified player */
 	private boolean isFriendly(Node n, String playerId) {
+		if (n == null)
+			throw new IllegalArgumentException("Node must not be null.");
+		if (playerId == null)
+			throw new IllegalArgumentException("PlayerId must not be null.");
 		return (n.isMarked() && n.getOccupantPlayerId().equals(playerId));
 	}
 
@@ -77,6 +85,7 @@ public class ClassicOthello implements Othello {
 	@Override
 	public List<Node> getNodesToSwap(String playerId, String nodeId) {
 		List<Node> nodesToSwap = new ArrayList<>();
+
 		Node placedNode = getNode(nodeId);
 
 		if (placedNode.isMarked()) {
@@ -105,6 +114,9 @@ public class ClassicOthello implements Othello {
 
 	@Override
 	public Player getPlayerInTurn() {
+		if (gameState != OthelloState.ACTIVE) {
+			throw new IllegalStateException("Game is not active, no player in turn.");
+		}
 		return players.get(nextPlayerInTurnIndex);
 	}
 
@@ -115,6 +127,8 @@ public class ClassicOthello implements Othello {
 
 	@Override
 	public boolean hasValidMove(String playerId) {
+		if (playerId == null)
+			throw new IllegalArgumentException("PlayerId must not be null");
 		for (Node n : board.getNodes()) {
 			if (!getNodesToSwap(playerId, n.getId()).isEmpty()) {
 				return true;
@@ -125,12 +139,15 @@ public class ClassicOthello implements Othello {
 
 	@Override
 	public boolean isActive() {
+		return gameState != OthelloState.FINISHED;
+	}
+
+	private boolean anyValidMoves() {
 		for (Player p : players) {
 			if (hasValidMove(p.getId())) {
 				return true;
 			}
 		}
-
 		return false;
 	}
 
@@ -143,6 +160,12 @@ public class ClassicOthello implements Othello {
 	 * Updates which player's turn it is.
 	 */
 	private void endTurn() {
+		if (gameState != OthelloState.ACTIVE) {
+			throw new IllegalStateException("No active game, unable to end turn.");
+		}
+		if (!anyValidMoves()) {
+			gameState = OthelloState.FINISHED;
+		}
 		do {
 			nextPlayerInTurnIndex = (nextPlayerInTurnIndex + 1) % players.size();
 		} while (isActive() && !hasValidMove(getPlayerInTurn().getId()));
@@ -168,6 +191,9 @@ public class ClassicOthello implements Othello {
 
 	@Override
 	public List<Node> move() {
+		if (gameState != OthelloState.ACTIVE) {
+			throw new IllegalStateException("No active game, unable to move.");
+		}
 		Player player = getPlayerInTurn();
 		if (player.getType() != Type.COMPUTER) {
 			throw new IllegalStateException("Next player is not a computer.");
@@ -186,6 +212,9 @@ public class ClassicOthello implements Othello {
 
 	@Override
 	public List<Node> move(String playerId, String nodeId) throws IllegalArgumentException {
+		if (gameState != OthelloState.ACTIVE) {
+			throw new IllegalStateException("No active game, unable to move.");
+		}
 		List<Node> nodesToSwap = getNodesToSwap(playerId, nodeId);
 
 		if (!nodesToSwap.isEmpty()) {
@@ -209,6 +238,10 @@ public class ClassicOthello implements Othello {
 
 	@Override
 	public void start(String playerId) {
+		if (gameState != OthelloState.STARTUP) {
+			throw new IllegalStateException("Cannot start a game which has already started.");
+		}
+		gameState = OthelloState.ACTIVE;
 		for (int i = 0; i < players.size(); i++) {
 			if (players.get(i).getId().equals(playerId)) {
 				nextPlayerInTurnIndex = i;
