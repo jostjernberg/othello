@@ -13,6 +13,7 @@ public class ClassicOthello implements Othello {
 	private InternalBoard board;
 	private List<Player> players;
 	private int nextPlayerInTurnIndex;
+	private OthelloState gameState = OthelloState.STARTUP;
 
 	/**
 	 * An othello game.
@@ -211,7 +212,11 @@ public class ClassicOthello implements Othello {
 
 	@Override
 	public void start() {
+		if (gameState != OthelloState.STARTUP) {
+			throw new IllegalStateException("Cannot start a game which has already started.");
+		}
 		nextPlayerInTurnIndex = (int) (Math.random() * players.size());
+		gameState = OthelloState.ACTIVE;
 	}
 
 	@Override

@@ -3,7 +3,7 @@ package kth.game.othello;
 /**
  * The current game state.
  */
-public enum OthelloStates {
+public enum OthelloState {
 	/** Game has not yet started. */
 	STARTUP,
 
