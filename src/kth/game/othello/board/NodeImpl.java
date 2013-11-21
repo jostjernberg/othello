@@ -1,5 +1,7 @@
 package kth.game.othello.board;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -8,10 +10,11 @@ class NodeImpl extends Observable implements Node {
 	private String occupantPlayerId;
 	private int xCoordinate;
 	private int yCoordinate;
+	private List<Observer> observers = new ArrayList<>();
 
 	@Override
 	public void addObserver(Observer observer) {
-		// TODO Auto-generated method stub
+		observers.add(observer);
 	}
 
 	/**
@@ -21,8 +24,9 @@ class NodeImpl extends Observable implements Node {
 	 *            The id of the new occupant player.
 	 */
 	public void setOccupantPlayer(String occupantPlayerId) {
+		String previousOccupantPlayerId = this.occupantPlayerId;
 		this.occupantPlayerId = occupantPlayerId;
-		notifyObservers(occupantPlayerId);
+		notifyObservers(previousOccupantPlayerId);
 	}
 
 	/**
@@ -31,8 +35,10 @@ class NodeImpl extends Observable implements Node {
 	 * @param newOccupantPlayerId
 	 *            The id of the new occupant player.
 	 */
-	private void notifyObservers(String newOccupantPlayerId) {
-		// TODO
+	private void notifyObservers(String previousOccupantPlayerId) {
+		for (Observer obs : observers) {
+			obs.update(this, previousOccupantPlayerId);
+		}
 	}
 
 	@Override
