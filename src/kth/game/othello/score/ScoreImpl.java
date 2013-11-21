@@ -1,50 +1,57 @@
 package kth.game.othello.score;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
 import kth.game.othello.board.Board;
-import kth.game.othello.player.Player;
+import kth.game.othello.board.NodeImpl;
 
+/**
+ * The responsibility of this class is to monitor changes in the occupying player of all nodes in a board and calculate
+ * the score of all players on this board given according to a particular strategy.
+ */
 class ScoreImpl implements Score, Observer {
 	Board board;
-	List<Player> players;
+	ScoreCountingStrategy scoreCountingStrategy;
+	List<Observer> observers;
 
-	/**
-	 * 
-	 * @throws IllegalArgumentException
-	 *             if there is no player with playerId.
-	 */
-	public void setScore(String playerId, int score) throws IllegalArgumentException {
-		// TODO
+	ScoreImpl(Board board, ScoreCountingStrategy scoreCountingStrategy) {
+		this.board = board;
+		this.scoreCountingStrategy = scoreCountingStrategy;
+		observers = new ArrayList<>();
 	}
 
 	@Override
 	public void addObserver(Observer observer) {
-		// TODO Auto-generated method stub
-
+		observers.add(observer);
 	}
 
 	@Override
 	public List<ScoreItem> getPlayersScore() {
-		// TODO Auto-generated method stub
-		return null;
+		return scoreCountingStrategy.getPlayersScore();
 	}
 
 	@Override
 	public int getPoints(String playerId) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	public void setScoreCountingStrategy(ScoreCountingStrategy strategy) {
-		// TODO
+		return scoreCountingStrategy.getPoints(playerId);
 	}
 
 	@Override
 	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
+		NodeImpl node = (NodeImpl) o;
+		String previousOccupyingPlayerId = (String) arg;
+
+		List<String> notification = new ArrayList<String>();
+		notification.add(node.getOccupantPlayerId());
+		if (previousOccupyingPlayerId != null) {
+			notification.add(previousOccupyingPlayerId);
+		}
+
+		for (Observer obs : observers) {
+			obs.update(node, notification);
+		}
 
 	}
 }
