@@ -2,6 +2,9 @@ package kth.game.othello.board;
 
 import java.util.List;
 
+/**
+ * The responsibility of this class is to hold and provide access to a set of nodes.
+ */
 class BoardImpl implements Board {
 	private List<Node> nodes;
 
