@@ -6,13 +6,13 @@ import java.util.Observable;
 import java.util.Observer;
 
 import kth.game.othello.board.Board;
-import kth.game.othello.board.NodeImpl;
+import kth.game.othello.board.Node;
 
 /**
  * The responsibility of this class is to monitor changes in the occupying player of all nodes in a board and calculate
  * the score of all players on this board given according to a particular strategy.
  */
-class ScoreImpl implements Score, Observer {
+class ScoreImpl extends Observable implements Score, Observer {
 	Board board;
 	ScoreCountingStrategy scoreCountingStrategy;
 	List<Observer> observers;
@@ -40,7 +40,7 @@ class ScoreImpl implements Score, Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		NodeImpl node = (NodeImpl) o;
+		Node node = (Node) o;
 		String previousOccupyingPlayerId = (String) arg;
 
 		List<String> notification = new ArrayList<String>();
@@ -50,7 +50,7 @@ class ScoreImpl implements Score, Observer {
 		}
 
 		for (Observer obs : observers) {
-			obs.update(node, notification);
+			obs.update(this, notification);
 		}
 
 	}
