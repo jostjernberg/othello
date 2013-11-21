@@ -11,6 +11,7 @@ import kth.game.othello.player.Player;
 
 public class ClassicOthelloFactory implements OthelloFactory {
 	private static int CLASSIC_DIMENSION_HEIGHT = 8;
+
 	private static int CLASSIC_DIMENSION_WIDTH = 8;
 
 	public ClassicOthelloFactory() {
