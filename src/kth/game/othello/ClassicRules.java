@@ -37,6 +37,11 @@ public class ClassicRules implements Rules {
 			} catch (IllegalArgumentException iae) { // this is thrown if coordinates are outside of the board
 				return new ArrayList<Node>();
 			}
+			// this null check shouldn't be necessary, it's however needed in order to be able to use this method with a
+			// mocked board.
+			if (n == null) {
+				return new ArrayList<Node>();
+			}
 			if (!n.isMarked()) {
 				return new ArrayList<Node>();
 			} else if (!n.getOccupantPlayerId().equals(playerId)) { // this node contains an opponent
@@ -59,8 +64,10 @@ public class ClassicRules implements Rules {
 
 	@Override
 	public List<Node> getNodesToSwap(String playerId, String nodeId) {
-		if (playerId == null || nodeId == null) {
-			throw new NullPointerException();
+		if (playerId == null) {
+			throw new NullPointerException("playerId is null");
+		} else if (nodeId == null) {
+			throw new NullPointerException("nodeId is null");
 		}
 
 		List<Node> nodesToSwap = new ArrayList<>();
@@ -91,7 +98,7 @@ public class ClassicRules implements Rules {
 	@Override
 	public boolean hasValidMove(String playerId) {
 		if (playerId == null) {
-			throw new NullPointerException();
+			throw new NullPointerException("playerId is null");
 		}
 
 		for (Node n : board.getNodes()) {
