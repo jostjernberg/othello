@@ -1,8 +1,9 @@
 package kth.game.othello.board;
 
 public class NodeCreatorImpl implements NodeCreator {
+	public static NodeCreatorImpl INSTANCE = new NodeCreatorImpl();
 
-	public NodeCreatorImpl() {
+	private NodeCreatorImpl() {
 
 	}
 
