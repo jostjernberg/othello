@@ -24,6 +24,9 @@ public class TestUtil {
 		Mockito.when(p1.getId()).thenReturn("player1id");
 		Mockito.when(p2.getId()).thenReturn("player2id");
 
+		Mockito.when(p1.getType()).thenReturn(Player.Type.COMPUTER);
+		Mockito.when(p2.getType()).thenReturn(Player.Type.COMPUTER);
+
 		players.add(p1);
 		players.add(p2);
 
@@ -69,4 +72,13 @@ public class TestUtil {
 		return board;
 	}
 
+	public Player playerWithId(List<Player> players, String playerId) {
+		for (Player p : players) {
+			if (p.getId().equals(playerId)) {
+				return p;
+			}
+		}
+
+		throw new IllegalArgumentException();
+	}
 }
