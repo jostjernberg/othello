@@ -3,6 +3,11 @@ package kth.game.othello.player;
 import kth.game.othello.player.movestrategy.MoveStrategy;
 
 public class PlayerCreatorImpl implements PlayerCreator {
+	public static PlayerCreatorImpl INSTANCE = new PlayerCreatorImpl();
+
+	private PlayerCreatorImpl() {
+
+	}
 
 	@Override
 	public Player createComputerPlayer(String name) {
