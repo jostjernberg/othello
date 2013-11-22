@@ -17,7 +17,7 @@ public class ScoreImpl extends Observable implements Score, Observer {
 	ScoreCountingStrategy scoreCountingStrategy;
 	List<Observer> observers;
 
-	ScoreImpl(Board board, ScoreCountingStrategy scoreCountingStrategy) {
+	public ScoreImpl(Board board, ScoreCountingStrategy scoreCountingStrategy) {
 		this.board = board;
 		this.scoreCountingStrategy = scoreCountingStrategy;
 		observers = new ArrayList<>();
