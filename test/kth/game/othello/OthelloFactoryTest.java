@@ -1,10 +1,6 @@
 package kth.game.othello;
 
 import kth.game.othello.board.Board;
-import kth.game.othello.player.Player;
-
-import org.junit.Assert;
-import org.junit.Test;
 
 public class OthelloFactoryTest {
 
@@ -40,39 +36,25 @@ public class OthelloFactoryTest {
 
 		return true;
 	}
-
-	@Test
-	public void createComputerGameOnClassicalBoardTest() {
-		OthelloFactory othelloFactory = new ClassicOthelloFactory();
-		Othello othello = othelloFactory.createComputerGameOnClassicalBoard();
-		Assert.assertEquals(2, othello.getPlayers().size());
-		Assert.assertEquals(Player.Type.COMPUTER, othello.getPlayers().get(0).getType());
-		Assert.assertEquals(Player.Type.COMPUTER, othello.getPlayers().get(1).getType());
-		Assert.assertTrue(isConsistentClassicalBoard(othello.getBoard()));
-	}
-
-	@Test
-	public void createHumanGameOnOriginalBoardTest() {
-		OthelloFactory othelloFactory = new ClassicOthelloFactory();
-		Othello othello = othelloFactory.createHumanGameOnOriginalBoard();
-		Assert.assertEquals(2, othello.getPlayers().size());
-		Assert.assertEquals(Player.Type.HUMAN, othello.getPlayers().get(0).getType());
-		Assert.assertEquals(Player.Type.HUMAN, othello.getPlayers().get(1).getType());
-		Assert.assertTrue(isConsistentClassicalBoard(othello.getBoard()));
-	}
-
-	@Test
-	public void createHumanVersusComputerGameOnOriginalBoardTest() {
-		OthelloFactory othelloFactory = new ClassicOthelloFactory();
-		Othello othello = othelloFactory.createHumanVersusComputerGameOnOriginalBoard();
-		Assert.assertEquals(2, othello.getPlayers().size());
-		if (othello.getPlayers().get(0).getType() == Player.Type.COMPUTER) {
-			Assert.assertEquals(Player.Type.HUMAN, othello.getPlayers().get(1).getType());
-		} else if (othello.getPlayers().get(0).getType() == Player.Type.HUMAN) {
-			Assert.assertEquals(Player.Type.COMPUTER, othello.getPlayers().get(1).getType());
-		} else {
-			Assert.fail();
-		}
-		Assert.assertTrue(isConsistentClassicalBoard(othello.getBoard()));
-	}
+	/*
+	 * @Test public void createComputerGameOnClassicalBoardTest() { OthelloFactory othelloFactory = new
+	 * ClassicOthelloFactory(); Othello othello = othelloFactory.createComputerGameOnClassicalBoard();
+	 * Assert.assertEquals(2, othello.getPlayers().size()); Assert.assertEquals(Player.Type.COMPUTER,
+	 * othello.getPlayers().get(0).getType()); Assert.assertEquals(Player.Type.COMPUTER,
+	 * othello.getPlayers().get(1).getType()); Assert.assertTrue(isConsistentClassicalBoard(othello.getBoard())); }
+	 * 
+	 * @Test public void createHumanGameOnOriginalBoardTest() { OthelloFactory othelloFactory = new
+	 * ClassicOthelloFactory(); Othello othello = othelloFactory.createHumanGameOnOriginalBoard();
+	 * Assert.assertEquals(2, othello.getPlayers().size()); Assert.assertEquals(Player.Type.HUMAN,
+	 * othello.getPlayers().get(0).getType()); Assert.assertEquals(Player.Type.HUMAN,
+	 * othello.getPlayers().get(1).getType()); Assert.assertTrue(isConsistentClassicalBoard(othello.getBoard())); }
+	 * 
+	 * @Test public void createHumanVersusComputerGameOnOriginalBoardTest() { OthelloFactory othelloFactory = new
+	 * ClassicOthelloFactory(); Othello othello = othelloFactory.createHumanVersusComputerGameOnOriginalBoard();
+	 * Assert.assertEquals(2, othello.getPlayers().size()); if (othello.getPlayers().get(0).getType() ==
+	 * Player.Type.COMPUTER) { Assert.assertEquals(Player.Type.HUMAN, othello.getPlayers().get(1).getType()); } else if
+	 * (othello.getPlayers().get(0).getType() == Player.Type.HUMAN) { Assert.assertEquals(Player.Type.COMPUTER,
+	 * othello.getPlayers().get(1).getType()); } else { Assert.fail(); }
+	 * Assert.assertTrue(isConsistentClassicalBoard(othello.getBoard())); }
+	 */
 }
