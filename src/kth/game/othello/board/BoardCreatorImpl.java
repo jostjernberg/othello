@@ -3,8 +3,9 @@ package kth.game.othello.board;
 import java.util.List;
 
 public class BoardCreatorImpl implements BoardCreator {
+	public static BoardCreatorImpl INSTANCE = new BoardCreatorImpl();
 
-	public BoardCreatorImpl() {
+	private BoardCreatorImpl() {
 
 	}
 
