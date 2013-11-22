@@ -4,11 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import kth.game.othello.board.Board;
+import kth.game.othello.board.BoardCreatorImpl;
+import kth.game.othello.board.NodeCreatorImpl;
 import kth.game.othello.board.factory.BoardFactory;
 import kth.game.othello.player.Player;
 import kth.game.othello.player.Player.Type;
 import kth.game.othello.player.PlayerCreator;
+import kth.game.othello.player.PlayerCreatorImpl;
 import kth.game.othello.player.movestrategy.MoveStrategy;
+import kth.game.othello.player.movestrategy.RandomMoveStrategy;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -16,19 +20,20 @@ import org.junit.Test;
 public class OthelloLab2IT {
 
 	private BoardFactory getBoardFactory() {
-		return null;
+		return new BoardFactory(NodeCreatorImpl.INSTANCE, BoardCreatorImpl.INSTANCE);
 	}
 
 	private MoveStrategy getNewMoveStrategy() {
-		return null;
+		return new RandomMoveStrategy("Random move strategy");
 	}
 
 	private OthelloFactory getOthelloFactory() {
-		return null;
+		OthelloCreator othelloCreator = new OthelloCreatorImpl();
+		return new OthelloFactory(othelloCreator, getBoardFactory(), getPlayerCreator());
 	}
 
 	private PlayerCreator getPlayerCreator() {
-		return null;
+		return PlayerCreatorImpl.INSTANCE;
 	}
 
 	private void makeNumberOfComputerMoves(int numberOfMoves, Othello othello) {
