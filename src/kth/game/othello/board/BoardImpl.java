@@ -8,6 +8,10 @@ import java.util.List;
 public class BoardImpl implements Board {
 	private List<Node> nodes;
 
+	BoardImpl(List<Node> nodes) {
+		this.nodes = nodes;
+	}
+
 	@Override
 	public Node getNode(int x, int y) {
 		Node node = null;
