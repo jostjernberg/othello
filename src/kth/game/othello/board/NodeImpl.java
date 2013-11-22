@@ -4,13 +4,24 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.UUID;
 
 public class NodeImpl extends Observable implements Node {
-	private String id;
+	private UUID id = UUID.randomUUID();
 	private String occupantPlayerId;
 	private int xCoordinate;
 	private int yCoordinate;
 	private List<Observer> observers = new ArrayList<>();
+
+	NodeImpl(int x, int y, String occupantPlayerId) {
+		this(x, y);
+		this.occupantPlayerId = occupantPlayerId;
+	}
+
+	NodeImpl(int x, int y) {
+		this.xCoordinate = x;
+		this.yCoordinate = y;
+	}
 
 	@Override
 	public void addObserver(Observer observer) {
@@ -43,7 +54,7 @@ public class NodeImpl extends Observable implements Node {
 
 	@Override
 	public String getId() {
-		return id;
+		return id.toString();
 	}
 
 	@Override
