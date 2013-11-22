@@ -3,7 +3,6 @@ package kth.game.othello;
 import java.util.ArrayList;
 import java.util.List;
 
-import junit.framework.Assert;
 import kth.game.othello.board.Board;
 import kth.game.othello.board.factory.BoardFactory;
 import kth.game.othello.player.Player;
@@ -11,6 +10,7 @@ import kth.game.othello.player.Player.Type;
 import kth.game.othello.player.PlayerCreator;
 import kth.game.othello.player.movestrategy.MoveStrategy;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 public class OthelloLab2IT {
