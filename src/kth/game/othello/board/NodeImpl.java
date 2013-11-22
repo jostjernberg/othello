@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-class NodeImpl extends Observable implements Node {
+public class NodeImpl extends Observable implements Node {
 	private String id;
 	private String occupantPlayerId;
 	private int xCoordinate;
