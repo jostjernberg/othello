@@ -1,6 +1,10 @@
 package kth.game.othello.board;
 
-class NodeCreatorImpl implements NodeCreator {
+public class NodeCreatorImpl implements NodeCreator {
+
+	public NodeCreatorImpl() {
+
+	}
 
 	@Override
 	public Node createNodeWithCoordinate(int x, int y) {
