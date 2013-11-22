@@ -4,15 +4,21 @@ import java.util.List;
 
 import kth.game.othello.board.Board;
 import kth.game.othello.board.Node;
+import kth.game.othello.board.NodeImpl;
+import kth.game.othello.player.Player;
 
 /**
- * The responsibility of this class is to performe player moves on a board.
+ * The responsibility of this class is to perform player moves on a board according to a set of rules.
  */
 public class MoveHandler {
 	Board board;
+	Rules rules;
+	TurnHandler turnHandler;
 
-	public MoveHandler(Board board) {
+	public MoveHandler(Board board, Rules rules, TurnHandler turnHandler) {
 		this.board = board;
+		this.rules = rules;
+		this.turnHandler = turnHandler;
 	}
 
 	/**
@@ -24,8 +30,15 @@ public class MoveHandler {
 	 *             if there is not a computer in turn.
 	 */
 	public List<Node> move() throws IllegalStateException {
-		// TODO Auto-generated method stub
-		return null;
+		Player player = turnHandler.getPlayerInTurn();
+
+		if (player.getType() != Player.Type.COMPUTER) {
+			throw new IllegalStateException();
+		}
+
+		Node move = player.getMoveStrategy().move(player.getId(), rules, board);
+
+		return move(player.getId(), move.getId());
 	}
 
 	/**
@@ -42,8 +55,50 @@ public class MoveHandler {
 	 *             if the move is not valid, or if the player is not in turn.
 	 */
 	public List<Node> move(String playerId, String nodeId) throws IllegalArgumentException {
-		// TODO Auto-generated method stub
-		return null;
+		if (!turnHandler.getPlayerInTurn().getId().equals(playerId)) {
+			throw new IllegalArgumentException("Not this player's turn.");
+		}
+
+		List<Node> nodesToSwap = rules.getNodesToSwap(playerId, nodeId);
+
+		if (nodesToSwap.isEmpty()) {
+			throw new IllegalArgumentException();
+		}
+
+		for (Node n : nodesToSwap) {
+			setOccupantPlayer(n, playerId);
+		}
+
+		return nodesToSwap;
 	}
 
+	/**
+	 * Sets the occupant player id of the node. The node must be an instance of NodeImpl, otherwise an exception is
+	 * thrown.
+	 * 
+	 * @param node
+	 *            Must be an instance of NodeImpl.
+	 * @param playerId
+	 *            The id of the new occupant player.
+	 * @throws ClassCastException
+	 *             if the node isn't an instance of NodeImpl.
+	 */
+	private void setOccupantPlayer(Node node, String playerId) {
+		if (node instanceof NodeImpl) {
+			NodeImpl nodeImpl = (NodeImpl) node;
+			nodeImpl.setOccupantPlayer(playerId);
+		} else {
+			throw new ClassCastException();
+		}
+	}
+
+	private Node getNodeWithId(String nodeId) {
+		for (Node n : board.getNodes()) {
+			if (nodeId.equals(n.getId())) {
+				return n;
+			}
+		}
+
+		return null;
+	}
 }
