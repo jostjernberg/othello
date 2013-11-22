@@ -69,6 +69,8 @@ public class MoveHandler {
 			setOccupantPlayer(n, playerId);
 		}
 
+		turnHandler.passTurnToNextPlayer();
+
 		return nodesToSwap;
 	}
 
