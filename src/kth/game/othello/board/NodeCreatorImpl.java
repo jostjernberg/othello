@@ -4,14 +4,12 @@ class NodeCreatorImpl implements NodeCreator {
 
 	@Override
 	public Node createNodeWithCoordinate(int x, int y) {
-		// TODO Auto-generated method stub
-		return null;
+		return new NodeImpl(x, y);
 	}
 
 	@Override
 	public Node createNodeWithCoordinateAndOccupant(int x, int y, String occupantPlayerId) {
-		// TODO Auto-generated method stub
-		return null;
+		return new NodeImpl(x, y, occupantPlayerId);
 	}
 
 }
