@@ -10,9 +10,9 @@ import kth.game.othello.board.Node;
 
 /**
  * The responsibility of this class is to monitor changes in the occupying player of all nodes in a board and calculate
- * the score of all players on this board given according to a particular strategy.
+ * the score of all players on this board according to a particular strategy.
  */
-class ScoreImpl extends Observable implements Score, Observer {
+public class ScoreImpl extends Observable implements Score, Observer {
 	Board board;
 	ScoreCountingStrategy scoreCountingStrategy;
 	List<Observer> observers;
@@ -30,12 +30,12 @@ class ScoreImpl extends Observable implements Score, Observer {
 
 	@Override
 	public List<ScoreItem> getPlayersScore() {
-		return scoreCountingStrategy.getPlayersScore();
+		return scoreCountingStrategy.getPlayersScore(board);
 	}
 
 	@Override
 	public int getPoints(String playerId) {
-		return scoreCountingStrategy.getPoints(playerId);
+		return scoreCountingStrategy.getPoints(board, playerId);
 	}
 
 	@Override
