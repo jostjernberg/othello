@@ -3,6 +3,7 @@ package kth.game.othello;
 import java.util.List;
 
 import kth.game.othello.board.Board;
+import kth.game.othello.board.BoardImpl;
 import kth.game.othello.board.Node;
 import kth.game.othello.player.Player;
 import kth.game.othello.score.Score;
@@ -83,5 +84,19 @@ class OthelloImpl implements Othello {
 	@Override
 	public void start(String playerId) {
 		turnHandler.start(playerId);
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("--- Scores ---").append("\n");
+		for (Player p : players) {
+			if (board instanceof BoardImpl) {
+				sb.append("(").append(((BoardImpl) board).playerIdToPrintableTag(p.getId())).append(") ");
+			}
+			sb.append(p.getName()).append(": ").append(getScore().getPoints(p.getId())).append("\n");
+		}
+		sb.append(board);
+		return sb.toString();
 	}
 }
