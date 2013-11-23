@@ -10,7 +10,7 @@ import kth.game.othello.board.Node;
  */
 public class GreedyMoveStrategy implements MoveStrategy {
 	private String name = "Greedy move strategy";
-	private static GreedyMoveStrategy INSTANCE = new GreedyMoveStrategy();
+	public static GreedyMoveStrategy INSTANCE = new GreedyMoveStrategy();
 
 	private GreedyMoveStrategy() {
 
