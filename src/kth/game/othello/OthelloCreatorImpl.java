@@ -9,6 +9,11 @@ import kth.game.othello.score.Score;
 import kth.game.othello.score.ScoreImpl;
 
 public class OthelloCreatorImpl implements OthelloCreator {
+	public static OthelloCreatorImpl INSTANCE = new OthelloCreatorImpl();
+
+	private OthelloCreatorImpl() {
+
+	}
 
 	@Override
 	public Othello createOthello(Board board, List<Player> players) {
