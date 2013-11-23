@@ -45,5 +45,6 @@ public class MoveHandlerTest {
 		NodeImpl n2 = (NodeImpl) board.getNode(5, 3);
 		Mockito.verify(n1).setOccupantPlayer(playerId);
 		Mockito.verify(n2).setOccupantPlayer(playerId);
+		Mockito.verify(turnHandler).passTurnToNextPlayer();
 	}
 }
