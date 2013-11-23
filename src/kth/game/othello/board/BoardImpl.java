@@ -24,6 +24,10 @@ public class BoardImpl implements Board {
 		}
 	}
 
+	public Character playerIdToPrintableTag(String playerId) {
+		return playerIdToPrintableTag.get(playerId);
+	}
+
 	@Override
 	public Node getNode(int x, int y) {
 		for (Node n : nodes) {
