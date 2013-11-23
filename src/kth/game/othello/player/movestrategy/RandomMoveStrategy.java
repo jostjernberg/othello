@@ -8,6 +8,9 @@ import kth.game.othello.Rules;
 import kth.game.othello.board.Board;
 import kth.game.othello.board.Node;
 
+/**
+ * This MoveStrategy will always make random, legal moves.
+ */
 public class RandomMoveStrategy implements MoveStrategy {
 	String name;
 
