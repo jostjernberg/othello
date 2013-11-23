@@ -76,4 +76,15 @@ public class NodeImpl extends Observable implements Node {
 	public boolean isMarked() {
 		return occupantPlayerId != null;
 	}
+
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("Node[");
+		sb.append("occupantPlayerId=").append(getOccupantPlayerId()).append(", ");
+		sb.append("xCoordinate=").append(getXCoordinate()).append(", ");
+		sb.append("yCoordinate=").append(getYCoordinate()).append(", ");
+		sb.append("id=").append(getId()).append("]");
+		return sb.toString();
+	}
 }
