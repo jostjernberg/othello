@@ -1,9 +1,11 @@
 package kth.game.othello.player;
 
 import kth.game.othello.player.movestrategy.MoveStrategy;
+import kth.game.othello.player.movestrategy.RandomMoveStrategy;
 
 public class PlayerCreatorImpl implements PlayerCreator {
 	public static PlayerCreatorImpl INSTANCE = new PlayerCreatorImpl();
+	private MoveStrategy defaultStrategy = RandomMoveStrategy.INSTANCE;
 
 	private PlayerCreatorImpl() {
 
@@ -11,7 +13,7 @@ public class PlayerCreatorImpl implements PlayerCreator {
 
 	@Override
 	public Player createComputerPlayer(String name) {
-		return new PlayerImpl(name, Player.Type.COMPUTER);
+		return new PlayerImpl(name, Player.Type.COMPUTER, defaultStrategy);
 	}
 
 	@Override
@@ -21,7 +23,7 @@ public class PlayerCreatorImpl implements PlayerCreator {
 
 	@Override
 	public Player createHumanPlayer(String name) {
-		return new PlayerImpl(name, Player.Type.HUMAN);
+		return new PlayerImpl(name, Player.Type.HUMAN, null);
 	}
 
 }

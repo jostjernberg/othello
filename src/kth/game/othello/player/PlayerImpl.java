@@ -14,13 +14,9 @@ public class PlayerImpl implements Player {
 	private Type type;
 
 	PlayerImpl(String name, Type type, MoveStrategy moveStrategy) {
-		this(name, type);
-		this.moveStrategy = moveStrategy;
-	}
-
-	PlayerImpl(String name, Type type) {
 		this.name = name;
 		this.type = type;
+		this.moveStrategy = moveStrategy;
 	}
 
 	@Override
