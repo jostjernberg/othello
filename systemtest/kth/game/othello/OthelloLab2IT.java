@@ -28,7 +28,7 @@ public class OthelloLab2IT {
 	}
 
 	private OthelloFactory getOthelloFactory() {
-		OthelloCreator othelloCreator = new OthelloCreatorImpl();
+		OthelloCreator othelloCreator = OthelloCreatorImpl.INSTANCE;
 		return new OthelloFactory(othelloCreator, getBoardFactory(), getPlayerCreator());
 	}
 
