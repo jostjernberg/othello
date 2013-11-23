@@ -24,7 +24,7 @@ public class OthelloLab2IT {
 	}
 
 	private MoveStrategy getNewMoveStrategy() {
-		return new RandomMoveStrategy("Random move strategy");
+		return RandomMoveStrategy.INSTANCE;
 	}
 
 	private OthelloFactory getOthelloFactory() {

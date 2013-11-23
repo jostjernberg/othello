@@ -12,10 +12,11 @@ import kth.game.othello.board.Node;
  * This MoveStrategy will always make random, legal moves.
  */
 public class RandomMoveStrategy implements MoveStrategy {
-	String name;
+	private String name = "Random move strategy";
+	public static RandomMoveStrategy INSTANCE = new RandomMoveStrategy();
 
-	public RandomMoveStrategy(String name) {
-		this.name = name;
+	private RandomMoveStrategy() {
+
 	}
 
 	@Override
