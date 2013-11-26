@@ -92,12 +92,11 @@ public class Demo {
 		Othello othello = othelloFactory.createHumanGameOnOriginalBoard();
 
 		othello.start();
+		System.out.println("====== Demo start ======");
+		System.out.println(othello);
+		System.out.println();
 
-		int round = 1;
-		while (othello.isActive()) {
-			System.out.println("====== Round " + round + " ======");
-			System.out.println(othello);
-			System.out.println();
+		for (int round = 1; round <= 4 * othello.getPlayers().size(); round++) {
 
 			String playerId = othello.getPlayerInTurn().getId();
 			String nodeId = null;
@@ -109,7 +108,10 @@ public class Demo {
 			}
 
 			othello.move(playerId, nodeId);
-			round++;
+
+			System.out.println("====== Round " + round + " ======");
+			System.out.println(othello);
+			System.out.println();
 
 			try {
 				Thread.sleep(MOVE_PAUSE);
@@ -117,16 +119,16 @@ public class Demo {
 			}
 		}
 
-		System.out.println("====== Round " + round + " ======");
+		System.out.println("====== Demo ended ======");
 		System.out.println(othello);
 	}
 
 	private void demo6() {
 		PlayerCreator playerCreator = PlayerCreatorImpl.INSTANCE;
 		List<Player> players = new ArrayList<>();
-		players.add(playerCreator.createComputerPlayer("CPU1"));
-		players.add(playerCreator.createComputerPlayer("CPU2"));
-		players.add(playerCreator.createComputerPlayer("CPU3"));
+		players.add(playerCreator.createComputerPlayer("CPU"));
+		players.add(playerCreator.createComputerPlayer("CPV"));
+		players.add(playerCreator.createComputerPlayer("CPW"));
 
 		BoardFactory boardFactory = new BoardFactory(NodeCreatorImpl.INSTANCE, BoardCreatorImpl.INSTANCE);
 		Board board = boardFactory.getDiamondBoard(players, 9);
