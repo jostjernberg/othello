@@ -24,8 +24,7 @@ public class RandomMoveStrategyTest {
 		List<Node> nodesToSwap = new ArrayList<>();
 		nodesToSwap.add(board.getNode(3, 3));
 		nodesToSwap.add(board.getNode(2, 4));
-		Mockito.when(rules.getNodesToSwap(Mockito.any(String.class), Mockito.any(String.class)))
-				.thenReturn(nodesToSwap);
+		Mockito.when(rules.isMoveValid(Mockito.any(String.class), Mockito.any(String.class))).thenReturn(true);
 
 		RandomMoveStrategy rms = RandomMoveStrategy.INSTANCE;
 
