@@ -15,12 +15,20 @@ public class BoardImplTest {
 
 	private BoardImpl constructSimpleBoard() {
 		List<Node> nodes = new ArrayList<>();
-		nodes.add(testUtil.mockNode(1, 2, null, null));
+		nodes.add(testUtil.mockNode(1, 2, "playerId1", null));
 		nodes.add(testUtil.mockNode(2, 2, null, null));
 		nodes.add(testUtil.mockNode(0, 0, null, null));
-		nodes.add(testUtil.mockNode(8, 9, null, null));
+		nodes.add(testUtil.mockNode(8, 9, "playerId2", null));
 
 		return new BoardImpl(nodes);
+	}
+
+	@Test
+	public void canGetPlayerIdToPrintableTagTest() {
+		BoardImpl board = constructSimpleBoard();
+		Assert.assertNotEquals(null, board.playerIdToPrintableTag("playerId1"));
+		Assert.assertNotEquals(null, board.playerIdToPrintableTag("playerId2"));
+		Assert.assertEquals(null, board.playerIdToPrintableTag("playerId3"));
 	}
 
 	@Test
@@ -32,8 +40,12 @@ public class BoardImplTest {
 		Assert.assertNotEquals(null, board.getNode(8, 9));
 	}
 
-	@Test()
+	@Test(expected = IllegalArgumentException.class)
 	public void throwsExceptionWhenAccessingNodeNotPresentOnBoard() {
-		// TODO
+		BoardImpl board = constructSimpleBoard();
+		Assert.assertNotEquals(null, board.getNode(-1, -1));
+		Assert.assertNotEquals(null, board.getNode(2, 1));
+		Assert.assertNotEquals(null, board.getNode(1, 1));
+		Assert.assertNotEquals(null, board.getNode(9, 8));
 	}
 }
