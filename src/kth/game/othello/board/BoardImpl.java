@@ -1,11 +1,13 @@
 package kth.game.othello.board;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
- * The responsibility of this class is to hold and provide access to a set of nodes.
+ * The responsibility of this class is to hold and provide access to a set of
+ * nodes.
  */
 public class BoardImpl implements Board {
 	private List<Node> nodes;
@@ -13,7 +15,11 @@ public class BoardImpl implements Board {
 
 	BoardImpl(List<Node> nodes) {
 		this.nodes = nodes;
+		Collections.sort(nodes, new NodeComparator());
+		playerIdToPrintableTag();
+	}
 
+	private void playerIdToPrintableTag() {
 		playerIdToPrintableTag = new HashMap<>();
 		int i = 0;
 		for (Node n : nodes) {

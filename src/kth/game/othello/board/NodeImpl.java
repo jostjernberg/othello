@@ -87,7 +87,8 @@ public class NodeImpl extends Observable implements Node {
 	}
 
 	/**
-	 * Returns true if the other object is an instance of NodeImpl with the same x- and y-coordinates.
+	 * Returns true if the other object is an instance of NodeImpl with the same
+	 * x- and y-coordinates.
 	 */
 	@Override
 	public boolean equals(Object obj) {
