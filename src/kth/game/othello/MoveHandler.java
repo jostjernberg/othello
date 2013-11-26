@@ -93,14 +93,4 @@ public class MoveHandler {
 			throw new ClassCastException();
 		}
 	}
-
-	private Node getNodeWithId(String nodeId) {
-		for (Node n : board.getNodes()) {
-			if (nodeId.equals(n.getId())) {
-				return n;
-			}
-		}
-
-		return null;
-	}
 }
