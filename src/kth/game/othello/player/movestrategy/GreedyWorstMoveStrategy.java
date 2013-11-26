@@ -6,13 +6,13 @@ import kth.game.othello.board.Node;
 
 /**
  * This MoveStrategy will always choose the legal move that results in the
- * largest amount of nodes swapped for the playing player.
+ * lowest amount of nodes swapped for the playing player.
  */
-public class GreedyMoveStrategy implements MoveStrategy {
-	private String name = "Greedy move strategy";
-	public static GreedyMoveStrategy INSTANCE = new GreedyMoveStrategy();
+public class GreedyWorstMoveStrategy implements MoveStrategy {
+	private String name = "Worst move greedy strategy";
+	public static GreedyWorstMoveStrategy INSTANCE = new GreedyWorstMoveStrategy();
 
-	private GreedyMoveStrategy() {
+	private GreedyWorstMoveStrategy() {
 
 	}
 
@@ -23,17 +23,17 @@ public class GreedyMoveStrategy implements MoveStrategy {
 
 	@Override
 	public Node move(String playerId, Rules rules, Board board) {
-		Node bestNode = null;
-		int maxSwaps = 0;
+		Node worstNode = null;
+		int minSwaps = 0;
 
 		for (Node n : board.getNodes()) {
 			int swapsOnMove = rules.getNodesToSwap(playerId, n.getId()).size();
-			if (swapsOnMove > maxSwaps) {
-				bestNode = n;
-				maxSwaps = swapsOnMove;
+			if (swapsOnMove < minSwaps || minSwaps == 0) {
+				worstNode = n;
+				minSwaps = swapsOnMove;
 			}
 		}
 
-		return bestNode;
+		return worstNode;
 	}
 }
