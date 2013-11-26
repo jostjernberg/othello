@@ -27,9 +27,9 @@ public class GreedyMoveStrategyTest {
 		Mockito.when(rules.getNodesToSwap(Mockito.any(String.class), Mockito.any(String.class)))
 				.thenReturn(nodesToSwap);
 
-		GreedyMoveStrategy rms = GreedyMoveStrategy.INSTANCE;
+		GreedyMoveStrategy gms = GreedyMoveStrategy.INSTANCE;
 
-		Node move = rms.move(players.get(0).getId(), rules, board);
+		Node move = gms.move(players.get(0).getId(), rules, board);
 		Assert.assertNotEquals(null, move);
 	}
 
@@ -51,9 +51,9 @@ public class GreedyMoveStrategyTest {
 		String nodeId = board.getNode(5, 5).getId();
 		Mockito.when(rules.getNodesToSwap(playerId, nodeId)).thenReturn(bestNodesToSwap);
 
-		GreedyMoveStrategy rms = GreedyMoveStrategy.INSTANCE;
+		GreedyMoveStrategy gms = GreedyMoveStrategy.INSTANCE;
 
-		Node move = rms.move(players.get(0).getId(), rules, board);
+		Node move = gms.move(players.get(0).getId(), rules, board);
 		Assert.assertNotEquals(null, move);
 		Assert.assertEquals(nodeId, move.getId());
 	}
