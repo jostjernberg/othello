@@ -40,6 +40,36 @@ public class BoardImplTest {
 		Assert.assertNotEquals(null, board.getNode(8, 9));
 	}
 
+	@Test
+	public void nodesAreOrdered() {
+		List<Node> nodes = new ArrayList<>();
+
+		// 3x3 board with nodes added in arbitrary order
+		nodes.add(testUtil.mockNode(0, 0, "playerId1", null));
+		nodes.add(testUtil.mockNode(2, 0, null, null));
+		nodes.add(testUtil.mockNode(1, 2, null, null));
+		nodes.add(testUtil.mockNode(2, 1, null, null));
+		nodes.add(testUtil.mockNode(0, 2, null, null));
+		nodes.add(testUtil.mockNode(1, 0, "playerId2", null));
+		nodes.add(testUtil.mockNode(1, 1, null, null));
+		nodes.add(testUtil.mockNode(0, 1, null, null));
+		nodes.add(testUtil.mockNode(2, 2, null, null));
+		Board b = new BoardImpl(nodes);
+
+		// Verify that getNodes() returns all nodes in order
+		// (y ascending, then x ascending)
+		int lastY = -1;
+		int lastX = -1;
+		for (Node n : b.getNodes()) {
+			int x = n.getXCoordinate();
+			int y = n.getYCoordinate();
+			Assert.assertTrue(y >= lastY);
+			Assert.assertTrue(x > lastX || lastY != y);
+			lastX = x;
+			lastY = y;
+		}
+	}
+
 	@Test(expected = IllegalArgumentException.class)
 	public void throwsExceptionWhenAccessingNodeNotPresentOnBoard() {
 		BoardImpl board = constructSimpleBoard();
