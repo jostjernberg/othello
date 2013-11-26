@@ -22,7 +22,7 @@ public class Demo {
 		DEMO_4, DEMO_5, DEMO_6
 	};
 
-	private static final int MOVE_PAUSE = 1000; // ms between each move
+	private static final int MOVE_PAUSE = 0; // ms between each move
 
 	private DemoNumber demo = DemoNumber.DEMO_6;
 
@@ -129,7 +129,7 @@ public class Demo {
 		players.add(playerCreator.createComputerPlayer("CPU3"));
 
 		BoardFactory boardFactory = new BoardFactory(NodeCreatorImpl.INSTANCE, BoardCreatorImpl.INSTANCE);
-		Board board = boardFactory.getDiamondBoard(players, 7);
+		Board board = boardFactory.getDiamondBoard(players, 9);
 
 		OthelloFactory othelloFactory = new OthelloFactory(OthelloCreatorImpl.INSTANCE, null, null);
 		Othello othello = othelloFactory.createGame(board, players);
