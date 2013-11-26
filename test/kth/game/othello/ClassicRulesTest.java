@@ -5,7 +5,6 @@ import java.util.List;
 
 import kth.game.othello.board.Board;
 import kth.game.othello.board.Node;
-import kth.game.othello.board.NodeImpl;
 import kth.game.othello.player.Player;
 
 import org.junit.Assert;
@@ -13,37 +12,7 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 public class ClassicRulesTest {
-
-	private List<Player> mockedDefaultPlayers() {
-		List<Player> players = new ArrayList<>();
-
-		Player p1 = Mockito.mock(Player.class);
-		Player p2 = Mockito.mock(Player.class);
-
-		Mockito.when(p1.getName()).thenReturn("player1name");
-		Mockito.when(p2.getName()).thenReturn("player2name");
-
-		Mockito.when(p1.getId()).thenReturn("player1id");
-		Mockito.when(p2.getId()).thenReturn("player2id");
-
-		players.add(p1);
-		players.add(p2);
-
-		return players;
-	}
-
-	private Node mockNode(int x, int y, String occupantPlayerId, String nodeId) {
-		Node n = Mockito.mock(NodeImpl.class);
-		boolean isMarked = occupantPlayerId != null;
-
-		Mockito.when(n.getXCoordinate()).thenReturn(x);
-		Mockito.when(n.getYCoordinate()).thenReturn(y);
-		Mockito.when(n.getId()).thenReturn(nodeId);
-		Mockito.when(n.getOccupantPlayerId()).thenReturn(occupantPlayerId);
-		Mockito.when(n.isMarked()).thenReturn(isMarked);
-
-		return n;
-	}
+	TestUtil testUtil = new TestUtil();
 
 	private Board mockedDefaultBoard(List<Player> players) {
 		List<Node> nodes = new ArrayList<>();
@@ -60,7 +29,7 @@ public class ClassicRulesTest {
 					playerId = players.get(1).getId();
 				}
 
-				Node n = mockNode(x, y, playerId, nodeId);
+				Node n = testUtil.mockNode(x, y, playerId, nodeId);
 				nodes.add(n);
 				Mockito.when(board.getNode(x, y)).thenReturn(n);
 			}
@@ -77,7 +46,7 @@ public class ClassicRulesTest {
 
 	@Test
 	public void getNodesToSwapSimpleHorizontalTest() {
-		List<Player> players = mockedDefaultPlayers();
+		List<Player> players = testUtil.mockedDefaultPlayers();
 		Board board = mockedDefaultBoard(players);
 
 		Rules rules = new ClassicRules(board);
@@ -99,7 +68,7 @@ public class ClassicRulesTest {
 
 	@Test
 	public void getNodesToSwapSimpleVerticalTest() {
-		List<Player> players = mockedDefaultPlayers();
+		List<Player> players = testUtil.mockedDefaultPlayers();
 		Board board = mockedDefaultBoard(players);
 
 		Rules rules = new ClassicRules(board);
@@ -121,7 +90,7 @@ public class ClassicRulesTest {
 
 	@Test
 	public void shouldBeValidMoveTest() {
-		List<Player> players = mockedDefaultPlayers();
+		List<Player> players = testUtil.mockedDefaultPlayers();
 		Board board = mockedDefaultBoard(players);
 
 		Rules rules = new ClassicRules(board);
@@ -133,7 +102,7 @@ public class ClassicRulesTest {
 
 	@Test
 	public void shouldNotBeValidMoveTest() {
-		List<Player> players = mockedDefaultPlayers();
+		List<Player> players = testUtil.mockedDefaultPlayers();
 		Board board = mockedDefaultBoard(players);
 
 		Rules rules = new ClassicRules(board);
@@ -146,7 +115,7 @@ public class ClassicRulesTest {
 
 	@Test
 	public void hasValidMoveTest() {
-		List<Player> players = mockedDefaultPlayers();
+		List<Player> players = testUtil.mockedDefaultPlayers();
 		Board board = mockedDefaultBoard(players);
 
 		Rules rules = new ClassicRules(board);

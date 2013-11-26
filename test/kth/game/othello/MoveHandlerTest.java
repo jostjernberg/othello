@@ -47,4 +47,28 @@ public class MoveHandlerTest {
 		Mockito.verify(n2).setOccupantPlayer(playerId);
 		Mockito.verify(turnHandler).passTurnToNextPlayer();
 	}
+
+	@Test(expected = IllegalStateException.class)
+	public void throwsExceptionWhenNotComputerPlayerInTurnTest() {
+		Player player = Mockito.mock(Player.class);
+		Mockito.when(player.getType()).thenReturn(Player.Type.HUMAN);
+		TurnHandler turnHandler = Mockito.mock(TurnHandler.class);
+		Mockito.when(turnHandler.getPlayerInTurn()).thenReturn(player);
+
+		MoveHandler moveHandler = new MoveHandler(null, null, turnHandler);
+
+		moveHandler.move();
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void throwsExceptionWhenNotRightPlayerInTurnTest() {
+		Player player = Mockito.mock(Player.class);
+		Mockito.when(player.getId()).thenReturn("playerId1");
+		TurnHandler turnHandler = Mockito.mock(TurnHandler.class);
+		Mockito.when(turnHandler.getPlayerInTurn()).thenReturn(player);
+
+		MoveHandler moveHandler = new MoveHandler(null, null, turnHandler);
+
+		moveHandler.move("playerId2", null);
+	}
 }
