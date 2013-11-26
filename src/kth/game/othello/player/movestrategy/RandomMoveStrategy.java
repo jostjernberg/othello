@@ -29,7 +29,7 @@ public class RandomMoveStrategy implements MoveStrategy {
 		List<Node> possibleMoves = new ArrayList<>();
 
 		for (Node n : board.getNodes()) {
-			if (!rules.getNodesToSwap(playerId, n.getId()).isEmpty()) {
+			if (rules.isMoveValid(playerId, n.getId())) {
 				possibleMoves.add(n);
 			}
 		}
