@@ -30,13 +30,23 @@ public class BoardImpl implements Board {
 
 	@Override
 	public Node getNode(int x, int y) {
-		for (Node n : nodes) {
+		Node n = getNodeWithNullReturnInsteadOfException(x, y);
+
+		if (n == null) {
+			throw new IllegalArgumentException("Can't find node with coordinates (" + x + ", " + y + ")");
+		}
+
+		return n;
+	}
+
+	private Node getNodeWithNullReturnInsteadOfException(int x, int y) {
+		for (Node n : getNodes()) {
 			if (x == n.getXCoordinate() && y == n.getYCoordinate()) {
 				return n;
 			}
 		}
 
-		throw new IllegalArgumentException("Can't find node with coordinates (" + x + ", " + y + ")");
+		return null;
 	}
 
 	@Override
@@ -70,6 +80,22 @@ public class BoardImpl implements Board {
 		int width = getWidth();
 		int height = getHeight();
 
+		char[][] boardRepresentation = new char[height][width];
+
+		for (int y = 0; y < height; y++) {
+			for (int x = 0; x < width; x++) {
+				boardRepresentation[y][x] = ' ';
+			}
+		}
+
+		for (Node n : getNodes()) {
+			char token = '.';
+			if (n.isMarked()) {
+				token = playerIdToPrintableTag.get(n.getOccupantPlayerId());
+			}
+			boardRepresentation[n.getYCoordinate()][n.getXCoordinate()] = token;
+		}
+
 		sb.append("   ");
 		for (int x = 0; x < width * 2 + 1; x++) {
 			sb.append("_");
@@ -78,17 +104,7 @@ public class BoardImpl implements Board {
 		for (int y = height - 1; y >= 0; y--) {
 			sb.append(y).append(" | ");
 			for (int x = 0; x < width; x++) {
-				char token = ' ';
-				try {
-					Node n = getNode(x, y);
-					if (n.isMarked()) {
-						token = playerIdToPrintableTag.get(n.getOccupantPlayerId());
-					} else {
-						token = '.';
-					}
-				} catch (IllegalArgumentException iae) {
-				}
-				sb.append(token).append(" ");
+				sb.append(boardRepresentation[y][x]).append(" ");
 			}
 			sb.append("|\n");
 		}
