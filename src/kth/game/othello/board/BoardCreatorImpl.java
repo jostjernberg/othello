@@ -30,13 +30,12 @@ public class BoardCreatorImpl implements BoardCreator {
 	private boolean hasDuplicateNodes(List<Node> nodes) {
 		HashSet<String> foundNodes = new HashSet<>();
 		for (Node n : nodes) {
-			String node = "x=" + n.getXCoordinate() + ",y=" + n.getYCoordinate();
-			if (foundNodes.contains(node)) {
-				return false;
-			} else {
-				foundNodes.add(node);
+			String node = "x" + n.getXCoordinate() + "y" + n.getYCoordinate();
+			if (!foundNodes.add(node)) {
+				// HashSet.add returns false on duplicate (equal) objects.
+				return true;
 			}
 		}
-		return true;
+		return false;
 	}
 }
