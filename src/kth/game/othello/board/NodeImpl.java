@@ -78,6 +78,34 @@ public class NodeImpl extends Observable implements Node {
 	}
 
 	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + xCoordinate;
+		result = prime * result + yCoordinate;
+		return result;
+	}
+
+	/**
+	 * Returns true if the other object is an instance of NodeImpl with the same x- and y-coordinates.
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (!(obj instanceof Node))
+			return false;
+		Node other = (Node) obj;
+		if (xCoordinate != other.getXCoordinate())
+			return false;
+		if (yCoordinate != other.getYCoordinate())
+			return false;
+		return true;
+	}
+
+	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("Node[");
