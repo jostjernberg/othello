@@ -38,6 +38,9 @@ public class OthelloLab2IT {
 
 	private void makeNumberOfComputerMoves(int numberOfMoves, Othello othello) {
 		for (int i = 0; i < numberOfMoves; i++) {
+			if (i > 0 && !othello.isActive()) {
+				break;
+			}
 			Assert.assertEquals(Type.COMPUTER, othello.getPlayerInTurn().getType());
 			othello.move();
 		}
