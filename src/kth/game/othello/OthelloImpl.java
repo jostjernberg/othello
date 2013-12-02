@@ -1,6 +1,7 @@
 package kth.game.othello;
 
 import java.util.List;
+import java.util.Observer;
 
 import kth.game.othello.board.Board;
 import kth.game.othello.board.BoardImpl;
@@ -98,5 +99,23 @@ class OthelloImpl implements Othello {
 		}
 		sb.append(board);
 		return sb.toString();
+	}
+
+	@Override
+	public void addGameFinishedObserver(Observer observer) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void addMoveObserver(Observer observer) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public String getId() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
