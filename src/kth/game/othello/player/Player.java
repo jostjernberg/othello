@@ -7,7 +7,7 @@ public interface Player {
 	/**
 	 * The different type of {@link Player}s
 	 * 
-	 * @author Tomas Ekholm
+	 * @author tomasekholm
 	 */
 	public enum Type {
 		COMPUTER, HUMAN
@@ -24,8 +24,7 @@ public interface Player {
 	 * The current move strategy of the player
 	 * 
 	 * @return the move strategy
-	 * @throws UnsupportedOperationException
-	 *             if the player is of {@link Type} HUMAN
+	 * @throws UnsupportedOperationException if the player is of {@link Type} HUMAN
 	 */
 	public MoveStrategy getMoveStrategy();
 
@@ -47,9 +46,8 @@ public interface Player {
 	 * Gives the player a new move strategy. The player must be of {@link Type} COMPUTER
 	 * 
 	 * @param moveStrategy
-	 * @throws UnsupportedOperationException
-	 *             if the player is of {@link Type} HUMAN
+	 * @throws UnsupportedOperationException if the player is of {@link Type} HUMAN
 	 */
-	public void setMoveStrategy(MoveStrategy moveStrategy);
+	public void setMoveStrategy(MoveStrategy moveStrategy);;
 
 }

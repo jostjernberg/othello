@@ -45,10 +45,8 @@ public class Diamond {
 	/**
 	 * This board has a shape of a diamond and can be played by three players.
 	 * 
-	 * @param players
-	 *            The list of players, that must be three
-	 * @param size
-	 *            an odd number being the size of the board
+	 * @param players The list of players, that must be three
+	 * @param size an odd number being the size of the board
 	 * @return the diamond board
 	 */
 	public Board getDiamondBoard(List<Player> players, int size) {
