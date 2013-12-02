@@ -1,7 +1,10 @@
 package kth.game.othello;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
 import java.util.Observer;
+import java.util.UUID;
 
 import kth.game.othello.board.Board;
 import kth.game.othello.board.BoardImpl;
@@ -9,13 +12,16 @@ import kth.game.othello.board.Node;
 import kth.game.othello.player.Player;
 import kth.game.othello.score.Score;
 
-class OthelloImpl implements Othello {
+class OthelloImpl extends Observable implements Othello {
 	private Rules rules;
 	private Board board;
 	private TurnHandler turnHandler;
 	private MoveHandler moveHandler;
 	private Score score;
 	private List<Player> players;
+	private UUID id = UUID.randomUUID();
+	private List<Observer> gameFinishedObservers = new ArrayList<>();
+	private List<Observer> moveObservers = new ArrayList<>();
 
 	OthelloImpl(Board board, List<Player> players, Rules rules, MoveHandler moveHandler, TurnHandler turnHandler,
 			Score score) {
@@ -69,12 +75,27 @@ class OthelloImpl implements Othello {
 
 	@Override
 	public List<Node> move() {
-		return moveHandler.move();
+		List<Node> swappedNodes = moveHandler.move();
+		notifyMoveObserversAndGameFinishedObserversIfGameEnded(swappedNodes);
+		return swappedNodes;
 	}
 
 	@Override
 	public List<Node> move(String playerId, String nodeId) throws IllegalArgumentException {
-		return moveHandler.move(playerId, nodeId);
+		List<Node> swappedNodes = moveHandler.move(playerId, nodeId);
+		notifyMoveObserversAndGameFinishedObserversIfGameEnded(swappedNodes);
+		return swappedNodes;
+	}
+
+	private void notifyMoveObserversAndGameFinishedObserversIfGameEnded(List<Node> swappedNodes) {
+		for (Observer o : this.moveObservers) {
+			o.update(this, swappedNodes);
+		}
+		if (!isActive()) {
+			for (Observer o : this.gameFinishedObservers) {
+				o.update(this, true);
+			}
+		}
 	}
 
 	@Override
@@ -103,19 +124,16 @@ class OthelloImpl implements Othello {
 
 	@Override
 	public void addGameFinishedObserver(Observer observer) {
-		// TODO Auto-generated method stub
-
+		this.gameFinishedObservers.add(observer);
 	}
 
 	@Override
 	public void addMoveObserver(Observer observer) {
-		// TODO Auto-generated method stub
-
+		this.moveObservers.add(observer);
 	}
 
 	@Override
 	public String getId() {
-		// TODO Auto-generated method stub
-		return null;
+		return id.toString();
 	}
 }
