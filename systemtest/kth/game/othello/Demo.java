@@ -16,13 +16,16 @@ import kth.game.othello.player.PlayerCreatorImpl;
 import kth.game.othello.player.movestrategy.GreedyMoveStrategy;
 import kth.game.othello.player.movestrategy.MoveStrategy;
 import kth.game.othello.player.movestrategy.RandomMoveStrategy;
+import kth.game.othello.view.swing.OthelloView;
+import kth.game.othello.view.swing.OthelloViewFactory;
 
 public class Demo {
 	private enum DemoNumber {
 		DEMO_4, DEMO_5, DEMO_6
 	};
 
-	private static final int MOVE_PAUSE = 0; // ms between each move
+	private static final int TIME_BETWEEN_MOVES = 70; // ms
+	private static final int TIME_BETWEEN_SWAPS = 10; // ms
 
 	private DemoNumber demo = DemoNumber.DEMO_6;
 
@@ -74,7 +77,7 @@ public class Demo {
 			}
 
 			try {
-				Thread.sleep(MOVE_PAUSE);
+				Thread.sleep(TIME_BETWEEN_MOVES);
 			} catch (InterruptedException ie) {
 			}
 		}
@@ -114,13 +117,18 @@ public class Demo {
 			System.out.println();
 
 			try {
-				Thread.sleep(MOVE_PAUSE);
+				Thread.sleep(TIME_BETWEEN_MOVES);
 			} catch (InterruptedException ie) {
 			}
 		}
 
 		System.out.println("====== Demo ended ======");
 		System.out.println(othello);
+	}
+
+	private void createViewAndStartGame(Othello othello) {
+		OthelloView othelloView = OthelloViewFactory.create(othello, TIME_BETWEEN_SWAPS, TIME_BETWEEN_MOVES);
+		othelloView.start();
 	}
 
 	private void demo6() {
@@ -136,23 +144,9 @@ public class Demo {
 		OthelloFactory othelloFactory = new OthelloFactory(OthelloCreatorImpl.INSTANCE, null, null);
 		Othello othello = othelloFactory.createGame(board, players);
 
-		othello.start();
+		createViewAndStartGame(othello);
 
-		int round = 1;
-		while (othello.isActive()) {
-			System.out.println("====== Round " + round + " ======");
-			System.out.println(othello);
-			System.out.println();
+		// System.out.println(othello);
 
-			othello.move();
-			round++;
-
-			try {
-				Thread.sleep(MOVE_PAUSE);
-			} catch (InterruptedException ie) {
-			}
-		}
-		System.out.println("====== Round " + round + " ======");
-		System.out.println(othello);
 	}
 }
