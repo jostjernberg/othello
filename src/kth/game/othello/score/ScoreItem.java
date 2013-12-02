@@ -3,7 +3,6 @@ package kth.game.othello.score;
 /**
  * An instance of this class contains the score of a player.
  * 
- * @author tomasekholm
  */
 public class ScoreItem implements Comparable<ScoreItem> {
 
