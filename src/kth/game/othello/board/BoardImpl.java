@@ -60,31 +60,11 @@ public class BoardImpl implements Board {
 		return nodes;
 	}
 
-	private int getWidth() {
-		int width = 0;
-
-		for (Node n : getNodes()) {
-			width = Math.max(width, n.getXCoordinate());
-		}
-
-		return width + 1;
-	}
-
-	private int getHeight() {
-		int height = 0;
-
-		for (Node n : getNodes()) {
-			height = Math.max(height, n.getYCoordinate());
-		}
-
-		return height + 1;
-	}
-
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		int width = getWidth();
-		int height = getHeight();
+		int width = getMaxX() + 1;
+		int height = getMaxY() + 1;
 
 		char[][] boardRepresentation = new char[height][width];
 
@@ -129,19 +109,32 @@ public class BoardImpl implements Board {
 
 	@Override
 	public int getMaxX() {
-		// TODO Auto-generated method stub
-		return 0;
+		int maxX = 0;
+
+		for (Node n : getNodes()) {
+			maxX = Math.max(maxX, n.getXCoordinate());
+		}
+
+		return maxX;
 	}
 
 	@Override
 	public int getMaxY() {
-		// TODO Auto-generated method stub
-		return 0;
+		int maxY = 0;
+
+		for (Node n : getNodes()) {
+			maxY = Math.max(maxY, n.getYCoordinate());
+		}
+
+		return maxY;
 	}
 
 	@Override
 	public boolean hasNode(int x, int y) {
-		// TODO Auto-generated method stub
-		return false;
+		if (getNodeWithNullReturnInsteadOfException(x, y) == null) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 }
