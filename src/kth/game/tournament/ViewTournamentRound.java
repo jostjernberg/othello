@@ -1,17 +1,13 @@
 package kth.game.tournament;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
 
 import kth.game.othello.Othello;
 import kth.game.othello.player.Player;
 import kth.game.othello.score.Score;
 import kth.game.othello.view.swing.OthelloView;
 
-public class ViewTournamentRound extends Observable implements TournamentRound{
-	List<Observer> observers = new ArrayList<>();
+public class ViewTournamentRound implements TournamentRound{
 	Othello othello;
 	OthelloView othelloView;
 	
@@ -43,10 +39,5 @@ public class ViewTournamentRound extends Observable implements TournamentRound{
 	@Override
 	public void start() {
 		othelloView.start();
-	}
-
-	@Override
-	public void addObserver(Observer obs) {
-		observers.add(obs);
 	}
 }
