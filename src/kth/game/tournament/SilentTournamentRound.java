@@ -1,9 +1,6 @@
 package kth.game.tournament;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
 
 import kth.game.othello.Othello;
 import kth.game.othello.player.Player;
