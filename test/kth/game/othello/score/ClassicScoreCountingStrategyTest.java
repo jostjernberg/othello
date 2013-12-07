@@ -86,8 +86,7 @@ public class ClassicScoreCountingStrategyTest {
 		Assert.assertEquals(7, strat.getPoints(board, "player2"));
 	}
 
-	@Test(expected = IllegalArgumentException.class)
-	public void getPointThrowsExceptionWhenPlayerNotPresentTest() {
+	public void getPointReturnsZeroWhenPlayerNotPresentTest() {
 		List<Node> nodes = new ArrayList<>();
 		nodes.add(mockNode("player1"));
 		nodes.add(mockNode("player1"));
@@ -99,6 +98,6 @@ public class ClassicScoreCountingStrategyTest {
 		Mockito.when(board.getNodes()).thenReturn(nodes);
 
 		ClassicScoreCountingStrategy strat = ClassicScoreCountingStrategy.INSTANCE;
-		strat.getPoints(board, "player2"); // should throw exception since player2 not present on board
+		Assert.assertEquals(0, strat.getPoints(board, "player2")); 
 	}
 }

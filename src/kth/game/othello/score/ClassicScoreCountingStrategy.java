@@ -56,6 +56,6 @@ public class ClassicScoreCountingStrategy implements ScoreCountingStrategy {
 			}
 		}
 
-		throw new IllegalArgumentException();
+		return 0;
 	}
 }
