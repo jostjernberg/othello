@@ -14,8 +14,6 @@ public class SimpleResultPresenter implements ResultPresenter{
 		
 	}
 	
-	
-	
 	@Override
 	public void present(List<TournamentRound> tournamentRounds) {
 		StringBuilder sb = new StringBuilder();
