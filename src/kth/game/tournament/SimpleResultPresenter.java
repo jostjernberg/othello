@@ -2,7 +2,6 @@ package kth.game.tournament;
 
 import java.util.List;
 
-import kth.game.othello.player.movestrategy.MoveStrategy;
 import kth.game.othello.score.Score;
 import kth.game.othello.score.ScoreItem;
 
