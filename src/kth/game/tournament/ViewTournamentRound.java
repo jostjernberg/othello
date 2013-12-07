@@ -10,7 +10,7 @@ import kth.game.othello.player.Player;
 import kth.game.othello.score.Score;
 import kth.game.othello.view.swing.OthelloView;
 
-public class ViewTournamentRound extends Observable implements TournamentRound, Observer {
+public class ViewTournamentRound extends Observable implements TournamentRound{
 	List<Observer> observers = new ArrayList<>();
 	Othello othello;
 	OthelloView othelloView;
@@ -18,7 +18,6 @@ public class ViewTournamentRound extends Observable implements TournamentRound, 
 	public ViewTournamentRound(Othello othello, OthelloView othelloView) {
 		this.othello = othello;
 		this.othelloView = othelloView;
-		othello.addGameFinishedObserver(this);
 	}
 	
 	public Score getScore() {
@@ -50,17 +49,4 @@ public class ViewTournamentRound extends Observable implements TournamentRound, 
 	public void addObserver(Observer obs) {
 		observers.add(obs);
 	}
-
-	/**
-	 * Will be called when the game round is over.
-	 */
-	@Override
-	public void update(Observable o, Object arg) {
-		if(o instanceof Othello) {
-			for(Observer obs : observers) {
-				obs.update(o, arg);
-			}
-		}
-	}
-
 }

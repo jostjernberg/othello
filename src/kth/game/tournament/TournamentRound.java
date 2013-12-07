@@ -18,10 +18,4 @@ public interface TournamentRound {
 	public List<Player> getPlayers();
 	
 	public Player getPlayerWithId(String playerId);
-	
-	/**
-	 * The observers of this instance will be notified when the game has finished.
-	 * @param obs
-	 */
-	public void addObserver(Observer obs);
 }

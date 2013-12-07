@@ -9,13 +9,11 @@ import kth.game.othello.Othello;
 import kth.game.othello.player.Player;
 import kth.game.othello.score.Score;
 
-public class SilentTournamentRound extends Observable implements TournamentRound, Observer {
-	List<Observer> observers = new ArrayList<>();
+public class SilentTournamentRound implements TournamentRound {
 	Othello othello;
 	
 	public SilentTournamentRound(Othello othello) {
 		this.othello = othello;
-		othello.addGameFinishedObserver(this);
 	}
 	
 	public Score getScore() {
@@ -49,22 +47,4 @@ public class SilentTournamentRound extends Observable implements TournamentRound
 			othello.move();
 		}
 	}
-
-	@Override
-	public void addObserver(Observer obs) {
-		observers.add(obs);
-	}
-
-	/**
-	 * Will be called when the game round is over.
-	 */
-	@Override
-	public void update(Observable o, Object arg) {
-		if(o instanceof Othello) {
-			for(Observer obs : observers) {
-				obs.update(o, arg);
-			}
-		}
-	}
-
 }
