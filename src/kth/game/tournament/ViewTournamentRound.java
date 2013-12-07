@@ -7,7 +7,7 @@ import kth.game.othello.player.Player;
 import kth.game.othello.score.Score;
 import kth.game.othello.view.swing.OthelloView;
 
-public class ViewTournamentRound implements TournamentRound{
+class ViewTournamentRound implements TournamentRound{
 	Othello othello;
 	OthelloView othelloView;
 	

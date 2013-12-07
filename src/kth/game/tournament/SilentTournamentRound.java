@@ -6,7 +6,7 @@ import kth.game.othello.Othello;
 import kth.game.othello.player.Player;
 import kth.game.othello.score.Score;
 
-public class SilentTournamentRound implements TournamentRound {
+class SilentTournamentRound implements TournamentRound {
 	Othello othello;
 	
 	public SilentTournamentRound(Othello othello) {

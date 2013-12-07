@@ -2,11 +2,13 @@ package kth.game.tournament;
 
 import java.util.List;
 
+import kth.game.tournament.result.ResultPresenter;
+
 public class Tournament {
 	List<TournamentRound> tournamentRounds;
 	ResultPresenter resultPresenter;
 	
-	public Tournament(List<TournamentRound> tournamentRounds, ResultPresenter resultPresenter) {
+	Tournament(List<TournamentRound> tournamentRounds, ResultPresenter resultPresenter) {
 		this.tournamentRounds = tournamentRounds;
 		this.resultPresenter = resultPresenter;
 	}

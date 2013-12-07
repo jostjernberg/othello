@@ -11,6 +11,7 @@ import kth.game.othello.player.movestrategy.MoveStrategy;
 import kth.game.othello.player.movestrategy.RandomMoveStrategy;
 import kth.game.othello.view.swing.OthelloView;
 import kth.game.othello.view.swing.OthelloViewFactory;
+import kth.game.tournament.result.SimpleResultPresenter;
 
 public class TournamentFactory {
 	OthelloFactory othelloFactory;
