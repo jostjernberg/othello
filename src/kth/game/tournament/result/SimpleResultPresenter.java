@@ -28,6 +28,6 @@ public class SimpleResultPresenter implements ResultPresenter{
 			sb.append(e.getKey().getName()).append(": ").append(e.getValue()).append("\n");
 		}
 		
-		System.out.println(sb.toString());
+		System.out.print(sb.toString());
 	}
 }
