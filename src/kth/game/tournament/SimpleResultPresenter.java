@@ -21,7 +21,7 @@ public class SimpleResultPresenter implements ResultPresenter{
 			Score score = tournamentRounds.get(i).getScore();
 			for(ScoreItem scoreItem : score.getPlayersScore()) {
 				String playerId = scoreItem.getPlayerId();
-				String strategy = tournamentRounds.get(i).getPlayerWithId(playerId).getMoveStrategy().getName();
+				String strategy = tournamentRounds.get(i+1).getPlayerWithId(playerId).getMoveStrategy().getName();
 				sb.append(strategy).append(": ").append(scoreItem.getScore()).append("\n");
 			}
 		}
