@@ -9,6 +9,8 @@ import kth.game.othello.player.movestrategy.GreedyMoveStrategy;
 import kth.game.othello.player.movestrategy.ImpatientMoveStrategy;
 import kth.game.othello.player.movestrategy.MoveStrategy;
 import kth.game.othello.player.movestrategy.RandomMoveStrategy;
+import kth.game.othello.view.swing.OthelloView;
+import kth.game.othello.view.swing.OthelloViewFactory;
 
 public class TournamentFactory {
 	OthelloFactory othelloFactory;
@@ -22,6 +24,34 @@ public class TournamentFactory {
 		return new Tournament(tournamentRounds, SimpleResultPresenter.INSTANCE);
 	}
 	
+	public Tournament createClassicTournamentWithView() {
+		List<TournamentRound> tournamentRounds = createViewTournamentRoundsBetweenComputersOnClassicBoard();
+		return new Tournament(tournamentRounds, SimpleResultPresenter.INSTANCE);
+	}
+	
+	private List<TournamentRound> createViewTournamentRoundsBetweenComputersOnClassicBoard() {
+		List<MoveStrategy> strategies = new ArrayList<>();
+		strategies.add(RandomMoveStrategy.INSTANCE);
+		strategies.add(GreedyMoveStrategy.INSTANCE);
+		strategies.add(ImpatientMoveStrategy.INSTANCE);
+		
+		List<TournamentRound> tournamentRounds = new ArrayList<>();
+		for(MoveStrategy playerOneStrategy : strategies) {
+			for(MoveStrategy playerTwoStrategy : strategies) {
+				tournamentRounds.add(createViewTournamentRound(playerOneStrategy, playerTwoStrategy));
+			}
+		}
+		
+		return tournamentRounds;
+	}
+
+	private TournamentRound createViewTournamentRound(
+			MoveStrategy playerOneStrategy, MoveStrategy playerTwoStrategy) {
+		Othello othello = createMatchup(playerOneStrategy, playerTwoStrategy);
+		OthelloView othelloView = OthelloViewFactory.create(othello, 10, 100);
+		return new ViewTournamentRound(othello, othelloView);
+	}
+
 	private List<TournamentRound> createSilentTournamentRoundsBetweenComputersOnClassicBoard() {
 		List<MoveStrategy> strategies = new ArrayList<>();
 		strategies.add(RandomMoveStrategy.INSTANCE);
