@@ -164,7 +164,7 @@ public class Demo {
 		OthelloFactory othelloFactory = new OthelloFactory(othelloCreator, boardFactory, playerCreator);
 		TournamentFactory tournamentFactory = new TournamentFactory(othelloFactory);
 		
-		Tournament tournament = tournamentFactory.createClassicTournament();
+		Tournament tournament = tournamentFactory.createClassicTournamentWithView(TIME_BETWEEN_SWAPS, TIME_BETWEEN_MOVES);
 		System.out.println("Starting tournament!");
 		tournament.start();
 		System.out.println("Tournament ended.");

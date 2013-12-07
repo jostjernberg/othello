@@ -24,12 +24,12 @@ public class TournamentFactory {
 		return new Tournament(tournamentRounds, SimpleResultPresenter.INSTANCE);
 	}
 	
-	public Tournament createClassicTournamentWithView() {
-		List<TournamentRound> tournamentRounds = createViewTournamentRoundsBetweenComputersOnClassicBoard();
+	public Tournament createClassicTournamentWithView(int timeBetweenSwaps, int timeBetweenMoves) {
+		List<TournamentRound> tournamentRounds = createViewTournamentRoundsBetweenComputersOnClassicBoard(timeBetweenSwaps, timeBetweenMoves);
 		return new Tournament(tournamentRounds, SimpleResultPresenter.INSTANCE);
 	}
 	
-	private List<TournamentRound> createViewTournamentRoundsBetweenComputersOnClassicBoard() {
+	private List<TournamentRound> createViewTournamentRoundsBetweenComputersOnClassicBoard(int timeBetweenSwaps, int timeBetweenMoves) {
 		List<MoveStrategy> strategies = new ArrayList<>();
 		strategies.add(RandomMoveStrategy.INSTANCE);
 		strategies.add(GreedyMoveStrategy.INSTANCE);
@@ -38,7 +38,7 @@ public class TournamentFactory {
 		List<TournamentRound> tournamentRounds = new ArrayList<>();
 		for(MoveStrategy playerOneStrategy : strategies) {
 			for(MoveStrategy playerTwoStrategy : strategies) {
-				tournamentRounds.add(createViewTournamentRound(playerOneStrategy, playerTwoStrategy));
+				tournamentRounds.add(createViewTournamentRound(playerOneStrategy, playerTwoStrategy, timeBetweenSwaps, timeBetweenMoves));
 			}
 		}
 		
@@ -46,9 +46,9 @@ public class TournamentFactory {
 	}
 
 	private TournamentRound createViewTournamentRound(
-			MoveStrategy playerOneStrategy, MoveStrategy playerTwoStrategy) {
+			MoveStrategy playerOneStrategy, MoveStrategy playerTwoStrategy, int timeBetweenSwaps, int timeBetweenMoves) {
 		Othello othello = createMatchup(playerOneStrategy, playerTwoStrategy);
-		OthelloView othelloView = OthelloViewFactory.create(othello, 10, 100);
+		OthelloView othelloView = OthelloViewFactory.create(othello, timeBetweenSwaps, timeBetweenMoves);
 		return new ViewTournamentRound(othello, othelloView);
 	}
 
