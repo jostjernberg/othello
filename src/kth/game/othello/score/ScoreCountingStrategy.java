@@ -26,8 +26,6 @@ public interface ScoreCountingStrategy {
 	 * @param playerId
 	 *            The id of the player of which the score will be calculated.
 	 * @return The score of the player.
-	 * @throws IllegalArgumentException
-	 *             if these is no player present on the board with id playerId.
 	 */
-	public int getPoints(Board board, String playerId) throws IllegalArgumentException;
+	public int getPoints(Board board, String playerId);
 }
