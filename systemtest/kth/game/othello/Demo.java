@@ -18,16 +18,18 @@ import kth.game.othello.player.movestrategy.MoveStrategy;
 import kth.game.othello.player.movestrategy.RandomMoveStrategy;
 import kth.game.othello.view.swing.OthelloView;
 import kth.game.othello.view.swing.OthelloViewFactory;
+import kth.game.tournament.Tournament;
+import kth.game.tournament.TournamentFactory;
 
 public class Demo {
 	private enum DemoNumber {
-		DEMO_4, DEMO_5, DEMO_6
+		DEMO_4, DEMO_5, DEMO_6, DEMO_7
 	};
 
 	private static final int TIME_BETWEEN_MOVES = 70; // ms
 	private static final int TIME_BETWEEN_SWAPS = 10; // ms
 
-	private DemoNumber demo = DemoNumber.DEMO_6;
+	private DemoNumber demo = DemoNumber.DEMO_7;
 
 	public static void main(String args[]) {
 		new Demo();
@@ -43,6 +45,9 @@ public class Demo {
 			break;
 		case DEMO_6:
 			demo6();
+			break;
+		case DEMO_7:
+			demo7();
 			break;
 		}
 	}
@@ -148,5 +153,21 @@ public class Demo {
 
 		// System.out.println(othello);
 
+	}
+	
+	private void demo7() {
+		OthelloCreator othelloCreator = OthelloCreatorImpl.INSTANCE;
+		NodeCreator nodeCreator = NodeCreatorImpl.INSTANCE;
+		BoardCreator boardCreator = BoardCreatorImpl.INSTANCE;
+		PlayerCreator playerCreator = PlayerCreatorImpl.INSTANCE;
+		BoardFactory boardFactory = new BoardFactory(nodeCreator, boardCreator);
+		OthelloFactory othelloFactory = new OthelloFactory(othelloCreator, boardFactory, playerCreator);
+		TournamentFactory tournamentFactory = new TournamentFactory(othelloFactory);
+		
+		Tournament tournament = tournamentFactory.createClassicTournament();
+		System.out.println("Starting tournament!");
+		tournament.start();
+		System.out.println("Tournament ended.");
+		
 	}
 }
