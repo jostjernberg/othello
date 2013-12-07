@@ -7,8 +7,6 @@ import java.util.Map.Entry;
 
 import kth.game.othello.player.Player;
 import kth.game.othello.player.movestrategy.MoveStrategy;
-import kth.game.othello.score.Score;
-import kth.game.othello.score.ScoreItem;
 import kth.game.tournament.TournamentRound;
 
 public class SimpleResultPresenter implements ResultPresenter{
