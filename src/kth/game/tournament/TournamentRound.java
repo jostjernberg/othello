@@ -1,7 +1,6 @@
 package kth.game.tournament;
 
 import java.util.List;
-import java.util.Observer;
 
 import kth.game.othello.player.Player;
 import kth.game.othello.score.Score;
