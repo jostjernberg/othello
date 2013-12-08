@@ -20,58 +20,62 @@ public class TournamentFactory {
 		this.othelloFactory = othelloFactory;
 	}
 	
-	public Tournament createClassicTournament() {
-		List<TournamentRound> tournamentRounds = createSilentTournamentRoundsBetweenComputersOnClassicBoard();
+	public Tournament createClassicTournamentWithoutView() {
+		List<MoveStrategy> strategies = getStrategies();
+		
+		List<TournamentRound> tournamentRounds = new ArrayList<>();
+		for(MoveStrategy playerOneStrategy : strategies) {
+			for(MoveStrategy playerTwoStrategy : strategies) {
+				if(playerOneStrategy.equals(playerTwoStrategy)) {
+					continue;
+				}
+				Othello gameOne = createMatchup(playerOneStrategy, playerTwoStrategy);
+				Othello	gameTwo = createMatchup(playerOneStrategy, playerTwoStrategy);
+				String gameOneStartingPlayerId = gameOne.getPlayers().get(0).getId();
+				String gameTwoStartingPlayerId = gameTwo.getPlayers().get(1).getId();
+				TournamentRound roundOne = new SilentTournamentRound(gameOne, gameOneStartingPlayerId);
+				TournamentRound roundTwo = new SilentTournamentRound(gameTwo, gameTwoStartingPlayerId);				
+				
+				tournamentRounds.add(roundOne);
+				tournamentRounds.add(roundTwo);
+			}
+		}
+		
 		return new Tournament(tournamentRounds, SimpleResultPresenter.INSTANCE);
 	}
 	
 	public Tournament createClassicTournamentWithView(int timeBetweenSwaps, int timeBetweenMoves) {
-		List<TournamentRound> tournamentRounds = createViewTournamentRoundsBetweenComputersOnClassicBoard(timeBetweenSwaps, timeBetweenMoves);
+		List<MoveStrategy> strategies = getStrategies();
+		
+		List<TournamentRound> tournamentRounds = new ArrayList<>();
+		for(MoveStrategy playerOneStrategy : strategies) {
+			for(MoveStrategy playerTwoStrategy : strategies) {
+				if(playerOneStrategy.equals(playerTwoStrategy)) {
+					continue;
+				}
+				Othello gameOne = createMatchup(playerOneStrategy, playerTwoStrategy);
+				Othello	gameTwo = createMatchup(playerOneStrategy, playerTwoStrategy);
+				OthelloView othelloViewOne = OthelloViewFactory.create(gameOne, timeBetweenSwaps, timeBetweenMoves);
+				OthelloView othelloViewTwo = OthelloViewFactory.create(gameTwo, timeBetweenSwaps, timeBetweenMoves);
+				String gameOneStartingPlayerId = gameOne.getPlayers().get(0).getId();
+				String gameTwoStartingPlayerId = gameTwo.getPlayers().get(1).getId();
+				TournamentRound roundOne = new ViewTournamentRound(gameOne, othelloViewOne, gameOneStartingPlayerId);
+				TournamentRound roundTwo = new ViewTournamentRound(gameTwo, othelloViewTwo, gameTwoStartingPlayerId);				
+				
+				tournamentRounds.add(roundOne);
+				tournamentRounds.add(roundTwo);
+			}
+		}
+		
 		return new Tournament(tournamentRounds, SimpleResultPresenter.INSTANCE);
 	}
 	
-	private List<TournamentRound> createViewTournamentRoundsBetweenComputersOnClassicBoard(int timeBetweenSwaps, int timeBetweenMoves) {
+	private List<MoveStrategy> getStrategies() {
 		List<MoveStrategy> strategies = new ArrayList<>();
 		strategies.add(RandomMoveStrategy.INSTANCE);
 		strategies.add(GreedyMoveStrategy.INSTANCE);
 		strategies.add(ImpatientMoveStrategy.INSTANCE);
-		
-		List<TournamentRound> tournamentRounds = new ArrayList<>();
-		for(MoveStrategy playerOneStrategy : strategies) {
-			for(MoveStrategy playerTwoStrategy : strategies) {
-				tournamentRounds.add(createViewTournamentRound(playerOneStrategy, playerTwoStrategy, timeBetweenSwaps, timeBetweenMoves));
-			}
-		}
-		
-		return tournamentRounds;
-	}
-
-	private TournamentRound createViewTournamentRound(
-			MoveStrategy playerOneStrategy, MoveStrategy playerTwoStrategy, int timeBetweenSwaps, int timeBetweenMoves) {
-		Othello othello = createMatchup(playerOneStrategy, playerTwoStrategy);
-		OthelloView othelloView = OthelloViewFactory.create(othello, timeBetweenSwaps, timeBetweenMoves);
-		return new ViewTournamentRound(othello, othelloView);
-	}
-
-	private List<TournamentRound> createSilentTournamentRoundsBetweenComputersOnClassicBoard() {
-		List<MoveStrategy> strategies = new ArrayList<>();
-		strategies.add(RandomMoveStrategy.INSTANCE);
-		strategies.add(GreedyMoveStrategy.INSTANCE);
-		strategies.add(ImpatientMoveStrategy.INSTANCE);
-		
-		List<TournamentRound> tournamentRounds = new ArrayList<>();
-		for(MoveStrategy playerOneStrategy : strategies) {
-			for(MoveStrategy playerTwoStrategy : strategies) {
-				tournamentRounds.add(createSilentTournamentRound(playerOneStrategy, playerTwoStrategy));
-			}
-		}
-		
-		return tournamentRounds;
-	}
-	
-	private SilentTournamentRound createSilentTournamentRound(MoveStrategy playerOneStrategy, MoveStrategy playerTwoStrategy) {
-		Othello othello = createMatchup(playerOneStrategy, playerTwoStrategy);
-		return new SilentTournamentRound(othello);
+		return strategies;
 	}
 	
 	private Othello createMatchup(MoveStrategy playerOneStrategy, MoveStrategy playerTwoStrategy) {

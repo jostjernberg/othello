@@ -17,4 +17,6 @@ public interface TournamentRound {
 	public List<Player> getPlayers();
 	
 	public Player getPlayerWithId(String playerId);
+	
+	public String getStartingPlayerId();
 }

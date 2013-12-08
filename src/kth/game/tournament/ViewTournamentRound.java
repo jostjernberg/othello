@@ -10,10 +10,12 @@ import kth.game.othello.view.swing.OthelloView;
 class ViewTournamentRound implements TournamentRound{
 	Othello othello;
 	OthelloView othelloView;
+	String startingPlayerId;
 	
-	public ViewTournamentRound(Othello othello, OthelloView othelloView) {
+	public ViewTournamentRound(Othello othello, OthelloView othelloView, String startingPlayerId) {
 		this.othello = othello;
 		this.othelloView = othelloView;
+		this.startingPlayerId = startingPlayerId;
 	}
 	
 	public Score getScore() {
@@ -38,6 +40,11 @@ class ViewTournamentRound implements TournamentRound{
 	
 	@Override
 	public void start() {
-		othelloView.start();
+		othelloView.start(startingPlayerId);
+	}
+
+	@Override
+	public String getStartingPlayerId() {
+		return startingPlayerId;
 	}
 }

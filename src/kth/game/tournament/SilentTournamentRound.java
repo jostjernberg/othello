@@ -8,9 +8,11 @@ import kth.game.othello.score.Score;
 
 class SilentTournamentRound implements TournamentRound {
 	Othello othello;
+	String startingPlayerId;
 	
-	public SilentTournamentRound(Othello othello) {
+	public SilentTournamentRound(Othello othello, String startingPlayerId) {
 		this.othello = othello;
+		this.startingPlayerId = startingPlayerId;
 	}
 	
 	public Score getScore() {
@@ -43,5 +45,23 @@ class SilentTournamentRound implements TournamentRound {
 		while(othello.isActive()) {
 			othello.move();
 		}
+	}
+
+	@Override
+	public String getStartingPlayerId() {
+		return startingPlayerId;
+	}
+	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append(othello.getPlayers().get(0).getMoveStrategy().getName());
+		sb.append(" vs. ");
+		sb.append(othello.getPlayers().get(1).getMoveStrategy().getName());
+		sb.append(" - starting strategy: ");
+		sb.append(getPlayerWithId(startingPlayerId).getMoveStrategy().getName());
+		
+		return sb.toString();
 	}
 }
