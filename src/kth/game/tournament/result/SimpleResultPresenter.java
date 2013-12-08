@@ -5,11 +5,14 @@ import java.util.List;
 import kth.game.othello.player.movestrategy.MoveStrategy;
 import kth.game.tournament.Tournament;
 
+/**
+ * The responsibility of this class is to present the ranking of the strategies in a tournament, as calculated by SimpleResultRanker.
+ */
 public class SimpleResultPresenter implements ResultPresenter{
 	public static SimpleResultPresenter INSTANCE = new SimpleResultPresenter();
 	
 	private SimpleResultPresenter() {
-		
+		// empty
 	}
 	
 	@Override
