@@ -5,7 +5,7 @@ import kth.game.othello.board.Board;
 import kth.game.othello.board.Node;
 
 /**
- * The responsibility of entities that includes this interface is to determine where a player will make its next move.
+ * The responsibility of entities that implements this interface is to determine where a player will make its next move.
  */
 public interface MoveStrategy {
 
