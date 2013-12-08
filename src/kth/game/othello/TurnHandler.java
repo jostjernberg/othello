@@ -17,6 +17,9 @@ class TurnHandler {
 		this.players = players;
 	}
 
+	/**
+	 * Returns the player who is next in turn. 
+	 */
 	public Player getPlayerInTurn() {
 		return players.get(nextPlayerIndex);
 	}
@@ -44,6 +47,9 @@ class TurnHandler {
 		return false;
 	}
 
+	/**
+	 * Starts the game with the player that has id == playerId as the first player in turn.
+	 */
 	public void start(String playerId) {
 		for (int i = 0; i < players.size(); i++) {
 			if (players.get(i).getId().equals(playerId)) {
@@ -54,6 +60,9 @@ class TurnHandler {
 		// use default value if there are no players with id = playerId.
 	}
 
+	/**
+	 * Starts the game with the first player in turn choosen randomly.
+	 */
 	public void start() {
 		nextPlayerIndex = (int) (Math.random() * players.size());
 	}
