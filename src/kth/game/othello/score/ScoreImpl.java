@@ -9,8 +9,9 @@ import kth.game.othello.board.Board;
 import kth.game.othello.board.Node;
 
 /**
- * The responsibility of this class is to monitor changes in the occupying player of all nodes in a board and calculate
- * the score of all players on this board according to a particular strategy.
+ * The responsibility of this class is to monitor changes in the occupying
+ * player of all nodes in a board and calculate the score of all players on this
+ * board according to a particular strategy.
  */
 public class ScoreImpl extends Observable implements Score, Observer {
 	Board board;
@@ -23,9 +24,9 @@ public class ScoreImpl extends Observable implements Score, Observer {
 		observers = new ArrayList<>();
 		observe(board.getNodes());
 	}
-	
+
 	private void observe(List<Node> nodes) {
-		for(Node n : nodes) {
+		for (Node n : nodes) {
 			n.addObserver(this);
 		}
 	}

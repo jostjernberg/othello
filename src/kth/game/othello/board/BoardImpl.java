@@ -7,7 +7,8 @@ import java.util.Map;
 
 /**
  * The responsibility of this class is to hold and provide access to a set of
- * nodes.
+ * nodes. A board is immutable in the sense that nodes must not be added or
+ * removed after a board has been created.
  */
 public class BoardImpl implements Board {
 	private List<Node> nodes;
