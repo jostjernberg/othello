@@ -11,10 +11,13 @@ import kth.game.othello.player.Player;
  * The responsibility of this class is to perform player moves on a board according to a set of rules.
  */
 class MoveHandler {
-	Board board;
-	Rules rules;
-	TurnHandler turnHandler;
+	private Board board;
+	private Rules rules;
+	private TurnHandler turnHandler;
 
+	/**
+	 * Creates a new move handler, using a board, a set of rules and a turn handler.
+	 */
 	public MoveHandler(Board board, Rules rules, TurnHandler turnHandler) {
 		this.board = board;
 		this.rules = rules;
