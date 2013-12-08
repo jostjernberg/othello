@@ -10,7 +10,6 @@ public class NodeImplTest {
 
 	@Test
 	public void observerTest() {
-		// TODO
 		NodeImpl n1 = new NodeImpl(1, 2);
 		NodeImpl n2 = new NodeImpl(1, 2, "playerId1");
 
@@ -39,4 +38,25 @@ public class NodeImplTest {
 		Node n2 = new NodeImpl(0, 0);
 		Assert.assertNotEquals(n1.getId(), n2.getId());
 	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void negativeXCoordinateDisallowed() {
+		new NodeImpl(-2, 0);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void negativeXCoordinateWithPlayerDisallowed() {
+		new NodeImpl(-3, 0, "playerId1");
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void negativeYCoordinateDisallowed() {
+		new NodeImpl(0, -15);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void negativeYCoordinateWithPlayerDisallowed() {
+		new NodeImpl(0, -27, "playerId2");
+	}
+
 }
