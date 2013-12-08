@@ -9,7 +9,7 @@ import kth.game.tournament.executor.GameExecutor;
 /**
  * The responsibility of this entity is to hold an othello game and a way to execute it, to be used in a tournament.
  */
-public class TournamentRoundImpl implements TournamentRound {
+class TournamentRoundImpl implements TournamentRound {
 	private Othello othello;
 	private GameExecutor gameExecutor;
 	private String startingPlayerId;
