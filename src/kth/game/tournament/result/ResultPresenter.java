@@ -1,11 +1,16 @@
 package kth.game.tournament.result;
 
-import java.util.List;
+import kth.game.tournament.Tournament;
 
-import kth.game.tournament.TournamentRound;
-
+/**
+ * The responsibility of this entity is to present the results of a tournament.
+ */
 public interface ResultPresenter {
 
-	public void present(List<TournamentRound> tournamentRounds);
+	/**
+	 * Present the results of a tournament.
+	 * @param tournament
+	 */
+	public void present(Tournament tournament);
 
 }

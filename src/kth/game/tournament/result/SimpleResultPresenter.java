@@ -1,29 +1,31 @@
 package kth.game.tournament.result;
 
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 
 import kth.game.othello.player.movestrategy.MoveStrategy;
-import kth.game.tournament.TournamentRound;
+import kth.game.tournament.Tournament;
 
+/**
+ * The responsibility of this class is to present the ranking of the strategies in a tournament, as calculated by SimpleResultRanker.
+ */
 public class SimpleResultPresenter implements ResultPresenter{
 	public static SimpleResultPresenter INSTANCE = new SimpleResultPresenter();
 	
 	private SimpleResultPresenter() {
-		
+		// empty
 	}
-	
+
+	/**
+	 * Prints the results of a tournament to stdout.
+	 */
 	@Override
-	public void present(List<TournamentRound> tournamentRounds) {
+	public void present(Tournament tournament) {
 		StringBuilder sb = new StringBuilder();
 		
-		sb.append("Number of wins for each strategy:\n");
-
-		Map<MoveStrategy, Integer> wins = SimpleResultCountingStrategy.INSTANCE.getNumberOfWinsForEachStrategy(tournamentRounds);
-		
-		for(Entry<MoveStrategy, Integer> e : wins.entrySet()) {
-			sb.append(e.getKey().getName()).append(": ").append(e.getValue()).append("\n");
+		List<MoveStrategy> rankedStrategies = SimpleResultRanker.INSTANCE.rankStrategies(tournament);
+		sb.append("Ranking of strategies:\n");
+		for(int i = 0; i < rankedStrategies.size(); i++) {
+			sb.append(i+1).append(": ").append(rankedStrategies.get(i).getName()).append("\n");
 		}
 		
 		System.out.print(sb.toString());
