@@ -21,6 +21,13 @@ public class ScoreImpl extends Observable implements Score, Observer {
 		this.board = board;
 		this.scoreCountingStrategy = scoreCountingStrategy;
 		observers = new ArrayList<>();
+		observe(board.getNodes());
+	}
+	
+	private void observe(List<Node> nodes) {
+		for(Node n : nodes) {
+			n.addObserver(this);
+		}
 	}
 
 	@Override
