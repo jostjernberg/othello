@@ -26,7 +26,8 @@ public class GreedyWorstMoveStrategyTest {
 		nodesToSwap.add(board.getNode(2, 4));
 		Mockito.when(rules.getNodesToSwap(Mockito.any(String.class), Mockito.any(String.class)))
 				.thenReturn(nodesToSwap);
-
+		Mockito.when(rules.isMoveValid(Mockito.any(String.class), Mockito.any(String.class))).thenReturn(true);
+		
 		GreedyWorstMoveStrategy gwms = GreedyWorstMoveStrategy.INSTANCE;
 
 		Node move = gwms.move(players.get(0).getId(), rules, board);
@@ -42,6 +43,7 @@ public class GreedyWorstMoveStrategyTest {
 		threeNodesToSwap.add(board.getNode(3, 3));
 		threeNodesToSwap.add(board.getNode(2, 4));
 		threeNodesToSwap.add(board.getNode(1, 5));
+		Mockito.when(rules.isMoveValid(Mockito.any(String.class), Mockito.any(String.class))).thenReturn(true);
 		Mockito.when(rules.getNodesToSwap(Mockito.any(String.class), Mockito.any(String.class))).thenReturn(
 				threeNodesToSwap);
 		List<Node> twoNodesToSwap = new ArrayList<>();

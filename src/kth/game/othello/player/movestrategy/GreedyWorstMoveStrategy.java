@@ -24,11 +24,14 @@ public class GreedyWorstMoveStrategy implements MoveStrategy {
 	@Override
 	public Node move(String playerId, Rules rules, Board board) {
 		Node worstNode = null;
-		int minSwaps = 0;
+		int minSwaps = Integer.MAX_VALUE;
 
 		for (Node n : board.getNodes()) {
+			if(!rules.isMoveValid(playerId, n.getId())) {
+				continue;
+			}
 			int swapsOnMove = rules.getNodesToSwap(playerId, n.getId()).size();
-			if (swapsOnMove < minSwaps || minSwaps == 0) {
+			if (swapsOnMove < minSwaps) {
 				worstNode = n;
 				minSwaps = swapsOnMove;
 			}
