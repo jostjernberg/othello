@@ -21,9 +21,14 @@ import kth.game.othello.view.swing.OthelloViewFactory;
 import kth.game.tournament.Tournament;
 import kth.game.tournament.TournamentFactory;
 
+/**
+ * We do not consider this demo class to be part of the actual project and is
+ * only provided for your convenience. Feel free to edit the code freely and add
+ * other game types!
+ */
 public class Demo {
 	private enum DemoNumber {
-		DEMO_4, DEMO_5, DEMO_6, DEMO_7, DEMO_HUMAN, DEMO_HUMAN_CP;
+		DEMO_4, DEMO_5, DEMO_6, DEMO_TOURNAMENT, DEMO_CP, DEMO_HUMAN, DEMO_HUMAN_CP;
 	};
 
 	private static final int TIME_BETWEEN_MOVES = 70; // ms
@@ -46,8 +51,11 @@ public class Demo {
 		case DEMO_6:
 			demo6();
 			break;
-		case DEMO_7:
-			demo7();
+		case DEMO_TOURNAMENT:
+			tournamentDemo();
+			break;
+		case DEMO_CP:
+			demo6(); // good CP demo
 			break;
 		case DEMO_HUMAN:
 			humanDemo();
@@ -167,7 +175,7 @@ public class Demo {
 
 	}
 
-	private void demo7() {
+	private void tournamentDemo() {
 		OthelloCreator othelloCreator = OthelloCreatorImpl.INSTANCE;
 		NodeCreator nodeCreator = NodeCreatorImpl.INSTANCE;
 		BoardCreator boardCreator = BoardCreatorImpl.INSTANCE;
