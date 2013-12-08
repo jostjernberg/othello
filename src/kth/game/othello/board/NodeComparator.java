@@ -5,11 +5,10 @@ import java.util.Comparator;
 public class NodeComparator implements Comparator<Node> {
 
 	/**
-	 * Compare two nodes by looking at first comparing y-coordinate and then
-	 * x-coordinate.
-	 * 
-	 * @return 1 if n1 has a higher coordinate value than n2, -1 otherwise. 0
-	 *         implies that a duplicate node illegally exist.
+	 * Compares the coordinates of two nodes. Returns:
+	 * 0 if both nodes have the same x- and y-coordinates
+	 * 1 if n1 has a higher y-coordinate than n2 or if n1 has the same y-coordinate than n2, but a higher x-coordinate
+	 * -1 otherwise
 	 */
 	@Override
 	public int compare(Node n1, Node n2) {
