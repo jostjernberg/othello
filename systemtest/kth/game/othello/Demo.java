@@ -175,7 +175,7 @@ public class Demo {
 		// Tournament tournament =
 		// tournamentFactory.createClassicTournamentWithView(TIME_BETWEEN_SWAPS,
 		// TIME_BETWEEN_MOVES);
-		Tournament tournament = tournamentFactory.createClassicTournament();
+		Tournament tournament = tournamentFactory.createClassicTournamentWithoutView();
 		System.out.println("Starting tournament!");
 		tournament.start();
 	}
