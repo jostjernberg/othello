@@ -23,13 +23,13 @@ import kth.game.tournament.TournamentFactory;
 
 public class Demo {
 	private enum DemoNumber {
-		DEMO_4, DEMO_5, DEMO_6, DEMO_7
+		DEMO_4, DEMO_5, DEMO_6, DEMO_7, DEMO_HUMAN, DEMO_HUMAN_CP;
 	};
 
 	private static final int TIME_BETWEEN_MOVES = 70; // ms
 	private static final int TIME_BETWEEN_SWAPS = 10; // ms
 
-	private DemoNumber demo = DemoNumber.DEMO_5;
+	private DemoNumber demo = DemoNumber.DEMO_HUMAN_CP;
 
 	public static void main(String args[]) {
 		new Demo();
@@ -49,6 +49,14 @@ public class Demo {
 		case DEMO_7:
 			demo7();
 			break;
+		case DEMO_HUMAN:
+			humanDemo();
+			break;
+		case DEMO_HUMAN_CP:
+			humanVersusComputerDemo();
+			break;
+		default:
+			System.err.println("No demo specified.");
 		}
 	}
 
@@ -170,5 +178,29 @@ public class Demo {
 		Tournament tournament = tournamentFactory.createClassicTournament();
 		System.out.println("Starting tournament!");
 		tournament.start();
+	}
+
+	private void humanDemo() {
+		OthelloCreator othelloCreator = OthelloCreatorImpl.INSTANCE;
+		NodeCreator nodeCreator = NodeCreatorImpl.INSTANCE;
+		BoardCreator boardCreator = BoardCreatorImpl.INSTANCE;
+		PlayerCreator playerCreator = PlayerCreatorImpl.INSTANCE;
+		BoardFactory boardFactory = new BoardFactory(nodeCreator, boardCreator);
+		OthelloFactory othelloFactory = new OthelloFactory(othelloCreator, boardFactory, playerCreator);
+
+		Othello othello = othelloFactory.createHumanGameOnOriginalBoard();
+		createViewAndStartGame(othello);
+	}
+
+	private void humanVersusComputerDemo() {
+		OthelloCreator othelloCreator = OthelloCreatorImpl.INSTANCE;
+		NodeCreator nodeCreator = NodeCreatorImpl.INSTANCE;
+		BoardCreator boardCreator = BoardCreatorImpl.INSTANCE;
+		PlayerCreator playerCreator = PlayerCreatorImpl.INSTANCE;
+		BoardFactory boardFactory = new BoardFactory(nodeCreator, boardCreator);
+		OthelloFactory othelloFactory = new OthelloFactory(othelloCreator, boardFactory, playerCreator);
+
+		Othello othello = othelloFactory.createHumanVersusComputerGameOnOriginalBoard();
+		createViewAndStartGame(othello);
 	}
 }
