@@ -23,7 +23,11 @@ public class Tournament {
 		presentResults();
 	}
 	
+	public List<TournamentRound> getTournamentRounds() {
+		return this.tournamentRounds;
+	}
+	
 	private void presentResults() {
-		resultPresenter.present(tournamentRounds);
+		resultPresenter.present(this);
 	}
 }

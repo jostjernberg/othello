@@ -1,11 +1,9 @@
 package kth.game.tournament.result;
 
-import java.util.List;
-
-import kth.game.tournament.TournamentRound;
+import kth.game.tournament.Tournament;
 
 public interface ResultPresenter {
 
-	public void present(List<TournamentRound> tournamentRounds);
+	public void present(Tournament tournament);
 
 }
