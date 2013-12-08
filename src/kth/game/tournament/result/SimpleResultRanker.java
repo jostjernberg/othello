@@ -8,7 +8,6 @@ import java.util.Map.Entry;
 
 import kth.game.othello.player.Player;
 import kth.game.othello.player.movestrategy.MoveStrategy;
-import kth.game.othello.score.ScoreItem;
 import kth.game.tournament.Tournament;
 import kth.game.tournament.TournamentRound;
 
@@ -40,22 +39,21 @@ public class SimpleResultRanker implements ResultRanker {
 		Map<MoveStrategy, Integer> scores = initMapWithAllStrategies(tournament);
 		
 		for(TournamentRound round : tournament.getTournamentRounds()) {
-			List<ScoreItem> score = round.getScore().getPlayersScore();
-			if(score.size() == 1) {
-				MoveStrategy strategy = round.getPlayerWithId(score.get(0).getPlayerId()).getMoveStrategy();
+			String playerOne = round.getPlayers().get(0).getId();
+			String playerTwo = round.getPlayers().get(1).getId();
+
+			if(round.getPoints(playerOne) > round.getPoints(playerTwo)) {
+				MoveStrategy strategy = round.getPlayerWithId(playerOne).getMoveStrategy();
 				scores.put(strategy, scores.get(strategy) + 2);
-			} else if(score.get(0).getScore() > score.get(1).getScore()) {
-				MoveStrategy strategy = round.getPlayerWithId(score.get(0).getPlayerId()).getMoveStrategy();
-				scores.put(strategy, scores.get(strategy) + 2);
-			} else if(score.get(0).getScore() < score.get(1).getScore()) {
-				MoveStrategy strategy = round.getPlayerWithId(score.get(1).getPlayerId()).getMoveStrategy();
+			} else if(round.getPoints(playerOne) < round.getPoints(playerTwo)) {
+				MoveStrategy strategy = round.getPlayerWithId(playerTwo).getMoveStrategy();
 				scores.put(strategy, scores.get(strategy) + 2);
 			} else {
-				MoveStrategy strategyOne = round.getPlayerWithId(score.get(0).getPlayerId()).getMoveStrategy();
-				MoveStrategy strategyTwo = round.getPlayerWithId(score.get(1).getPlayerId()).getMoveStrategy();
+				MoveStrategy strategyOne = round.getPlayerWithId(playerOne).getMoveStrategy();
+				MoveStrategy strategyTwo = round.getPlayerWithId(playerTwo).getMoveStrategy();
 				scores.put(strategyOne, scores.get(strategyOne) + 1);
 				scores.put(strategyTwo, scores.get(strategyTwo) + 1);
-			}		
+			}	
 		}
 		return scores;
 	}
