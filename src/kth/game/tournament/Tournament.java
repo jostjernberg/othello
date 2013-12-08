@@ -8,8 +8,8 @@ import kth.game.tournament.result.ResultPresenter;
  * The responsibility of this class is to execute a set of tournament rounds and present the result when they have all finished.
  */
 public class Tournament {
-	List<TournamentRound> tournamentRounds;
-	ResultPresenter resultPresenter;
+	private List<TournamentRound> tournamentRounds;
+	private ResultPresenter resultPresenter;
 	
 	Tournament(List<TournamentRound> tournamentRounds, ResultPresenter resultPresenter) {
 		this.tournamentRounds = tournamentRounds;

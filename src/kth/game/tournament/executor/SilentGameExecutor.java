@@ -7,7 +7,7 @@ import kth.game.othello.Othello;
  * game is over.
  */
 public class SilentGameExecutor implements GameExecutor {
-	Othello othello;
+	private Othello othello;
 	
 	public SilentGameExecutor(Othello othello) {
 		this.othello = othello;

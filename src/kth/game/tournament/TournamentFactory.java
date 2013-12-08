@@ -17,7 +17,7 @@ import kth.game.tournament.executor.ViewGameExecutor;
 import kth.game.tournament.result.SimpleResultPresenter;
 
 public class TournamentFactory {
-	OthelloFactory othelloFactory;
+	private OthelloFactory othelloFactory;
 	
 	public TournamentFactory(OthelloFactory othelloFactory) {
 		this.othelloFactory = othelloFactory;
