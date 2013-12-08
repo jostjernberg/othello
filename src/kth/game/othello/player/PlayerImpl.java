@@ -4,6 +4,9 @@ import java.util.UUID;
 
 import kth.game.othello.player.movestrategy.MoveStrategy;
 
+/**
+ * The responsibility of this entity is to implement the Player interface.
+ */
 public class PlayerImpl implements Player {
 	private UUID id = UUID.randomUUID();
 	private MoveStrategy moveStrategy;
