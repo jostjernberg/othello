@@ -6,7 +6,7 @@ import java.util.List;
 import kth.game.othello.board.Board;
 import kth.game.othello.board.Node;
 
-public class ClassicRules implements Rules {
+class ClassicRules implements Rules {
 	private Board board;
 
 	public ClassicRules(Board board) {

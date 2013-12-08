@@ -10,7 +10,7 @@ import kth.game.othello.player.Player;
 /**
  * The responsibility of this class is to perform player moves on a board according to a set of rules.
  */
-public class MoveHandler {
+class MoveHandler {
 	Board board;
 	Rules rules;
 	TurnHandler turnHandler;

@@ -7,7 +7,7 @@ import kth.game.othello.player.Player;
 /**
  * The responsibility of this class is to manage which player is in turn.
  */
-public class TurnHandler {
+class TurnHandler {
 	private Rules rules;
 	private List<Player> players;
 	private int nextPlayerIndex;
