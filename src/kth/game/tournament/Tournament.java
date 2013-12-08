@@ -4,6 +4,9 @@ import java.util.List;
 
 import kth.game.tournament.result.ResultPresenter;
 
+/**
+ * The responsibility of this class is to execute a set of tournament rounds and present the result when they have all finished.
+ */
 public class Tournament {
 	List<TournamentRound> tournamentRounds;
 	ResultPresenter resultPresenter;
@@ -14,7 +17,7 @@ public class Tournament {
 	}
 	
 	/**
-	 * Assumes that a round is blocking, that is: its start()-method won't return until the game has finished.
+	 * Starts this tournament. Assumes that a round is blocking, that is: its start()-method won't return until the game has finished.
 	 */
 	public void start() {
 		for(TournamentRound round : tournamentRounds) {
@@ -23,6 +26,9 @@ public class Tournament {
 		presentResults();
 	}
 	
+	/**
+	 * Returns the rounds of this tournament, sorted in the order that they are played.
+	 */
 	public List<TournamentRound> getTournamentRounds() {
 		return this.tournamentRounds;
 	}
