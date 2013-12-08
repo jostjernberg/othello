@@ -24,6 +24,18 @@ public class BoardImplTest {
 	}
 
 	@Test
+	public void correctGetMaxX() {
+		BoardImpl board = constructSimpleBoard();
+		Assert.assertEquals(8, board.getMaxX());
+	}
+
+	@Test
+	public void correctGetMaxY() {
+		BoardImpl board = constructSimpleBoard();
+		Assert.assertEquals(9, board.getMaxY());
+	}
+
+	@Test
 	public void canGetPlayerIdToPrintableTagTest() {
 		BoardImpl board = constructSimpleBoard();
 		Assert.assertNotEquals(null, board.playerIdToPrintableTag("playerId1"));
