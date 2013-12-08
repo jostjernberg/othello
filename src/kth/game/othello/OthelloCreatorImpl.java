@@ -8,11 +8,14 @@ import kth.game.othello.score.ClassicScoreCountingStrategy;
 import kth.game.othello.score.Score;
 import kth.game.othello.score.ScoreImpl;
 
+/**
+ * The responsibility of this entity is to implement the OthelloCreator interface.
+ */
 class OthelloCreatorImpl implements OthelloCreator {
 	public static OthelloCreatorImpl INSTANCE = new OthelloCreatorImpl();
 
 	private OthelloCreatorImpl() {
-
+		// empty
 	}
 
 	@Override
