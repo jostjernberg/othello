@@ -38,8 +38,8 @@ public class TournamentFactory {
 				String gameTwoStartingPlayerId = gameTwo.getPlayers().get(1).getId();
 				GameExecutor gameExecutorOne = new SilentGameExecutor(gameOne);
 				GameExecutor gameExecutorTwo = new SilentGameExecutor(gameTwo);
-				TournamentRound roundOne = new TournamentRound(gameOne, gameExecutorOne, gameOneStartingPlayerId);
-				TournamentRound roundTwo = new TournamentRound(gameTwo, gameExecutorTwo, gameTwoStartingPlayerId);				
+				TournamentRound roundOne = new TournamentRoundImpl(gameOne, gameExecutorOne, gameOneStartingPlayerId);
+				TournamentRound roundTwo = new TournamentRoundImpl(gameTwo, gameExecutorTwo, gameTwoStartingPlayerId);				
 				
 				tournamentRounds.add(roundOne);
 				tournamentRounds.add(roundTwo);
@@ -67,8 +67,8 @@ public class TournamentFactory {
 				GameExecutor gameExecutorOne = new ViewGameExecutor(othelloViewOne);
 				GameExecutor gameExecutorTwo = new ViewGameExecutor(othelloViewTwo);
 				
-				TournamentRound roundOne = new TournamentRound(gameOne, gameExecutorOne, gameOneStartingPlayerId);
-				TournamentRound roundTwo = new TournamentRound(gameTwo, gameExecutorTwo, gameTwoStartingPlayerId);				
+				TournamentRound roundOne = new TournamentRoundImpl(gameOne, gameExecutorOne, gameOneStartingPlayerId);
+				TournamentRound roundTwo = new TournamentRoundImpl(gameTwo, gameExecutorTwo, gameTwoStartingPlayerId);				
 				
 				tournamentRounds.add(roundOne);
 				tournamentRounds.add(roundTwo);

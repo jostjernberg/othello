@@ -10,7 +10,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-public class TournamentRoundTest {
+public class TournamentRoundImplTest {
 
 	@Test
 	public void getPlayerWithIdTest() {
@@ -34,7 +34,7 @@ public class TournamentRoundTest {
 		Mockito.when(othello.getPlayers()).thenReturn(players);
 	
 		// --- test ---
-		TournamentRound round = new TournamentRound(othello, null, null);
+		TournamentRound round = new TournamentRoundImpl(othello, null, null);
 		Assert.assertEquals(p1, round.getPlayerWithId("p1-id"));
 		Assert.assertEquals(p2, round.getPlayerWithId("p2-id"));
 		Assert.assertEquals(p3, round.getPlayerWithId("p3-id"));

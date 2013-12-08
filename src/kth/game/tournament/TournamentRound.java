@@ -2,67 +2,37 @@ package kth.game.tournament;
 
 import java.util.List;
 
-import kth.game.othello.Othello;
 import kth.game.othello.player.Player;
-import kth.game.othello.score.Score;
-import kth.game.tournament.executor.GameExecutor;
 
-/**
- * The responsibility of this entity is to hold an othello game and a way to execute it, to be used in a tournament.
- */
-public class TournamentRound {
-	private Othello othello;
-	private GameExecutor gameExecutor;
-	private String startingPlayerId;
+public interface TournamentRound {
 	
 	/**
-	 * Creates a new tournament round.
-	 * @param othello The game that will be played.
-	 * @param gameExecutor The instance that will ensure that all players make moves until the game has ended.
-	 * @param startingPlayerId The player that will begin.
+	 * Returns a list of all players in this round.
 	 */
-	public TournamentRound(Othello othello, GameExecutor gameExecutor, String startingPlayerId) {
-		this.othello = othello;
-		this.gameExecutor = gameExecutor;
-		this.startingPlayerId = startingPlayerId;
-	}
+	public List<Player> getPlayers();
 	
-	public Score getScore() {
-		return othello.getScore();
-	}
-	
-	public int getPoints(String playerId) {
-		return othello.getScore().getPoints(playerId);
-	}
-	
-	public List<Player> getPlayers() {
-		return othello.getPlayers();
-	}
-	
+	/**
+	 * Return the id of the player that will start in this round.
+	 * @return
+	 */
+	public String getStartingPlayerId();
+
 	/**
 	 * Returns the player in this tournament round with the given playerId.
 	 * @return null if player isn't present.
 	 */
-	public Player getPlayerWithId(String playerId) {
-		Player player = null;
-		
-		for(Player p : othello.getPlayers()) {
-			if(p.getId().equals(playerId)) {
-				player = p;
-			}
-		}
-		
-		return player;
-	}
+	public Player getPlayerWithId(String playerId);
+	
+	/**
+	 * Returns the score of the player in this round with id = playerId.
+	 * @return 0 if player isn't present.
+	 */
+	public int getPoints(String playerId);
 
 	/**
 	 * Start this tournament round.
 	 */
-	public void start() {
-		gameExecutor.start(startingPlayerId);
-	}
+	public void start();
 
-	public String getStartingPlayerId() {
-		return startingPlayerId;
-	}
+	
 }
