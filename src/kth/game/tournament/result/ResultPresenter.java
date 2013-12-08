@@ -9,7 +9,6 @@ public interface ResultPresenter {
 
 	/**
 	 * Present the results of a tournament.
-	 * @param tournament
 	 */
 	public void present(Tournament tournament);
 
