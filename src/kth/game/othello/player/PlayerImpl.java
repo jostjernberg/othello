@@ -16,13 +16,9 @@ public class PlayerImpl implements Player {
 	/**
 	 * Creates a new PlayerImpl.
 	 * 
-	 * @param name
-	 *            Name of the player.
-	 * @param type
-	 *            Type of the player.
-	 * @param moveStrategy
-	 *            This must be set if type == COMPUTER. If type == HUMAN this value will never be used and can thus be
-	 *            null.
+	 * @param name Name of the player.
+	 * @param type Type of the player.
+	 * @param moveStrategy  This must be set if type == COMPUTER. If type == HUMAN this value will never be used and can thus be null.
 	 */
 	PlayerImpl(String name, Type type, MoveStrategy moveStrategy) {
 		this.name = name;
