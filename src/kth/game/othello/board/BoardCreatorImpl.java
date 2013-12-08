@@ -3,21 +3,20 @@ package kth.game.othello.board;
 import java.util.HashSet;
 import java.util.List;
 
+/**
+ * The responsibility of this entity is to implement the BoardCreator interface.
+ */
 public class BoardCreatorImpl implements BoardCreator {
 	public static BoardCreatorImpl INSTANCE = new BoardCreatorImpl();
 
 	private BoardCreatorImpl() {
-
+		// empty
 	}
 
 	/**
 	 * Creates a board containing the given nodes.
 	 * 
-	 * @param nodes
-	 *            the nodes of the board
-	 * @throws IllegalArgumentException
-	 *             if two nodes share the same coordinates
-	 * @return the board
+	 * @throws IllegalArgumentException if two nodes share the same coordinates.
 	 */
 	@Override
 	public Board createBoard(List<Node> nodes) {
