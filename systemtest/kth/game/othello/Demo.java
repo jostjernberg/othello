@@ -29,7 +29,7 @@ public class Demo {
 	private static final int TIME_BETWEEN_MOVES = 70; // ms
 	private static final int TIME_BETWEEN_SWAPS = 10; // ms
 
-	private DemoNumber demo = DemoNumber.DEMO_7;
+	private DemoNumber demo = DemoNumber.DEMO_5;
 
 	public static void main(String args[]) {
 		new Demo();
@@ -50,6 +50,11 @@ public class Demo {
 			demo7();
 			break;
 		}
+	}
+
+	private void createViewAndStartGame(Othello othello) {
+		OthelloView othelloView = OthelloViewFactory.create(othello, TIME_BETWEEN_SWAPS, TIME_BETWEEN_MOVES);
+		othelloView.start();
 	}
 
 	private void demo4() {
@@ -131,11 +136,6 @@ public class Demo {
 		System.out.println(othello);
 	}
 
-	private void createViewAndStartGame(Othello othello) {
-		OthelloView othelloView = OthelloViewFactory.create(othello, TIME_BETWEEN_SWAPS, TIME_BETWEEN_MOVES);
-		othelloView.start();
-	}
-
 	private void demo6() {
 		PlayerCreator playerCreator = PlayerCreatorImpl.INSTANCE;
 		List<Player> players = new ArrayList<>();
@@ -154,7 +154,7 @@ public class Demo {
 		// System.out.println(othello);
 
 	}
-	
+
 	private void demo7() {
 		OthelloCreator othelloCreator = OthelloCreatorImpl.INSTANCE;
 		NodeCreator nodeCreator = NodeCreatorImpl.INSTANCE;
@@ -163,8 +163,10 @@ public class Demo {
 		BoardFactory boardFactory = new BoardFactory(nodeCreator, boardCreator);
 		OthelloFactory othelloFactory = new OthelloFactory(othelloCreator, boardFactory, playerCreator);
 		TournamentFactory tournamentFactory = new TournamentFactory(othelloFactory);
-		
-		//Tournament tournament = tournamentFactory.createClassicTournamentWithView(TIME_BETWEEN_SWAPS, TIME_BETWEEN_MOVES);
+
+		// Tournament tournament =
+		// tournamentFactory.createClassicTournamentWithView(TIME_BETWEEN_SWAPS,
+		// TIME_BETWEEN_MOVES);
 		Tournament tournament = tournamentFactory.createClassicTournament();
 		System.out.println("Starting tournament!");
 		tournament.start();
