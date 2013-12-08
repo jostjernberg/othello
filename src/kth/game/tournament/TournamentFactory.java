@@ -14,7 +14,9 @@ import kth.game.othello.view.swing.OthelloViewFactory;
 import kth.game.tournament.executor.GameExecutor;
 import kth.game.tournament.executor.SilentGameExecutor;
 import kth.game.tournament.executor.ViewGameExecutor;
+import kth.game.tournament.result.ResultPresenter;
 import kth.game.tournament.result.SimpleResultPresenter;
+import kth.game.tournament.result.SimpleResultRanker;
 
 public class TournamentFactory {
 	private OthelloFactory othelloFactory;
@@ -46,7 +48,8 @@ public class TournamentFactory {
 			}
 		}
 		
-		return new TournamentImpl(tournamentRounds, SimpleResultPresenter.INSTANCE);
+		ResultPresenter resultPresenter = new SimpleResultPresenter(SimpleResultRanker.INSTANCE);
+		return new TournamentImpl(tournamentRounds, resultPresenter);
 	}
 	
 	public Tournament createClassicTournamentWithView(int timeBetweenSwaps, int timeBetweenMoves) {
@@ -75,7 +78,8 @@ public class TournamentFactory {
 			}
 		}
 		
-		return new TournamentImpl(tournamentRounds, SimpleResultPresenter.INSTANCE);
+		ResultPresenter resultPresenter = new SimpleResultPresenter(SimpleResultRanker.INSTANCE);
+		return new TournamentImpl(tournamentRounds, resultPresenter);
 	}
 	
 	private List<MoveStrategy> getStrategies() {
