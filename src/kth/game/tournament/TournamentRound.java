@@ -5,9 +5,11 @@ import java.util.List;
 import kth.game.othello.Othello;
 import kth.game.othello.player.Player;
 import kth.game.othello.score.Score;
-import kth.game.othello.view.swing.OthelloView;
 import kth.game.tournament.executor.GameExecutor;
 
+/**
+ * The responsibility of this entity is to hold an othello game and a way to execute it, to be used in a tournament.
+ */
 public class TournamentRound {
 	Othello othello;
 	GameExecutor gameExecutor;
@@ -27,6 +29,10 @@ public class TournamentRound {
 		return othello.getPlayers();
 	}
 	
+	/**
+	 * Returns the player in this tournament round with the given playerId.
+	 * @return null if player isn't present.
+	 */
 	public Player getPlayerWithId(String playerId) {
 		Player player = null;
 		
@@ -38,7 +44,10 @@ public class TournamentRound {
 		
 		return player;
 	}
-	
+
+	/**
+	 * Start this tournament round.
+	 */
 	public void start() {
 		gameExecutor.start(startingPlayerId);
 	}
