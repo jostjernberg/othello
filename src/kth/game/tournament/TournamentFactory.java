@@ -46,7 +46,7 @@ public class TournamentFactory {
 			}
 		}
 		
-		return new Tournament(tournamentRounds, SimpleResultPresenter.INSTANCE);
+		return new TournamentImpl(tournamentRounds, SimpleResultPresenter.INSTANCE);
 	}
 	
 	public Tournament createClassicTournamentWithView(int timeBetweenSwaps, int timeBetweenMoves) {
@@ -75,7 +75,7 @@ public class TournamentFactory {
 			}
 		}
 		
-		return new Tournament(tournamentRounds, SimpleResultPresenter.INSTANCE);
+		return new TournamentImpl(tournamentRounds, SimpleResultPresenter.INSTANCE);
 	}
 	
 	private List<MoveStrategy> getStrategies() {
