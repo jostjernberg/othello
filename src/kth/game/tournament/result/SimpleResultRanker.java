@@ -12,6 +12,11 @@ import kth.game.othello.score.ScoreItem;
 import kth.game.tournament.Tournament;
 import kth.game.tournament.TournamentRound;
 
+/**
+ * The responsibility of this class is to rank all strategies in a tournament. The winning strategy in each matchup is given 
+ * 2 points and the loser 0 points. Both strategies gets one point in the case of a tie. All strategies are then ranked,
+ * based on their scores.
+ */
 public class SimpleResultRanker implements ResultRanker {
 	public static SimpleResultRanker INSTANCE = new SimpleResultRanker();
 	
@@ -19,6 +24,7 @@ public class SimpleResultRanker implements ResultRanker {
 		// empty
 	}
 	
+	// Creates a map where all strategies in a tournament are present as keys with values of 0.
 	private Map<MoveStrategy, Integer> initMapWithAllStrategies(Tournament tournament) {
 		Map<MoveStrategy, Integer> map = new HashMap<>();
 		for(TournamentRound round : tournament.getTournamentRounds()) {
@@ -29,6 +35,7 @@ public class SimpleResultRanker implements ResultRanker {
 		return map;
 	}
 	
+	// Maps the score of each strategy in the tournament.
 	private Map<MoveStrategy, Integer> getScoreForEachStrategy(Tournament tournament) {
 		Map<MoveStrategy, Integer> scores = initMapWithAllStrategies(tournament);
 		
