@@ -12,7 +12,7 @@ public class ImpatientMoveStrategy implements MoveStrategy {
 	public static ImpatientMoveStrategy INSTANCE = new ImpatientMoveStrategy();
 
 	private ImpatientMoveStrategy() {
-
+		// empty
 	}
 
 	@Override

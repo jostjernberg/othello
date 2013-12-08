@@ -13,7 +13,7 @@ public class GreedyMoveStrategy implements MoveStrategy {
 	public static GreedyMoveStrategy INSTANCE = new GreedyMoveStrategy();
 
 	private GreedyMoveStrategy() {
-
+		// empty
 	}
 
 	@Override

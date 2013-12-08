@@ -16,7 +16,7 @@ public class RandomMoveStrategy implements MoveStrategy {
 	public static RandomMoveStrategy INSTANCE = new RandomMoveStrategy();
 
 	private RandomMoveStrategy() {
-
+		// empty
 	}
 
 	@Override
