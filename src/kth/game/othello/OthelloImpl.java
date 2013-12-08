@@ -113,11 +113,6 @@ class OthelloImpl extends Observable implements Othello {
 			o.update(this, swappedNodes);
 		}
 		if (!isActive()) {
-			System.out.println("Game over!\n Last swap: ");
-			for (Node n : swappedNodes) {
-				System.out.print(" {" + n.getXCoordinate() + "," + n.getYCoordinate() + "}");
-			}
-			System.out.println();
 			List<ScoreItem> score = this.score.getPlayersScore();
 
 			for (Observer o : this.gameFinishedObservers) {
@@ -128,13 +123,11 @@ class OthelloImpl extends Observable implements Othello {
 
 	@Override
 	public void start() {
-		System.out.println("starting game!");
 		turnHandler.start();
 	}
 
 	@Override
 	public void start(String playerId) {
-		System.out.println("starting game!");
 		turnHandler.start(playerId);
 	}
 
