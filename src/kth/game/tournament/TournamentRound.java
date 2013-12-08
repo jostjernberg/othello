@@ -31,6 +31,10 @@ public class TournamentRound {
 		return othello.getScore();
 	}
 	
+	public int getPoints(String playerId) {
+		return othello.getScore().getPoints(playerId);
+	}
+	
 	public List<Player> getPlayers() {
 		return othello.getPlayers();
 	}
