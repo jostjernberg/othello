@@ -13,6 +13,9 @@ import kth.game.othello.player.Player;
 import kth.game.othello.score.Score;
 import kth.game.othello.score.ScoreItem;
 
+/**
+ * The responsibility of this entity is to implement the Othello interface.
+ */
 class OthelloImpl extends Observable implements Othello {
 	private Rules rules;
 	private Board board;
@@ -24,7 +27,10 @@ class OthelloImpl extends Observable implements Othello {
 	private List<Observer> gameFinishedObservers = new ArrayList<>();
 	private List<Observer> moveObservers = new ArrayList<>();
 
-	OthelloImpl(Board board, List<Player> players, Rules rules, MoveHandler moveHandler, TurnHandler turnHandler,
+	/**
+	 * Create a new game of othello with the injected dependenies. 
+	 */
+	public OthelloImpl(Board board, List<Player> players, Rules rules, MoveHandler moveHandler, TurnHandler turnHandler,
 			Score score) {
 		this.board = board;
 		this.players = players;
@@ -76,7 +82,6 @@ class OthelloImpl extends Observable implements Othello {
 
 	@Override
 	public List<Node> move() {
-
 		if (!isActive()) {
 			System.err.println("Attempting move after game over!");
 			return null;
@@ -89,7 +94,6 @@ class OthelloImpl extends Observable implements Othello {
 
 	@Override
 	public List<Node> move(String playerId, String nodeId) throws IllegalArgumentException {
-
 		if (!isActive()) {
 			System.err.println("Attempting move after game over!");
 			return null;
