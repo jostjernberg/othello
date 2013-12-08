@@ -11,6 +11,7 @@ import kth.game.othello.board.BoardImpl;
 import kth.game.othello.board.Node;
 import kth.game.othello.player.Player;
 import kth.game.othello.score.Score;
+import kth.game.othello.score.ScoreItem;
 
 class OthelloImpl extends Observable implements Othello {
 	private Rules rules;
@@ -75,6 +76,12 @@ class OthelloImpl extends Observable implements Othello {
 
 	@Override
 	public List<Node> move() {
+
+		if (!isActive()) {
+			System.err.println("Attempting move after game over!");
+			return null;
+		}
+
 		List<Node> swappedNodes = moveHandler.move();
 		notifyMoveObserversAndGameFinishedObserversIfGameEnded(swappedNodes);
 		return swappedNodes;
@@ -82,29 +89,48 @@ class OthelloImpl extends Observable implements Othello {
 
 	@Override
 	public List<Node> move(String playerId, String nodeId) throws IllegalArgumentException {
+
+		if (!isActive()) {
+			System.err.println("Attempting move after game over!");
+			return null;
+		}
+
 		List<Node> swappedNodes = moveHandler.move(playerId, nodeId);
 		notifyMoveObserversAndGameFinishedObserversIfGameEnded(swappedNodes);
 		return swappedNodes;
 	}
 
 	private void notifyMoveObserversAndGameFinishedObserversIfGameEnded(List<Node> swappedNodes) {
+		if (swappedNodes.isEmpty()) {
+			return;
+		}
+
 		for (Observer o : this.moveObservers) {
 			o.update(this, swappedNodes);
 		}
 		if (!isActive()) {
+			System.out.println("Game over!\n Last swap: ");
+			for (Node n : swappedNodes) {
+				System.out.print(" {" + n.getXCoordinate() + "," + n.getYCoordinate() + "}");
+			}
+			System.out.println();
+			List<ScoreItem> score = this.score.getPlayersScore();
+
 			for (Observer o : this.gameFinishedObservers) {
-				o.update(this, true);
+				o.update(this, score);
 			}
 		}
 	}
 
 	@Override
 	public void start() {
+		System.out.println("starting game!");
 		turnHandler.start();
 	}
 
 	@Override
 	public void start(String playerId) {
+		System.out.println("starting game!");
 		turnHandler.start(playerId);
 	}
 

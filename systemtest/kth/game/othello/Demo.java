@@ -29,7 +29,7 @@ public class Demo {
 	private static final int TIME_BETWEEN_MOVES = 70; // ms
 	private static final int TIME_BETWEEN_SWAPS = 10; // ms
 
-	private DemoNumber demo = DemoNumber.DEMO_HUMAN_CP;
+	private DemoNumber demo = DemoNumber.DEMO_6;
 
 	public static void main(String args[]) {
 		new Demo();
@@ -118,6 +118,10 @@ public class Demo {
 		System.out.println();
 
 		for (int round = 1; round <= 4 * othello.getPlayers().size(); round++) {
+
+			if (!othello.isActive()) {
+				break;
+			}
 
 			String playerId = othello.getPlayerInTurn().getId();
 			String nodeId = null;

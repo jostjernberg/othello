@@ -10,22 +10,22 @@ import kth.game.tournament.result.ResultPresenter;
 public class Tournament {
 	private List<TournamentRound> tournamentRounds;
 	private ResultPresenter resultPresenter;
-	
+
 	Tournament(List<TournamentRound> tournamentRounds, ResultPresenter resultPresenter) {
 		this.tournamentRounds = tournamentRounds;
 		this.resultPresenter = resultPresenter;
 	}
-	
+
 	/**
 	 * Starts this tournament. Assumes that a round is blocking, that is: its start()-method won't return until the game has finished.
 	 */
 	public void start() {
-		for(TournamentRound round : tournamentRounds) {
+		for (TournamentRound round : tournamentRounds) {
 			round.start();
 		}
 		presentResults();
 	}
-	
+
 	/**
 	 * Returns the rounds of this tournament, sorted in the order that they are played.
 	 */
