@@ -7,7 +7,7 @@ import java.util.Observer;
 import java.util.UUID;
 
 /**
- *	The responsibility of this entity is to implement the Node interface.
+ * The responsibility of this entity is to implement the Node interface.
  */
 public class NodeImpl extends Observable implements Node {
 	private UUID id = UUID.randomUUID();
@@ -23,11 +23,14 @@ public class NodeImpl extends Observable implements Node {
 		this(xCoordinate, yCoordinate);
 		this.occupantPlayerId = occupantPlayerId;
 	}
-	
+
 	/**
 	 * Creates a new node with occupantPlayerId == null.
 	 */
 	NodeImpl(int xCoordinate, int yCoordinate) {
+		if (xCoordinate < 0 || yCoordinate < 0) {
+			throw new IllegalArgumentException("Negative coordinates not allowed.");
+		}
 		this.xCoordinate = xCoordinate;
 		this.yCoordinate = yCoordinate;
 	}
@@ -40,7 +43,8 @@ public class NodeImpl extends Observable implements Node {
 	/**
 	 * Sets this node's occupant player and notifies the node's observers.
 	 * 
-	 * @param occupantPlayerId The id of the new occupant player.
+	 * @param occupantPlayerId
+	 *            The id of the new occupant player.
 	 */
 	public void setOccupantPlayer(String occupantPlayerId) {
 		String previousOccupantPlayerId = this.occupantPlayerId;
@@ -51,7 +55,8 @@ public class NodeImpl extends Observable implements Node {
 	/**
 	 * Notify all observers of this node that it has a new occupant player.
 	 * 
-	 * @param newOccupantPlayerId The id of the new occupant player.
+	 * @param newOccupantPlayerId
+	 *            The id of the new occupant player.
 	 */
 	private void notifyObservers(String previousOccupantPlayerId) {
 		for (Observer obs : observers) {
