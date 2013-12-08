@@ -36,6 +36,20 @@ public class BoardImplTest {
 	}
 
 	@Test
+	public void hasNode() {
+		BoardImpl board = constructSimpleBoard();
+		Assert.assertTrue(board.hasNode(1, 2));
+		Assert.assertTrue(board.hasNode(2, 2));
+		Assert.assertTrue(board.hasNode(0, 0));
+		Assert.assertTrue(board.hasNode(8, 9));
+		Assert.assertFalse(board.hasNode(8, 8));
+		Assert.assertFalse(board.hasNode(2, 4));
+		Assert.assertFalse(board.hasNode(1, 1));
+		Assert.assertFalse(board.hasNode(0, 1));
+		Assert.assertFalse(board.hasNode(1, 0));
+	}
+
+	@Test
 	public void canGetPlayerIdToPrintableTagTest() {
 		BoardImpl board = constructSimpleBoard();
 		Assert.assertNotEquals(null, board.playerIdToPrintableTag("playerId1"));
