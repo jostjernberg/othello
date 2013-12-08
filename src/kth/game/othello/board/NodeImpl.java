@@ -6,6 +6,9 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.UUID;
 
+/**
+ *	The responsibility of this entity is to implement the Node interface.
+ */
 public class NodeImpl extends Observable implements Node {
 	private UUID id = UUID.randomUUID();
 	private String occupantPlayerId;
@@ -13,14 +16,20 @@ public class NodeImpl extends Observable implements Node {
 	private int yCoordinate;
 	private List<Observer> observers = new ArrayList<>();
 
-	NodeImpl(int x, int y, String occupantPlayerId) {
-		this(x, y);
+	/**
+	 * Creates a new node.
+	 */
+	NodeImpl(int xCoordinate, int yCoordinate, String occupantPlayerId) {
+		this(xCoordinate, yCoordinate);
 		this.occupantPlayerId = occupantPlayerId;
 	}
-
-	NodeImpl(int x, int y) {
-		this.xCoordinate = x;
-		this.yCoordinate = y;
+	
+	/**
+	 * Creates a new node with occupantPlayerId == null.
+	 */
+	NodeImpl(int xCoordinate, int yCoordinate) {
+		this.xCoordinate = xCoordinate;
+		this.yCoordinate = yCoordinate;
 	}
 
 	@Override
@@ -31,8 +40,7 @@ public class NodeImpl extends Observable implements Node {
 	/**
 	 * Sets this node's occupant player and notifies the node's observers.
 	 * 
-	 * @param occupantPlayerId
-	 *            The id of the new occupant player.
+	 * @param occupantPlayerId The id of the new occupant player.
 	 */
 	public void setOccupantPlayer(String occupantPlayerId) {
 		String previousOccupantPlayerId = this.occupantPlayerId;
@@ -43,8 +51,7 @@ public class NodeImpl extends Observable implements Node {
 	/**
 	 * Notify all observers of this node that it has a new occupant player.
 	 * 
-	 * @param newOccupantPlayerId
-	 *            The id of the new occupant player.
+	 * @param newOccupantPlayerId The id of the new occupant player.
 	 */
 	private void notifyObservers(String previousOccupantPlayerId) {
 		for (Observer obs : observers) {
