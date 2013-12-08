@@ -13,6 +13,7 @@ public class OthelloFactory {
 	private BoardFactory boardFactory;
 	private OthelloCreator othelloCreator;
 	private PlayerCreator playerCreator;
+	private static final int DEFAULT_BOARD_SIZE = 8;
 
 	public OthelloFactory(OthelloCreator othelloCreator, BoardFactory boardFactory, PlayerCreator playerCreator) {
 		this.othelloCreator = othelloCreator;
@@ -29,12 +30,14 @@ public class OthelloFactory {
 		List<Player> players = new ArrayList<Player>();
 		players.add(playerCreator.createComputerPlayer("Computer"));
 		players.add(playerCreator.createComputerPlayer("computer"));
-		return othelloCreator.createOthello(boardFactory.getQuadraticBoard(8, players), players);
+		return othelloCreator.createOthello(boardFactory.getQuadraticBoard(DEFAULT_BOARD_SIZE, players), players);
 	}
 
 	/**
-	 * @param board the board
-	 * @param players the players of the game
+	 * @param board
+	 *            the board
+	 * @param players
+	 *            the players of the game
 	 * @return An Othello game
 	 */
 	public Othello createGame(Board board, List<Player> players) {
@@ -50,13 +53,14 @@ public class OthelloFactory {
 		List<Player> players = new ArrayList<Player>();
 		players.add(playerCreator.createHumanPlayer("HUMAN"));
 		players.add(playerCreator.createHumanPlayer("human"));
-		Board board = boardFactory.getQuadraticBoard(8, players);
+		Board board = boardFactory.getQuadraticBoard(DEFAULT_BOARD_SIZE, players);
 		return othelloCreator.createOthello(board, players);
 	}
 
 	/**
-	 * Creates an Othello game on an original board with one computer playing against one human. The computer will be
-	 * the first player in the list of players.
+	 * Creates an Othello game on an original board with one computer playing
+	 * against one human. The computer will be the first player in the list of
+	 * players.
 	 * 
 	 * @return An Othello game
 	 */
@@ -64,7 +68,7 @@ public class OthelloFactory {
 		List<Player> players = new ArrayList<Player>();
 		players.add(playerCreator.createComputerPlayer("Computer"));
 		players.add(playerCreator.createHumanPlayer("Human"));
-		Board board = boardFactory.getQuadraticBoard(8, players);
+		Board board = boardFactory.getQuadraticBoard(DEFAULT_BOARD_SIZE, players);
 		return othelloCreator.createOthello(board, players);
 	};
 
