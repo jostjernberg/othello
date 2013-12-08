@@ -6,6 +6,9 @@ import java.util.List;
 import kth.game.othello.board.Board;
 import kth.game.othello.board.Node;
 
+/**
+ * The responsibility of this entity is to implement the classical set of rules used in othello.
+ */
 class ClassicRules implements Rules {
 	private Board board;
 
