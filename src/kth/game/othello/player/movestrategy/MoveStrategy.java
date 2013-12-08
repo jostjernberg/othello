@@ -4,6 +4,9 @@ import kth.game.othello.Rules;
 import kth.game.othello.board.Board;
 import kth.game.othello.board.Node;
 
+/**
+ * The responsibility of entities that includes this interface is to determine where a player will make its next move.
+ */
 public interface MoveStrategy {
 
 	/**
@@ -12,7 +15,7 @@ public interface MoveStrategy {
 	public String getName();
 
 	/**
-	 * Determines which node the given player will move at.
+	 * Determines which node the given player will make its next move at.
 	 * 
 	 * @param playerId the id of the player
 	 * @param rules the rules of the game
