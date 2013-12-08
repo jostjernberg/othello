@@ -11,6 +11,9 @@ import kth.game.othello.player.movestrategy.MoveStrategy;
 import kth.game.othello.player.movestrategy.RandomMoveStrategy;
 import kth.game.othello.view.swing.OthelloView;
 import kth.game.othello.view.swing.OthelloViewFactory;
+import kth.game.tournament.executor.GameExecutor;
+import kth.game.tournament.executor.SilentGameExecutor;
+import kth.game.tournament.executor.ViewGameExecutor;
 import kth.game.tournament.result.SimpleResultPresenter;
 
 public class TournamentFactory {
@@ -33,8 +36,10 @@ public class TournamentFactory {
 				Othello	gameTwo = createMatchup(playerOneStrategy, playerTwoStrategy);
 				String gameOneStartingPlayerId = gameOne.getPlayers().get(0).getId();
 				String gameTwoStartingPlayerId = gameTwo.getPlayers().get(1).getId();
-				TournamentRound roundOne = new SilentTournamentRound(gameOne, gameOneStartingPlayerId);
-				TournamentRound roundTwo = new SilentTournamentRound(gameTwo, gameTwoStartingPlayerId);				
+				GameExecutor gameExecutorOne = new SilentGameExecutor(gameOne);
+				GameExecutor gameExecutorTwo = new SilentGameExecutor(gameTwo);
+				TournamentRound roundOne = new TournamentRound(gameOne, gameExecutorOne, gameOneStartingPlayerId);
+				TournamentRound roundTwo = new TournamentRound(gameTwo, gameExecutorTwo, gameTwoStartingPlayerId);				
 				
 				tournamentRounds.add(roundOne);
 				tournamentRounds.add(roundTwo);
@@ -59,8 +64,11 @@ public class TournamentFactory {
 				OthelloView othelloViewTwo = OthelloViewFactory.create(gameTwo, timeBetweenSwaps, timeBetweenMoves);
 				String gameOneStartingPlayerId = gameOne.getPlayers().get(0).getId();
 				String gameTwoStartingPlayerId = gameTwo.getPlayers().get(1).getId();
-				TournamentRound roundOne = new ViewTournamentRound(gameOne, othelloViewOne, gameOneStartingPlayerId);
-				TournamentRound roundTwo = new ViewTournamentRound(gameTwo, othelloViewTwo, gameTwoStartingPlayerId);				
+				GameExecutor gameExecutorOne = new ViewGameExecutor(othelloViewOne);
+				GameExecutor gameExecutorTwo = new ViewGameExecutor(othelloViewTwo);
+				
+				TournamentRound roundOne = new TournamentRound(gameOne, gameExecutorOne, gameOneStartingPlayerId);
+				TournamentRound roundTwo = new TournamentRound(gameTwo, gameExecutorTwo, gameTwoStartingPlayerId);				
 				
 				tournamentRounds.add(roundOne);
 				tournamentRounds.add(roundTwo);
