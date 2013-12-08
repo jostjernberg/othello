@@ -6,6 +6,7 @@ import java.util.List;
 import kth.game.othello.Othello;
 import kth.game.othello.OthelloFactory;
 import kth.game.othello.player.movestrategy.GreedyMoveStrategy;
+import kth.game.othello.player.movestrategy.GreedyWorstMoveStrategy;
 import kth.game.othello.player.movestrategy.ImpatientMoveStrategy;
 import kth.game.othello.player.movestrategy.MoveStrategy;
 import kth.game.othello.player.movestrategy.RandomMoveStrategy;
@@ -86,6 +87,7 @@ public class TournamentFactory {
 		List<MoveStrategy> strategies = new ArrayList<>();
 		strategies.add(RandomMoveStrategy.INSTANCE);
 		strategies.add(GreedyMoveStrategy.INSTANCE);
+		strategies.add(GreedyWorstMoveStrategy.INSTANCE);
 		strategies.add(ImpatientMoveStrategy.INSTANCE);
 		return strategies;
 	}
