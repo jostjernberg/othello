@@ -14,7 +14,10 @@ public class SimpleResultPresenter implements ResultPresenter{
 	private SimpleResultPresenter() {
 		// empty
 	}
-	
+
+	/**
+	 * Prints the results of a tournament to stdout.
+	 */
 	@Override
 	public void present(Tournament tournament) {
 		StringBuilder sb = new StringBuilder();
