@@ -6,21 +6,20 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * The responsibility of this class is to hold and provide access to a set of
- * nodes. A board is immutable in the sense that nodes must not be added or
- * removed after a board has been created.
+ * The responsibility of this entity is to implement the Board interface.
  */
 public class BoardImpl implements Board {
 	private List<Node> nodes;
 	private Map<String, Character> playerIdToPrintableTag;
 
-	BoardImpl(List<Node> nodes) {
+	public BoardImpl(List<Node> nodes) {
 		this.nodes = nodes;
 		Collections.sort(nodes, new NodeComparator());
-		playerIdToPrintableTag();
+		createPlayerIdToPrintableTag();
 	}
 
-	private void playerIdToPrintableTag() {
+	// Gives each player a one character tag that is supposed to be used when printing the board to stdout.
+	private void createPlayerIdToPrintableTag() {
 		playerIdToPrintableTag = new HashMap<>();
 		int i = 0;
 		for (Node n : nodes) {
@@ -31,6 +30,9 @@ public class BoardImpl implements Board {
 		}
 	}
 
+	/**
+	 * Returns a character that represents the player with id = playerId on this board.
+	 */
 	public Character playerIdToPrintableTag(String playerId) {
 		return playerIdToPrintableTag.get(playerId);
 	}
